@@ -1,0 +1,2063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NoVA School Districts — Salary &amp; Benefits Comparison (FY 2026)</title>
+<style>
+  :root {
+    --acps: #1a8cc4;       /* ACPS teal-blue */
+    --acps-soft: #e6f4fb;
+    --fcps: #1f5e3a;       /* FCPS dark green */
+    --fcps-soft: #e8f3ec;
+    --aps:  #d97706;       /* APS Arlington gold/orange */
+    --aps-soft: #fef3c7;
+    --fccps: #6b21a8;      /* Falls Church purple */
+    --fccps-soft: #f3e8ff;
+    --lcps:  #991b1b;      /* Loudoun deep red */
+    --lcps-soft: #fee2e2;
+    --pwcs:  #1e3a8a;      /* Prince William navy */
+    --pwcs-soft: #dbeafe;
+    --ink: #1d2330;
+    --muted: #5b6573;
+    --line: #e5e8ee;
+    --warn: #b45309;
+    --warn-soft: #fef3c7;
+    --good: #15803d;
+    --bad: #b91c1c;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: #fafbfc;
+    line-height: 1.55;
+  }
+  header.hero {
+    background: linear-gradient(120deg, #0e3a52 0%, #1a8cc4 50%, #1f5e3a 100%);
+    color: #fff;
+    padding: 48px 32px 56px;
+  }
+  header.hero .wrap { max-width: 1200px; margin: 0 auto; }
+  header.hero h1 {
+    margin: 0 0 8px;
+    font-size: 2.1rem;
+    letter-spacing: -0.01em;
+  }
+  header.hero p { margin: 6px 0; color: #d6e8f1; max-width: 900px; }
+  header.hero .meta { font-size: 0.85rem; color: #b8d3e0; margin-top: 18px; }
+
+  nav.toc {
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 50;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  nav.toc .wrap {
+    max-width: 1200px; margin: 0 auto; padding: 10px 32px;
+    display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 0.92rem;
+  }
+  nav.toc a {
+    color: var(--muted); text-decoration: none; padding: 6px 4px; border-bottom: 2px solid transparent;
+  }
+  nav.toc a:hover { color: var(--ink); border-bottom-color: var(--acps); }
+
+  main { max-width: 1200px; margin: 0 auto; padding: 32px; }
+  section { margin-bottom: 56px; }
+  h2.section-title {
+    margin: 0 0 6px;
+    font-size: 1.5rem;
+    border-left: 4px solid var(--acps);
+    padding-left: 12px;
+  }
+  h2.section-title .sub {
+    display: block; font-size: 0.85rem; font-weight: 400; color: var(--muted); margin-top: 4px;
+  }
+
+  .card-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    margin-top: 18px;
+  }
+  @media (max-width: 1100px) { .card-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) { .card-grid { grid-template-columns: 1fr; } }
+
+  .district-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .district-card.acps { border-top: 4px solid var(--acps); }
+  .district-card.fcps { border-top: 4px solid var(--fcps); }
+  .district-card.aps  { border-top: 4px solid var(--aps); }
+  .district-card.fccps { border-top: 4px solid var(--fccps); }
+  .district-card.lcps  { border-top: 4px solid var(--lcps); }
+  .district-card.pwcs  { border-top: 4px solid var(--pwcs); }
+  .district-card h3 {
+    margin: 0 0 4px;
+    font-size: 1.12rem;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .district-card .tag {
+    font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    padding: 3px 8px; border-radius: 4px;
+  }
+  .district-card.acps .tag { background: var(--acps-soft); color: var(--acps); }
+  .district-card.fcps .tag { background: var(--fcps-soft); color: var(--fcps); }
+  .district-card.aps  .tag { background: var(--aps-soft);  color: var(--aps); }
+  .district-card.fccps .tag { background: var(--fccps-soft); color: var(--fccps); }
+  .district-card.lcps  .tag { background: var(--lcps-soft);  color: var(--lcps); }
+  .district-card.pwcs  .tag { background: var(--pwcs-soft);  color: var(--pwcs); }
+  .district-card .tagline { color: var(--muted); font-size: 0.88rem; margin-bottom: 14px; }
+  .district-card h4.card-subhead {
+    margin: 18px 0 6px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 700;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--line);
+  }
+  .district-card.acps h4.card-subhead { color: var(--acps); border-bottom-color: var(--acps-soft); }
+  .district-card.fcps h4.card-subhead { color: var(--fcps); border-bottom-color: var(--fcps-soft); }
+  .district-card.aps  h4.card-subhead { color: var(--aps);  border-bottom-color: var(--aps-soft); }
+  .district-card.fccps h4.card-subhead { color: var(--fccps); border-bottom-color: var(--fccps-soft); }
+  .district-card.lcps  h4.card-subhead { color: var(--lcps);  border-bottom-color: var(--lcps-soft); }
+  .district-card.pwcs  h4.card-subhead { color: var(--pwcs);  border-bottom-color: var(--pwcs-soft); }
+
+  /* "Pending verification" badge for unconfirmed data */
+  .pending-badge {
+    display: inline-block;
+    background: var(--warn-soft);
+    color: var(--warn);
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 4px;
+    vertical-align: 1px;
+    border: 1px solid #f0d090;
+  }
+  /* "Data pending" placeholder cell */
+  .data-pending {
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  .stat-row {
+    display: flex; justify-content: space-between; padding: 8px 0;
+    border-bottom: 1px dashed var(--line); font-size: 0.94rem;
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row .label { color: var(--muted); }
+  .stat-row .val { font-weight: 600; text-align: right; }
+
+  table.compare {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 16px;
+    font-size: 0.92rem;
+  }
+  table.compare th, table.compare td {
+    padding: 11px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  table.compare th {
+    background: #f4f6f9; font-weight: 600; color: var(--ink);
+  }
+  table.compare th.acps-col { background: var(--acps-soft); color: var(--acps); }
+  table.compare th.fcps-col { background: var(--fcps-soft); color: var(--fcps); }
+  table.compare th.aps-col  { background: var(--aps-soft);  color: var(--aps); }
+  table.compare th.fccps-col { background: var(--fccps-soft); color: var(--fccps); }
+  table.compare th.lcps-col  { background: var(--lcps-soft);  color: var(--lcps); }
+  table.compare th.pwcs-col  { background: var(--pwcs-soft);  color: var(--pwcs); }
+  table.compare .stack { display: block; padding: 1px 0; font-size: 0.92em; }
+  table.compare .stack-label { color: var(--muted); font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.04em; margin-right: 4px; }
+
+  /* Dashboard table — top-of-page summary */
+  .dashboard-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -32px 0 -32px;
+    padding: 0 32px;
+  }
+  table.dashboard {
+    width: 100%;
+    min-width: 1100px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  table.dashboard th, table.dashboard td {
+    padding: 14px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    font-size: 0.92rem;
+  }
+  table.dashboard thead th {
+    text-align: center;
+    font-size: 0.95rem;
+    padding: 14px 8px;
+    border-bottom: 2px solid var(--ink);
+  }
+  table.dashboard thead th:first-child {
+    text-align: left;
+    background: #f4f6f9;
+    color: var(--ink);
+  }
+  table.dashboard tbody td {
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  table.dashboard tbody td:first-child {
+    text-align: left;
+    font-weight: 500;
+    color: var(--muted);
+    background: #fafbfc;
+    width: 18%;
+    min-width: 170px;
+  }
+  table.dashboard .winner {
+    background: #ecfdf5;
+    color: var(--good);
+    font-weight: 700;
+  }
+  table.dashboard .winner::after { content: " ★"; font-size: 0.8em; }
+  table.dashboard .perk {
+    text-align: left !important;
+    font-weight: 400 !important;
+    font-size: 0.85rem !important;
+    color: var(--ink) !important;
+    line-height: 1.45;
+  }
+  table.dashboard tr:last-child td { border-bottom: none; }
+  table.dashboard .acps-col { background: var(--acps-soft); color: var(--acps); }
+  table.dashboard .fcps-col { background: var(--fcps-soft); color: var(--fcps); }
+  table.dashboard .aps-col  { background: var(--aps-soft);  color: var(--aps); }
+  table.dashboard .fccps-col { background: var(--fccps-soft); color: var(--fccps); }
+  table.dashboard .lcps-col  { background: var(--lcps-soft);  color: var(--lcps); }
+  table.dashboard .pwcs-col  { background: var(--pwcs-soft);  color: var(--pwcs); }
+  table.compare tr:last-child td { border-bottom: none; }
+  table.compare tr:nth-child(even) td:first-child { background: #fafbfc; }
+  table.compare td.label { font-weight: 500; color: var(--muted); width: 28%; }
+  table.compare .num { font-variant-numeric: tabular-nums; }
+  table.compare .higher { color: var(--good); font-weight: 600; }
+  table.compare .lower { color: var(--muted); }
+
+  .callout {
+    background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--acps);
+    padding: 14px 18px; border-radius: 6px; margin: 16px 0; font-size: 0.92rem;
+  }
+  .callout.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+  .callout strong { color: var(--ink); }
+
+  .source-list {
+    list-style: none; padding: 0; margin: 14px 0 0; font-size: 0.85rem; color: var(--muted);
+  }
+  .source-list li { padding: 4px 0; }
+  .source-list a { color: var(--acps); text-decoration: none; }
+  .source-list a:hover { text-decoration: underline; }
+  .source-list .doc {
+    display: inline-block; font-size: 0.7rem; padding: 2px 6px; background: #f0f2f6;
+    border-radius: 3px; margin-right: 6px; color: var(--muted); font-weight: 600;
+  }
+
+  .takeaways {
+    background: linear-gradient(135deg, var(--acps-soft) 0%, var(--fcps-soft) 100%);
+    border: 1px solid var(--line); border-radius: 12px; padding: 22px 26px;
+  }
+  .takeaways h3 { margin-top: 0; }
+  .takeaways ul { margin: 0; padding-left: 20px; }
+  .takeaways li { margin: 6px 0; }
+
+  footer {
+    background: #1d2330; color: #c5cdd8; padding: 28px 32px; margin-top: 60px;
+    font-size: 0.86rem;
+  }
+  footer .wrap { max-width: 1200px; margin: 0 auto; }
+  footer a { color: #6db4d4; }
+
+  details { margin: 12px 0; }
+  details summary {
+    cursor: pointer; font-weight: 600; color: var(--ink); padding: 8px 0;
+    font-size: 0.95rem;
+  }
+  details[open] summary { color: var(--acps); }
+
+  .scale-mini {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px;
+  }
+  @media (max-width: 700px) { .scale-mini { grid-template-columns: repeat(2, 1fr); } }
+  .scale-mini .cell {
+    background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px;
+  }
+  .scale-mini .cell .label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .scale-mini .cell .num { font-size: 1.1rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .draft-badge {
+    display: inline-block; background: var(--warn-soft); color: var(--warn);
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 3px 8px; border-radius: 3px; margin-left: 8px; vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Northern Virginia School Districts<br>Salary &amp; Benefits Comparison <span class="draft-badge">v1.3 — 6 districts</span></h1>
+    <p>A side-by-side comparison of teacher and school-based administrator compensation, health insurance, retirement, and leave benefits across Northern Virginia's largest public school districts. Designed for educators evaluating job offers and administrators benchmarking total compensation.</p>
+    <p class="meta">Currently included: <strong>ACPS · FCPS · APS · FCCPS · LCPS · PWCS</strong> &nbsp;|&nbsp; Data year: FY 2026 (school year 2025–26) unless noted; FCCPS health insurance is FY 2027 forward-looking · PWCS health insurance is FY 2026-27 &nbsp;|&nbsp; Coming next: MCPS, PG County, DCPS</p>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#dashboard"><strong>Dashboard</strong></a>
+    <a href="#overview">Overview</a>
+    <a href="#teacher-salary">Teacher Salary</a>
+    <a href="#admin-salary">Administrator Salary</a>
+    <a href="#health">Health, Dental, Vision</a>
+    <a href="#retirement">Retirement</a>
+    <a href="#leave-extras">Leave &amp; Other Benefits</a>
+    <a href="#takeaways">Key Takeaways</a>
+    <a href="#sources">Sources</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ===================== DASHBOARD ===================== -->
+<section id="dashboard" style="margin-top: 0; margin-bottom: 48px;">
+  <h2 class="section-title">Quick-Compare Dashboard
+    <span class="sub">All 6 NoVA districts · the seven numbers most people ask about · scroll horizontally on smaller screens</span>
+  </h2>
+
+  <div class="dashboard-wrap">
+    <table class="dashboard">
+      <thead>
+        <tr>
+          <th>Comparison metric</th>
+          <th class="acps-col">ACPS<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Alexandria</span></th>
+          <th class="fcps-col">FCPS<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Fairfax</span></th>
+          <th class="aps-col">APS<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Arlington</span></th>
+          <th class="fccps-col">FCCPS<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Falls Church</span></th>
+          <th class="lcps-col">LCPS<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Loudoun</span></th>
+          <th class="pwcs-col">PWCS<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Prince William</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bachelor's start (Step 1, 0 yrs)</td>
+          <td>$57,207</td>
+          <td>$61,747</td>
+          <td>$57,810</td>
+          <td>$60,003</td>
+          <td>$60,553</td>
+          <td class="winner">$62,562</td>
+        </tr>
+        <tr>
+          <td>Master's start (Step 1, 0 yrs)</td>
+          <td>$64,988</td>
+          <td>$67,921</td>
+          <td>$66,186</td>
+          <td>$66,432</td>
+          <td>$66,562</td>
+          <td class="winner">$68,562</td>
+        </tr>
+        <tr>
+          <td>Master's at 5 years experience</td>
+          <td>$74,747</td>
+          <td>$73,463</td>
+          <td class="winner">$76,727</td>
+          <td>$74,770</td>
+          <td>$74,800</td>
+          <td>$74,119</td>
+        </tr>
+        <tr>
+          <td>Master's at 10 years experience</td>
+          <td class="winner">$90,067</td>
+          <td>$85,116</td>
+          <td>$88,948</td>
+          <td>$87,947</td>
+          <td>$86,995</td>
+          <td style="color: var(--muted);">~$85,000 (TBD)</td>
+        </tr>
+        <tr>
+          <td>Teacher contract length (days)</td>
+          <td>195</td>
+          <td>195</td>
+          <td>200</td>
+          <td>200</td>
+          <td>197</td>
+          <td>195</td>
+        </tr>
+        <tr>
+          <td>Cheapest healthcare per yr — Employee Only</td>
+          <td>$2,423<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Kaiser HMO</span></td>
+          <td>$1,344<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Kaiser HMO</span></td>
+          <td>$2,297*<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">CareFirst HMO</span></td>
+          <td>$1,858<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">HDHP w/ dental</span></td>
+          <td class="winner">$139<br><span style="font-weight: 400; font-size: 0.78em;">HDHP</span></td>
+          <td>$440<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Kaiser HMO</span></td>
+        </tr>
+        <tr>
+          <td>Cheapest healthcare per yr — Family (any plan type)</td>
+          <td>$6,453<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Kaiser HMO</span></td>
+          <td>$6,439<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Kaiser HMO</span></td>
+          <td>$9,709*<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">CareFirst HMO</span></td>
+          <td>$6,273<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">HDHP w/ dental</span></td>
+          <td class="winner">$2,822<br><span style="font-weight: 400; font-size: 0.78em;">HDHP</span></td>
+          <td>$7,951<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Kaiser HMO</span></td>
+        </tr>
+        <tr>
+          <td>Family PPO/POS plan — main option per district (not HMO, not HDHP)</td>
+          <td>$9,211<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">UHC POS</span></td>
+          <td>$7,306<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">CareFirst BlueChoice Advantage</span></td>
+          <td>$11,667*<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">BluePreferred Low PPO 80/60</span></td>
+          <td>$7,716<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Key Advantage 500 (dental incl)</span></td>
+          <td class="winner">$5,193<br><span style="font-weight: 400; font-size: 0.78em;">Cigna OAP</span></td>
+          <td>$9,580<br><span style="font-weight: 400; font-size: 0.78em; color: var(--muted);">Anthem Core PPO ($0 ded)</span></td>
+        </tr>
+        <tr>
+          <td>Supplemental retirement (above VRS)</td>
+          <td class="perk">
+            <strong>Principal Financial DB pension</strong><br>
+            1.5% mandatory EE contribution<br>
+            0.40% × avg monthly pay × service multiplier<br>
+            5-year vesting
+          </td>
+          <td class="perk">
+            <strong>ERFC 2001 Tier 2 DB pension</strong> (most generous in NoVA)<br>
+            3% mandatory EE contribution<br>
+            0.8% × 5-yr highest avg salary × service<br>
+            5-year vesting · Rule of 90 retirement
+          </td>
+          <td class="perk">
+            <strong>None (VRS only)</strong><br>
+            403(b)/457 voluntary with $240/yr match (or 0.4% of base, whichever greater)<br>
+            APS uniquely lacks a supplemental DB plan
+          </td>
+          <td class="perk">
+            <strong>VRS only (pending verification)</strong><br>
+            403(b)/457 voluntary plans available<br>
+            No supplemental DB plan documented in folder
+          </td>
+          <td class="perk">
+            <strong>VRS only</strong><br>
+            403(b) elective deferral &amp; 457 deferred compensation available<br>
+            VRS Hybrid voluntary match applies separately<br>
+            No supplemental DB plan
+          </td>
+          <td class="perk">
+            <strong>VRS only — but with 2.5% Hybrid match</strong><br>
+            403(b)/457 with PWCS match on a years-of-service schedule<br>
+            VRS Hybrid: 2.5% PWCS match on 4% voluntary EE contribution<br>
+            No supplemental DB plan
+          </td>
+        </tr>
+        <tr>
+          <td>District extras — perks beyond pay, medical, and retirement</td>
+          <td class="perk">
+            • HSA option ($600 ind / $1,200 family employer contribution)<br>
+            • EyeMed standalone vision incl. new Eye360 PLUS tier<br>
+            • SpEd teachers receive +1 step on hire
+          </td>
+          <td class="perk">
+            • 2-Employee couple discount on family medical<br>
+            • Cheapest dental in NoVA ($30/yr Aetna DNO)<br>
+            • 14 sick days/yr · 6 usable as personal leave<br>
+            • Six lanes incl. PhD
+          </td>
+          <td class="perk">
+            • <strong>200-day contract</strong> (5 extra days vs 195)<br>
+            • Published advanced-degree stipends ($1,224 MA / $2,040 PhD)<br>
+            • Professional Standards stipends for support staff ($636–$1,593)<br>
+            • CAP1/CAP2 career advancement program
+          </td>
+          <td class="perk">
+            • <strong>Highest employer cost-share</strong> (Board pays 80% individual / 75% family)<br>
+            • Comprehensive Delta Dental BUNDLED into medical premium<br>
+            • 200-day contract · 5 lanes incl. Bachelor's +18 (unique)
+          </td>
+          <td class="perk">
+            • <strong>LCPS-funded HSA</strong> $1,100 ind / $2,200 family on HDHP<br>
+            • $5,000 Critical Illness Policy free with HDHP<br>
+            • $234/yr opt-out credit if you waive coverage<br>
+            • 197-day contract
+          </td>
+          <td class="perk">
+            • <strong>$0 in-network deductible</strong> on all 4 medical plans<br>
+            • <strong>Largest 2-Employee couple discount</strong> (Kaiser Family $7,951 → $879)<br>
+            • Vision bundled into medical · 3 tuition reimbursement programs<br>
+            • New 2-yr PWEA contract: 7% raise FY27 · 6.4% FY28
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size: 0.84rem; color: var(--muted); margin-top: 10px;">
+    ★ = lowest cost or highest pay among the six districts for that row. <br>
+    * APS premium dollar amounts pending verification against APS Procurement RFP 30FY26 Appendix S. <br>
+    "MA at 5 years" and "MA at 10 years" use each district's published placement rule (ACPS Step = years; FCPS Step 3 covers 4–6 yrs &amp; Step 7 = 10 yrs; APS &amp; FCCPS positional). PWCS Master's at 10 yrs not yet extracted from Exhibit A — pending. <br>
+    Healthcare figures are the lowest-premium plan at each district (employee paycheck deduction × pays per year). FCCPS premiums include comprehensive dental bundled in. APS, ACPS, FCPS, LCPS, and PWCS charge dental separately.
+  </p>
+
+  <div class="callout">
+    <strong>How to read this dashboard:</strong> stars mark the leader for each metric. <strong>PWCS leads on entry-level pay</strong> (BA + MA Step 1). <strong>APS leads on early-career Master's pay</strong> (5 yrs). <strong>ACPS leads on mid-career Master's pay</strong> (10 yrs). <strong>LCPS leads on healthcare cost</strong> in every category — cheapest EE-only ($139), cheapest Family ($2,822), and cheapest Family PPO/POS ($5,193 OAP). The gap is enormous. <strong>FCPS leads on supplemental retirement</strong> with the ERFC 2001 DB pension (0.8% multiplier) — the most generous DB plan in the comparison. ACPS adds a smaller supplemental DB; APS, FCCPS, LCPS, and PWCS rely on VRS alone with varying levels of voluntary 403(b)/457 match. The "District extras" row captures everything else that differentiates each district.
+  </div>
+
+  <h3 style="margin-top: 36px; padding-bottom: 8px; border-bottom: 2px solid var(--line);">All POS-style health plans across NoVA districts
+    <span style="font-weight: 400; font-size: 0.82rem; color: var(--muted); float: right; margin-top: 6px;">14 plans · sorted by family annual cost · pure HMOs (Kaiser, etc.) not shown</span>
+  </h3>
+
+  <div class="dashboard-wrap">
+    <table class="dashboard" style="min-width: 1200px;">
+      <thead>
+        <tr>
+          <th style="width: 5%;">#</th>
+          <th style="width: 9%;">District</th>
+          <th style="width: 22%;">Plan</th>
+          <th style="width: 11%;">Family $/yr</th>
+          <th style="width: 11%;">Individual deductible (in-network)</th>
+          <th style="width: 42%;">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td class="lcps-col">LCPS</td>
+          <td style="text-align: left;">Cigna HDHP w/ HSA</td>
+          <td class="winner">$2,822</td>
+          <td>$1,800</td>
+          <td class="perk">High-deductible PPO. 10% coinsurance after deductible in-network. <strong>LCPS contributes $2,200/yr to HSA</strong> (or $1,100 for EE-only). Includes free $5,000 LCPS-funded Critical Illness Policy. The cheapest family plan in NoVA.</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="lcps-col">LCPS</td>
+          <td style="text-align: left;">Cigna Open Access Plus (OAP)</td>
+          <td>$5,193</td>
+          <td>$650</td>
+          <td class="perk">Mid-tier PPO. $20 PCP / $40 specialist copay. 10% coinsurance after deductible. ER $150 copay, urgent care $50 copay. No referrals required.</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="fccps-col">FCCPS</td>
+          <td style="text-align: left;">TLC HDHP (Anthem)</td>
+          <td>$6,273</td>
+          <td>$3,400</td>
+          <td class="perk">High-deductible PPO. 20% coinsurance after deductible in-network. <strong>Comprehensive Delta Dental bundled into premium.</strong> Free routine eye exam included. 100% preventive care, no deductible.</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td class="acps-col">ACPS</td>
+          <td style="text-align: left;">UHC Qualified Health Plan w/ HSA</td>
+          <td>$6,632</td>
+          <td>$1,700</td>
+          <td class="perk">High-deductible POS. <strong>ACPS contributes $1,200/yr to HSA</strong> (or $600 for EE-only). 10% coinsurance after deductible in-network. PCP/specialist 10% after deductible.</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td class="fcps-col">FCPS</td>
+          <td style="text-align: left;">CareFirst BlueChoice Advantage</td>
+          <td>$7,306</td>
+          <td>$300</td>
+          <td class="perk">POS plan. $10 PCP / $20 specialist copay (after deductible). 10% coinsurance in-network. ER $250 copay + 10%, waived if admitted. Lowest deductible PPO/POS plan among non-HDHP options.</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td class="fccps-col">FCCPS</td>
+          <td style="text-align: left;">Key Advantage 500 (Anthem PPO)</td>
+          <td>$7,716</td>
+          <td>$500</td>
+          <td class="perk">PPO. $25 PCP / $40 specialist copay. 20% in-network coinsurance after deductible. <strong>Comprehensive Delta Dental bundled.</strong> Anthem state plan ("The Local Choice").</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td class="pwcs-col">PWCS</td>
+          <td style="text-align: left;">Anthem HMO/POS</td>
+          <td>$8,185</td>
+          <td>$0</td>
+          <td class="perk">POS plan. <strong>$0 in-network deductible.</strong> $20 PCP / $40 specialist (PCP referral required). $200 ER. Vision bundled. Two-Employee couple drops Family rate to $905/yr.</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td class="fccps-col">FCCPS</td>
+          <td style="text-align: left;">Key Advantage 250 (Anthem PPO)</td>
+          <td>$8,598</td>
+          <td>$250</td>
+          <td class="perk">PPO with the lowest deductible of the FCCPS options. $20 PCP / $35 specialist copay. In-network is copay-based (no coinsurance). <strong>Comprehensive Delta Dental bundled.</strong></td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td class="acps-col">ACPS</td>
+          <td style="text-align: left;">UnitedHealthcare POS</td>
+          <td>$9,211</td>
+          <td>$300</td>
+          <td class="perk">POS plan. $20 PCP / $35 specialist copay. 10% in-network coinsurance. ER 10% after deductible. Highest OOP max in the comparison ($4,000 ind / $8,000 family).</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td class="pwcs-col">PWCS</td>
+          <td style="text-align: left;">Anthem Core PPO</td>
+          <td>$9,580</td>
+          <td>$0</td>
+          <td class="perk">PPO. <strong>$0 in-network deductible.</strong> $25 PCP / $50 specialist. Inpatient $400 + 20%. Vision bundled. Two-Employee couple drops Family rate to $1,907/yr.</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td class="lcps-col">LCPS</td>
+          <td style="text-align: left;">Cigna OAP HIGH</td>
+          <td>$9,870</td>
+          <td>$450</td>
+          <td class="perk">Top-tier Cigna PPO. $20 PCP / $40 specialist copay. <strong>0% in-network coinsurance after deductible</strong> (covered in full). $150 ER. Most generous in-network coverage of any plan in this list.</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td class="aps-col">APS</td>
+          <td style="text-align: left;">CareFirst BluePreferred Low PPO 80/60</td>
+          <td>$11,667*</td>
+          <td>$400</td>
+          <td class="perk">PPO. $30 PCP / $60 specialist copay. 20% in-network coinsurance after deductible. $250 ER (waived if admitted). *Premium pending verification.</td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td class="pwcs-col">PWCS</td>
+          <td style="text-align: left;">Anthem Enhanced PPO</td>
+          <td>$12,405</td>
+          <td>$0</td>
+          <td class="perk">Richest PWCS PPO. <strong>$0 in-network deductible.</strong> $20 PCP / $35 specialist. $2,500/$5,000 OOP max. Vision bundled. Two-Employee couple drops Family rate to $3,838/yr.</td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td class="aps-col">APS</td>
+          <td style="text-align: left;">CareFirst BluePreferred High PPO 90/70</td>
+          <td>$13,950*</td>
+          <td>$300</td>
+          <td class="perk">Richest APS PPO. $30 PCP / $60 specialist. <strong>10% in-network coinsurance.</strong> $200 ER (lowest of any plan, waived if admitted). *Premium pending verification.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size: 0.84rem; color: var(--muted); margin-top: 10px;">
+    ★ = cheapest family annual premium across all 14 PPO/POS plans. <br>
+    "Family $/yr" = annual employee paycheck deduction (employee portion only) for family coverage. Pay frequencies vary: ACPS &amp; APS &amp; FCCPS = 24 semi-monthly · FCPS = 20 biweekly · LCPS = 26 biweekly · PWCS = 20 biweekly (10-month staff). All converted to annualized cost. <br>
+    HDHP plans (LCPS Cigna HDHP, FCCPS TLC HDHP, ACPS UHC QHP) qualify for Health Savings Accounts. LCPS and ACPS make significant employer HSA contributions. <br>
+    Pure HMO plans (Kaiser at ACPS/FCPS/APS/FCCPS/PWCS, APS CareFirst HMO) are not shown here — see the at-a-glance cards below for HMO premiums and the plan-design tables further down. <br>
+    * APS premium dollar amounts pending verification against APS Procurement RFP 30FY26 Appendix S.
+  </p>
+
+  <h3 style="margin-top: 36px; padding-bottom: 8px; border-bottom: 2px solid var(--line);">What will this actually cost a family? Real-world annual cost scenarios
+    <span style="font-weight: 400; font-size: 0.82rem; color: var(--muted); float: right; margin-top: 6px;">Family coverage · non-HMO plans · premium + out-of-pocket math</span>
+  </h3>
+
+  <div class="callout">
+    <strong>Why this section exists:</strong> Premiums alone don't tell the whole story. A "cheap" plan with a $6,800 deductible may cost more than an "expensive" plan with a $300 deductible the moment your family actually uses healthcare. The tables below model three realistic scenarios for a family of 4:
+    <ul style="margin: 6px 0 6px 20px;">
+      <li><strong>Healthy year</strong> — preventive care only (covered free in-network on every plan). Family pays just the premium.</li>
+      <li><strong>Average year</strong> — premium + family deductible. Models a year where the family has enough doctor visits, prescriptions, and one or two minor health events to fully meet the family deductible. (Out-of-pocket maxes accumulate beyond this; deductible is a reasonable floor for a "we used the doctor a lot" year.)</li>
+      <li><strong>Catastrophic year</strong> — premium + family in-network out-of-pocket maximum. Models a major event (hospitalization, surgery, serious illness) that hits the OOP cap. This is the absolute most a family will spend on the plan in one year.</li>
+    </ul>
+    HDHP totals subtract the employer-funded HSA contribution where applicable (since that money offsets your real out-of-pocket spend).
+  </div>
+
+  <h4 style="margin-top: 24px; font-size: 1rem;">Main PPO / POS plans — sorted by Average-year total cost</h4>
+  <div class="dashboard-wrap">
+    <table class="dashboard" style="min-width: 1200px;">
+      <thead>
+        <tr>
+          <th style="width: 9%;">District</th>
+          <th style="width: 20%;">Plan</th>
+          <th style="width: 12%;">Healthy year (premium only)</th>
+          <th style="width: 12%;">Family deductible</th>
+          <th style="width: 14%;">Average year (prem + ded)</th>
+          <th style="width: 12%;">OOP max</th>
+          <th style="width: 14%;">Catastrophic year (prem + OOP)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="lcps-col">LCPS</td>
+          <td style="text-align: left;">Cigna OAP</td>
+          <td>$5,193</td>
+          <td>$1,300</td>
+          <td class="winner">$6,493</td>
+          <td>$5,000</td>
+          <td class="winner">$10,193</td>
+        </tr>
+        <tr>
+          <td class="fcps-col">FCPS</td>
+          <td style="text-align: left;">CareFirst BlueChoice Advantage</td>
+          <td>$7,306</td>
+          <td>$600</td>
+          <td>$7,906</td>
+          <td>$5,000</td>
+          <td>$12,306</td>
+        </tr>
+        <tr>
+          <td class="pwcs-col">PWCS</td>
+          <td style="text-align: left;">Anthem HMO/POS ($0 deductible)</td>
+          <td>$8,185</td>
+          <td>$0</td>
+          <td>$8,185</td>
+          <td>$5,000</td>
+          <td>$13,185</td>
+        </tr>
+        <tr>
+          <td class="fccps-col">FCCPS</td>
+          <td style="text-align: left;">Key Advantage 500 (dental bundled)</td>
+          <td>$7,716</td>
+          <td>$1,000</td>
+          <td>$8,716</td>
+          <td>$8,000</td>
+          <td>$15,716</td>
+        </tr>
+        <tr>
+          <td class="fccps-col">FCCPS</td>
+          <td style="text-align: left;">Key Advantage 250 (dental bundled)</td>
+          <td>$8,598</td>
+          <td>$500</td>
+          <td>$9,098</td>
+          <td>$6,000</td>
+          <td>$14,598</td>
+        </tr>
+        <tr>
+          <td class="pwcs-col">PWCS</td>
+          <td style="text-align: left;">Anthem Core PPO ($0 deductible)</td>
+          <td>$9,580</td>
+          <td>$0</td>
+          <td>$9,580</td>
+          <td>$8,000</td>
+          <td>$17,580</td>
+        </tr>
+        <tr>
+          <td class="acps-col">ACPS</td>
+          <td style="text-align: left;">UnitedHealthcare POS</td>
+          <td>$9,211</td>
+          <td>$600</td>
+          <td>$9,811</td>
+          <td>$8,000</td>
+          <td>$17,211</td>
+        </tr>
+        <tr>
+          <td class="lcps-col">LCPS</td>
+          <td style="text-align: left;">Cigna OAP HIGH</td>
+          <td>$9,870</td>
+          <td>$900</td>
+          <td>$10,770</td>
+          <td>$7,000</td>
+          <td>$16,870</td>
+        </tr>
+        <tr>
+          <td class="pwcs-col">PWCS</td>
+          <td style="text-align: left;">Anthem Enhanced PPO ($0 ded)</td>
+          <td>$12,405</td>
+          <td>$0</td>
+          <td>$12,405</td>
+          <td>$5,000</td>
+          <td>$17,405</td>
+        </tr>
+        <tr>
+          <td class="aps-col">APS</td>
+          <td style="text-align: left;">BluePreferred Low PPO 80/60*</td>
+          <td>$11,667</td>
+          <td>$800</td>
+          <td>$12,467</td>
+          <td>$6,000</td>
+          <td>$17,667</td>
+        </tr>
+        <tr>
+          <td class="aps-col">APS</td>
+          <td style="text-align: left;">BluePreferred High PPO 90/70*</td>
+          <td>$13,950</td>
+          <td>$600</td>
+          <td>$14,550</td>
+          <td>$6,000</td>
+          <td>$19,950</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4 style="margin-top: 28px; font-size: 1rem;">HDHPs (HSA-eligible) — totals already net of employer HSA contribution</h4>
+  <div class="dashboard-wrap">
+    <table class="dashboard" style="min-width: 1200px;">
+      <thead>
+        <tr>
+          <th style="width: 9%;">District</th>
+          <th style="width: 20%;">Plan</th>
+          <th style="width: 11%;">Premium</th>
+          <th style="width: 11%;">Employer HSA contribution</th>
+          <th style="width: 11%;">Family deductible</th>
+          <th style="width: 14%;">Average year (net)</th>
+          <th style="width: 11%;">OOP max</th>
+          <th style="width: 13%;">Catastrophic year (net)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="lcps-col">LCPS</td>
+          <td style="text-align: left;">Cigna HDHP w/ HSA</td>
+          <td>$2,822</td>
+          <td>+$2,200</td>
+          <td>$3,600</td>
+          <td class="winner">$4,222</td>
+          <td>$13,000</td>
+          <td class="winner">$13,622</td>
+        </tr>
+        <tr>
+          <td class="acps-col">ACPS</td>
+          <td style="text-align: left;">UHC QHP w/ HSA</td>
+          <td>$6,632</td>
+          <td>+$1,200</td>
+          <td>$3,400</td>
+          <td>$8,832</td>
+          <td>$13,000</td>
+          <td>$18,432</td>
+        </tr>
+        <tr>
+          <td class="fccps-col">FCCPS</td>
+          <td style="text-align: left;">TLC HDHP (dental bundled)</td>
+          <td>$6,273</td>
+          <td>not specified</td>
+          <td>$6,800</td>
+          <td>$13,073</td>
+          <td>$10,000</td>
+          <td>$16,273</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout warn">
+    <strong>What this analysis reveals:</strong>
+    <ul style="margin: 6px 0 6px 20px;">
+      <li><strong>LCPS Cigna OAP wins on every scenario for a healthy family</strong> — it's $1,800 cheaper than the next-cheapest non-HDHP plan in the average-year scenario, and $2,000 cheaper in the catastrophic scenario. The premium gap is so large that LCPS leads even after factoring in deductibles and OOP max.</li>
+      <li><strong>FCPS BlueChoice Advantage is the best non-LCPS PPO/POS deal</strong> — premium of $7,306, low deductible ($600), and the lowest OOP max of any non-LCPS plan in this list ($5,000). Catastrophic year tops out at just $12,306.</li>
+      <li><strong>PWCS plans look more attractive once you factor in $0 deductible</strong> — Anthem HMO/POS at $8,185/yr with no deductible to meet means the average year cost stays at $8,185 (no extra for moderate use). The Catastrophic ceiling is $13,185 — very competitive. <strong>Plus, two-employee couples drop the family premium to $905/yr</strong>, which would make every PWCS plan dramatically more affordable on this table.</li>
+      <li><strong>FCCPS plans look more competitive when you remember dental is BUNDLED IN</strong> — the FCCPS premiums implicitly include comprehensive dental that other districts charge $137–$1,116/yr separately for. Adjust accordingly when comparing.</li>
+      <li><strong>HDHPs only "win" at LCPS</strong> — LCPS's HDHP at $4,222 average-year is 35% cheaper than the next-cheapest plan because LCPS funds $2,200 into your HSA. ACPS's HDHP at $8,832 average-year is roughly comparable to its UHC POS ($9,811), and FCCPS's HDHP at $13,073 average-year is actually <em>worse</em> than FCCPS's regular Key Advantage 500 ($8,716) because of the very high $6,800 family deductible. Lesson: HDHPs only make sense when paired with a substantial employer HSA contribution.</li>
+      <li><strong>APS High PPO 90/70 has the highest catastrophic-year cost at $19,950</strong>, even though it has good in-network coinsurance (10%). The premium is the killer.</li>
+    </ul>
+    <strong>Caveats:</strong> "Average year" using premium + deductible is an approximation. Actual OOP varies by plan structure (some plans waive deductible for office visits and just charge copays; others require deductible to be met first). For a precise calculation, see the plan-design tables further down on this page. The "Catastrophic year" column is a real ceiling — it's the maximum your family can spend on the plan in a calendar year.
+    <br><br>
+    * APS premium dollar amounts pending verification against APS Procurement RFP 30FY26 Appendix S.
+  </div>
+</section>
+
+<!-- ===================== OVERVIEW ===================== -->
+<section id="overview">
+  <h2 class="section-title">At-a-Glance Overview
+    <span class="sub">FY 2026 · per-district headline numbers · scroll right for FCCPS, LCPS, PWCS</span>
+  </h2>
+
+  <div class="card-grid">
+    <div class="district-card acps">
+      <h3>Alexandria City Public Schools <span class="tag">ACPS</span></h3>
+      <p class="tagline">Independent city district · ~16 schools · ~16,000 students · ~2,500 staff</p>
+
+      <h4 class="card-subhead">Compensation snapshot</h4>
+      <div class="stat-row"><span class="label">Teacher BA Step 1 (195 days)</span><span class="val num">$57,207</span></div>
+      <div class="stat-row"><span class="label">Teacher MA Step 1 (195 days)</span><span class="val num">$64,988</span></div>
+      <div class="stat-row"><span class="label">Top of teacher scale (MA+30, Step 24, 195 days)</span><span class="val num">$135,145</span></div>
+      <div class="stat-row"><span class="label">Step cap on initial placement (new hires)</span><span class="val">16 years</span></div>
+      <div class="stat-row"><span class="label">Supplemental retirement</span><span class="val">Principal DB · 1.5% mandatory</span></div>
+
+      <h4 class="card-subhead">Medical insurance — at a glance</h4>
+      <div class="stat-row"><span class="label">Plans offered</span><span class="val">3 plans · Kaiser HMO, UHC POS, UHC QHP w/ HSA</span></div>
+      <div class="stat-row"><span class="label">Plan year</span><span class="val">July 1 – June 30 (effective 7/1/2026)</span></div>
+      <div class="stat-row"><span class="label">Pay schedule for premiums</span><span class="val">24 semi-monthly pays</span></div>
+      <div class="stat-row"><span class="label">Cheapest EE-only — annualized</span><span class="val num">$2,423/yr · Kaiser HMO</span></div>
+      <div class="stat-row"><span class="label">Most expensive EE-only — annualized</span><span class="val num">$3,452/yr · UHC POS</span></div>
+      <div class="stat-row"><span class="label">Cheapest Family — annualized</span><span class="val num">$6,453/yr · Kaiser HMO</span></div>
+      <div class="stat-row"><span class="label">Most expensive Family — annualized</span><span class="val num">$9,211/yr · UHC POS</span></div>
+      <div class="stat-row"><span class="label">Deductible range (in-network individual)</span><span class="val num">$0 – $1,700</span></div>
+      <div class="stat-row"><span class="label">Out-of-pocket max (in-network individual)</span><span class="val num">$2,250 – $6,500</span></div>
+      <div class="stat-row"><span class="label">PCP visit copay</span><span class="val">$20 (Kaiser, UHC POS) · 10% after deductible (UHC QHP)</span></div>
+      <div class="stat-row"><span class="label">Specialist visit copay</span><span class="val">$30 – $35</span></div>
+      <div class="stat-row"><span class="label">HSA / HDHP option</span><span class="val" style="color: var(--good); font-weight: 600;">Yes · ACPS contributes $600 ind / $1,200 family</span></div>
+      <div class="stat-row"><span class="label">Two-employee couple discount</span><span class="val" style="color: var(--muted);">Not offered</span></div>
+      <div class="stat-row"><span class="label">Dental — cheapest plan, EE-only annual</span><span class="val num">$276/yr · CareFirst BlueDental Plus</span></div>
+      <div class="stat-row"><span class="label">Vision — separate plan?</span><span class="val">Yes · EyeMed (incl. new Eye360 PLUS-provider tier)</span></div>
+      <div class="stat-row"><span class="label">Vision — EE-only annual</span><span class="val num">$76/yr</span></div>
+    </div>
+
+    <div class="district-card fcps">
+      <h3>Fairfax County Public Schools <span class="tag">FCPS</span></h3>
+      <p class="tagline">Largest VA district · ~199 schools · ~180,000 students · ~25,000 staff</p>
+
+      <h4 class="card-subhead">Compensation snapshot</h4>
+      <div class="stat-row"><span class="label">Teacher BA Step 1 (195 days)</span><span class="val num">$61,747</span></div>
+      <div class="stat-row"><span class="label">Teacher MA Step 1 (195 days)</span><span class="val num">$67,921</span></div>
+      <div class="stat-row"><span class="label">Top of teacher scale (PhD, Step 25, 195 days)</span><span class="val num">$131,353</span></div>
+      <div class="stat-row"><span class="label">Step cap on initial placement (new hires)</span><span class="val">25 steps · placement varies by years</span></div>
+      <div class="stat-row"><span class="label">Supplemental retirement</span><span class="val">ERFC 2001 Tier 2 · 3% mandatory</span></div>
+
+      <h4 class="card-subhead">Medical insurance — at a glance</h4>
+      <div class="stat-row"><span class="label">Plans offered</span><span class="val">2 medical plans · CareFirst BCBS BlueChoice Advantage, Kaiser Permanente</span></div>
+      <div class="stat-row"><span class="label">Plan year</span><span class="val">January 1 – December 31 (calendar year)</span></div>
+      <div class="stat-row"><span class="label">Pay schedule for premiums</span><span class="val">20 biweekly pays (Jan–Jun, Sep–Dec) — same rate part-time or full-time</span></div>
+      <div class="stat-row"><span class="label">Cheapest EE-only — annualized</span><span class="val num">$1,344/yr · Kaiser</span></div>
+      <div class="stat-row"><span class="label">Most expensive EE-only — annualized</span><span class="val num">$1,529/yr · CareFirst BCBS</span></div>
+      <div class="stat-row"><span class="label">Cheapest Family — annualized</span><span class="val num">$6,439/yr · Kaiser</span></div>
+      <div class="stat-row"><span class="label">Most expensive Family — annualized</span><span class="val num">$7,306/yr · CareFirst BCBS</span></div>
+      <div class="stat-row"><span class="label">Deductible range (in-network individual)</span><span class="val num">$0 – $300</span></div>
+      <div class="stat-row"><span class="label">Out-of-pocket max (in-network individual)</span><span class="val num">$2,000 – $2,500</span></div>
+      <div class="stat-row"><span class="label">PCP visit copay</span><span class="val">$20 (Kaiser) · $10 after deductible (BCBS)</span></div>
+      <div class="stat-row"><span class="label">Specialist visit copay</span><span class="val">$20 – $40</span></div>
+      <div class="stat-row"><span class="label">HSA / HDHP option</span><span class="val" style="color: var(--bad); font-weight: 600;">Not offered</span></div>
+      <div class="stat-row"><span class="label">Two-employee couple discount</span><span class="val" style="color: var(--good); font-weight: 600;">Yes · Family rate = Employee+1 rate</span></div>
+      <div class="stat-row"><span class="label">Dental — cheapest plan, EE-only annual</span><span class="val num">$30/yr · Aetna DNO</span></div>
+      <div class="stat-row"><span class="label">Vision — separate plan?</span><span class="val">No · $150/yr allowance bundled into medical</span></div>
+      <div class="stat-row"><span class="label">Vision — EE-only annual</span><span class="val">N/A — bundled</span></div>
+    </div>
+
+    <div class="district-card aps">
+      <h3>Arlington Public Schools <span class="tag">APS</span></h3>
+      <p class="tagline">Independent county district · ~40 schools/programs · ~28,000 students · ~5,000 staff</p>
+
+      <h4 class="card-subhead">Compensation snapshot</h4>
+      <div class="stat-row"><span class="label">Teacher Bachelor's Step A (200 days)</span><span class="val num">$57,810</span></div>
+      <div class="stat-row"><span class="label">Teacher Master's Step A (200 days)</span><span class="val num">$66,186</span></div>
+      <div class="stat-row"><span class="label">Top of Bachelor's (Step AE, 200 days)</span><span class="val num">$99,488</span></div>
+      <div class="stat-row"><span class="label">Top of Master's (Step AE, 200 days)</span><span class="val num">$125,758</span></div>
+      <div class="stat-row"><span class="label">Top of Doctorate (Step AE, 200 days)</span><span class="val num">$136,019</span></div>
+      <div class="stat-row"><span class="label">Step structure</span><span class="val">31 alpha steps (A–AE) per lane</span></div>
+
+      <h4 class="card-subhead">Medical insurance — at a glance <span class="pending-badge">Pending verify</span></h4>
+      <div class="stat-row"><span class="label">Plans offered</span><span class="val">3 plans · CareFirst HMO, CareFirst Low PPO, CareFirst High PPO</span></div>
+      <div class="stat-row"><span class="label">Plan year</span><span class="val">January 1 – December 31 (calendar year, typical)</span></div>
+      <div class="stat-row"><span class="label">Pay schedule for premiums</span><span class="val">24 semi-monthly pays (FT 30–40 hrs)</span></div>
+      <div class="stat-row"><span class="label">Cheapest EE-only — annualized <span class="pending-badge">Verify</span></span><span class="val num">$2,297/yr · CareFirst HMO</span></div>
+      <div class="stat-row"><span class="label">Most expensive EE-only — annualized <span class="pending-badge">Verify</span></span><span class="val num">$3,460/yr · High Option PPO</span></div>
+      <div class="stat-row"><span class="label">Cheapest Family — annualized <span class="pending-badge">Verify</span></span><span class="val num">$9,709/yr · CareFirst HMO</span></div>
+      <div class="stat-row"><span class="label">Most expensive Family — annualized <span class="pending-badge">Verify</span></span><span class="val num">$13,950/yr · High Option PPO</span></div>
+      <div class="stat-row"><span class="label">Deductible range (in-network individual)</span><span class="val num">$0 – $400</span></div>
+      <div class="stat-row"><span class="label">Out-of-pocket max (in-network individual)</span><span class="val num">$2,250 – $3,000</span></div>
+      <div class="stat-row"><span class="label">PCP visit copay</span><span class="val">$15 (HMO) · $30 (Low PPO) · $30 (High PPO)</span></div>
+      <div class="stat-row"><span class="label">Specialist visit copay</span><span class="val">$20 (HMO) · $60 (Low PPO) · $60 (High PPO)</span></div>
+      <div class="stat-row"><span class="label">HSA / HDHP option</span><span class="val" style="color: var(--bad); font-weight: 600;">Not offered</span></div>
+      <div class="stat-row"><span class="label">Two-employee couple discount</span><span class="val" style="color: var(--bad); font-weight: 600;">Not offered</span></div>
+      <div class="stat-row"><span class="label">Dental — cheapest plan, EE-only annual <span class="pending-badge">Verify</span></span><span class="val num">$383/yr · Delta Dental</span></div>
+      <div class="stat-row"><span class="label">Vision — separate plan?</span><span class="val">Yes · BlueVision Plus (CareFirst)</span></div>
+      <div class="stat-row"><span class="label">Vision — EE-only annual <span class="pending-badge">Verify</span></span><span class="val num">$101/yr</span></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>How to read this:</strong> All three districts use Virginia Retirement System (VRS) as the primary pension. Each layers <em>district-specific</em> supplemental retirement and benefits on top. <strong>Contract length differs:</strong> ACPS and FCPS use a 195-day teacher contract; APS uses a 200-day contract at 7.5 hrs/day. <strong>Annualized medical premiums</strong> normalize the 24-pay (ACPS, APS) and 20-pay (FCPS) schedules so you can compare apples-to-apples on what comes out of your paycheck in a year. <strong>"Pending verify"</strong> badges mark APS data sourced from a secondary research summary that should be confirmed against APS Procurement RFP 30FY26 Appendix R/S.
+  </div>
+
+  <div class="callout warn">
+    <strong>Quick read on medical:</strong> FCPS is the cheapest of the three across most coverage tiers — lower deductibles, lower out-of-pocket maximums, and lower premiums for both employee-only and family. ACPS sits in the middle and uniquely offers an HSA-eligible high-deductible plan plus a standalone vision plan. APS appears to have the highest medical premiums of the three, with employee-only medical roughly $191–$288/month and family medical roughly $809–$1,162/month (pending verification). FCPS is the only district offering a 2-employee couple discount, and plan-year start dates differ: ACPS runs July–June, FCPS and APS run on the calendar year.
+  </div>
+
+  <h3 style="margin-top: 36px; padding-bottom: 8px; border-bottom: 2px solid var(--line);">FCCPS · LCPS · PWCS — at-a-glance
+    <span style="font-weight: 400; font-size: 0.82rem; color: var(--muted); float: right; margin-top: 6px;">Three additional NoVA districts · most data verified · admin scales still pending for some</span>
+  </h3>
+
+  <div class="card-grid">
+    <div class="district-card fccps">
+      <h3>Falls Church City Public Schools <span class="tag">FCCPS</span></h3>
+      <p class="tagline">Smallest district in NoVA · 4 schools · ~2,700 students · ~450 staff</p>
+
+      <h4 class="card-subhead">Compensation snapshot (10-month, 200-day scale)</h4>
+      <div class="stat-row"><span class="label">Teacher BA Step 1 (FY 2026)</span><span class="val num">$60,003</span></div>
+      <div class="stat-row"><span class="label">Teacher BA Step 5</span><span class="val num">$67,533</span></div>
+      <div class="stat-row"><span class="label">Teacher BA Step 10</span><span class="val num">$79,052</span></div>
+      <div class="stat-row"><span class="label">Top of BA (Step 15/L3)</span><span class="val num">$87,699 — capped here</span></div>
+      <div class="stat-row"><span class="label">Teacher MA Step 1</span><span class="val num">$66,432</span></div>
+      <div class="stat-row"><span class="label">Teacher MA Step 5</span><span class="val num">$74,770</span></div>
+      <div class="stat-row"><span class="label">Teacher MA Step 10</span><span class="val num">$87,947</span></div>
+      <div class="stat-row"><span class="label">Top of MA (Long 3)</span><span class="val num">$132,783</span></div>
+      <div class="stat-row"><span class="label">Top of Doctorate (Long 3)</span><span class="val num">$140,571</span></div>
+      <div class="stat-row"><span class="label">Lanes</span><span class="val">5 lanes (Bachelor's, Bachelor's +18, Master's, Master's +30, Doctorate)</span></div>
+      <div class="stat-row"><span class="label">Steps</span><span class="val">Up to step 15/L3 for BA · up to step 32 + Long tiers for MA/MA+30/Doctorate</span></div>
+      <div class="stat-row"><span class="label">Contract days</span><span class="val">200 days (193 work days returning · 196 new hires) · 7.5 hrs/day</span></div>
+      <div class="stat-row"><span class="label">Also offered</span><span class="val">11-month (220-day) and 12-month (248-day) scales for extended-year roles</span></div>
+      <div class="stat-row"><span class="label">Leadership scale</span><span class="val">12 grade levels (L 11M, L, L1 11M, L2–L10) · 20 steps + 3 longevity tiers per grade · range $82,942 to $246,994</span></div>
+
+      <h4 class="card-subhead">Medical insurance — at a glance</h4>
+      <div class="stat-row"><span class="label">Plans offered</span><span class="val">4 plans · Kaiser HMO, Key Advantage 250, Key Advantage 500, Key Advantage HDHP (each available with comprehensive or preventive-only dental)</span></div>
+      <div class="stat-row"><span class="label">Plan year</span><span class="val">July 1 – June 30 · <strong>FY 2027 rates</strong> in folder (one yr ahead)</span></div>
+      <div class="stat-row"><span class="label">Pay schedule for premiums</span><span class="val">24 semi-monthly pays</span></div>
+      <div class="stat-row"><span class="label">Cost-share split</span><span class="val">School Board pays 80% (individual) / 75% (Ind+1, Family) · Employee pays 20% / 25%</span></div>
+      <div class="stat-row"><span class="label">Cheapest EE-only — annualized</span><span class="val num">$1,810/yr · Key Advantage HDHP (preventive-only dental)</span></div>
+      <div class="stat-row"><span class="label">Cheapest EE-only with comp dental</span><span class="val num">$1,858/yr · Key Advantage HDHP</span></div>
+      <div class="stat-row"><span class="label">Most expensive EE-only — annualized</span><span class="val num">$2,549/yr · Key Advantage 250 Comprehensive</span></div>
+      <div class="stat-row"><span class="label">Cheapest Family — annualized</span><span class="val num">$6,111/yr · HDHP (preventive-only dental)</span></div>
+      <div class="stat-row"><span class="label">Most expensive Family — annualized</span><span class="val num">$8,598/yr · Key Advantage 250 Comprehensive</span></div>
+      <div class="stat-row"><span class="label">HSA / HDHP option</span><span class="val" style="color: var(--good); font-weight: 600;">Yes · Key Advantage HDHP available</span></div>
+      <div class="stat-row"><span class="label">Dental — bundled or separate?</span><span class="val">Bundled into medical premium (Liberty Dental on Kaiser, Delta Dental on Key Advantage plans)</span></div>
+      <div class="stat-row"><span class="label">Vision plan</span><span class="val data-pending">Pending — verify in folder docs</span></div>
+    </div>
+
+    <div class="district-card lcps">
+      <h3>Loudoun County Public Schools <span class="tag">LCPS</span></h3>
+      <p class="tagline">Fast-growing district · ~95 schools · ~82,000 students · ~12,000 staff</p>
+
+      <h4 class="card-subhead">Compensation snapshot</h4>
+      <div class="stat-row"><span class="label">Teacher BA Step 1 (FY 2026)</span><span class="val num">$60,553</span></div>
+      <div class="stat-row"><span class="label">Teacher BA Step 5</span><span class="val num">$68,863</span></div>
+      <div class="stat-row"><span class="label">Teacher BA Step 10</span><span class="val num">$81,029</span></div>
+      <div class="stat-row"><span class="label">Top of BA scale (Step 30)</span><span class="val num">$116,335</span></div>
+      <div class="stat-row"><span class="label">Teacher MA Step 1</span><span class="val num">$66,562</span></div>
+      <div class="stat-row"><span class="label">Top of MA scale (Step 30)</span><span class="val num">$122,401</span></div>
+      <div class="stat-row"><span class="label">Top of Doctoral scale</span><span class="val num">$128,466</span></div>
+      <div class="stat-row"><span class="label">Lanes</span><span class="val">6 lanes (BA &amp; Tech License, BA+15, BA+30, MA, MA+30, Doctoral)</span></div>
+      <div class="stat-row"><span class="label">Steps</span><span class="val">30 steps · "Steps do not equate to years of experience"</span></div>
+      <div class="stat-row"><span class="label">Contract days</span><span class="val"><strong>197 days</strong> (longer than ACPS/FCPS 195, shorter than APS 200)</span></div>
+
+      <h4 class="card-subhead">Medical insurance — at a glance</h4>
+      <div class="stat-row"><span class="label">Plans offered</span><span class="val">3 plans · Cigna Open Access Plus High (OAP HIGH), Cigna OAP, Cigna HDHP w/ HSA</span></div>
+      <div class="stat-row"><span class="label">Plan year</span><span class="val">January 1 – December 31 (calendar year, effective 1/1/2026)</span></div>
+      <div class="stat-row"><span class="label">Pay schedule for premiums</span><span class="val">26 biweekly pays</span></div>
+      <div class="stat-row"><span class="label">Cheapest EE-only — annualized</span><span class="val num">$139/yr · HDHP</span></div>
+      <div class="stat-row"><span class="label">Mid-tier EE-only — annualized</span><span class="val num">$266/yr · OAP</span></div>
+      <div class="stat-row"><span class="label">Most expensive EE-only — annualized</span><span class="val num">$2,087/yr · OAP HIGH</span></div>
+      <div class="stat-row"><span class="label">Cheapest Family — annualized</span><span class="val num">$2,822/yr · HDHP — cheapest family in NoVA</span></div>
+      <div class="stat-row"><span class="label">Mid-tier Family — annualized</span><span class="val num">$5,193/yr · OAP</span></div>
+      <div class="stat-row"><span class="label">Most expensive Family — annualized</span><span class="val num">$9,870/yr · OAP HIGH</span></div>
+      <div class="stat-row"><span class="label">HSA / HDHP option</span><span class="val" style="color: var(--good); font-weight: 600;">Yes · LCPS funds $1,100 (ind) / $2,200 (family) into HSA</span></div>
+      <div class="stat-row"><span class="label">HDHP bonus</span><span class="val" style="color: var(--good);">$5,000 Critical Illness Policy free with HDHP enrollment</span></div>
+      <div class="stat-row"><span class="label">Opt-out credit</span><span class="val">$9 per pay if you waive coverage ($234/yr)</span></div>
+      <div class="stat-row"><span class="label">Dental — Delta Dental of VA</span><span class="val num">$21/yr EE-only · $415/yr Family</span></div>
+      <div class="stat-row"><span class="label">Vision — Davis Vision</span><span class="val num">$2/yr EE-only · $42/yr Family</span></div>
+      <div class="stat-row"><span class="label">Sick leave</span><span class="val">10 days/yr (10-mo) · 11 (11-mo) · 14 (12-mo)</span></div>
+    </div>
+
+    <div class="district-card pwcs">
+      <h3>Prince William County Public Schools <span class="tag">PWCS</span></h3>
+      <p class="tagline">2nd largest in VA · ~100 schools · ~91,000 students · ~13,500 staff</p>
+
+      <h4 class="card-subhead">Compensation snapshot <span class="pending-badge">Awaiting PWCS admin scale</span></h4>
+      <div class="stat-row"><span class="label">Teacher BA Step 1 (FY 2026)</span><span class="val num">$62,562</span></div>
+      <div class="stat-row"><span class="label">Teacher BA at ~5 yrs (Step 5)</span><span class="val num">$68,119</span></div>
+      <div class="stat-row"><span class="label">Teacher MA Step 1</span><span class="val num">$68,562</span></div>
+      <div class="stat-row"><span class="label">Teacher MA at ~5 yrs (Step 5)</span><span class="val num">$74,119</span></div>
+      <div class="stat-row"><span class="label">Doctorate (EdD) Step 1</span><span class="val num">$72,062</span></div>
+      <div class="stat-row"><span class="label">Top of EdD (longevity)</span><span class="val num">$128,505+</span></div>
+      <div class="stat-row"><span class="label">Lanes</span><span class="val">5 lanes (BA, BA+15, MA, MA+30, EdD)</span></div>
+      <div class="stat-row"><span class="label">Coming July 2026 (FY27)</span><span class="val">New 2-yr PWEA agreement · 7% Yr1 + 6.4% Yr2 raises</span></div>
+
+      <h4 class="card-subhead">Medical insurance — at a glance (FY 2026-27)</h4>
+      <div class="stat-row"><span class="label">Plans offered</span><span class="val">4 plans · Anthem Enhanced PPO, Anthem Core PPO, Anthem HMO/POS, Kaiser HMO (all include Rx and vision)</span></div>
+      <div class="stat-row"><span class="label">Plan year</span><span class="val">July 1 – June 30 (FY 2027 effective 7/1/2026)</span></div>
+      <div class="stat-row"><span class="label">Pay schedule for premiums</span><span class="val">10-month staff: 20 biweekly pays · 12-month staff: 24 semi-monthly pays</span></div>
+      <div class="stat-row"><span class="label">Cheapest EE-only — annualized (10-mo staff)</span><span class="val num">$440/yr · Kaiser HMO</span></div>
+      <div class="stat-row"><span class="label">Most expensive EE-only — annualized</span><span class="val num">$1,919/yr · Anthem Enhanced PPO</span></div>
+      <div class="stat-row"><span class="label">Cheapest Family — annualized</span><span class="val num">$7,951/yr · Kaiser HMO</span></div>
+      <div class="stat-row"><span class="label">Most expensive Family — annualized</span><span class="val num">$12,405/yr · Anthem Enhanced PPO</span></div>
+      <div class="stat-row"><span class="label">Two-Employee Family discount</span><span class="val" style="color: var(--good); font-weight: 600;">Yes · Family rates drop dramatically (e.g., Kaiser Family $7,951 → 2-EE Family $879)</span></div>
+      <div class="stat-row"><span class="label">HSA / HDHP option</span><span class="val" style="color: var(--bad); font-weight: 600;">Not offered</span></div>
+      <div class="stat-row"><span class="label">Vision — bundled or separate?</span><span class="val">Bundled into medical (Blue View Vision on Anthem; included in Kaiser). VSP supplemental voluntary plan available at $107/yr EE-only.</span></div>
+      <div class="stat-row"><span class="label">Dental — Delta Dental of Virginia</span><span class="val num">High Option: $151/yr EE-only · $775/yr Family</span></div>
+      <div class="stat-row"><span class="label">Dental — Standard Option</span><span class="val num">$22/yr EE-only · $397/yr Family</span></div>
+      <div class="stat-row"><span class="label">VRS Hybrid match</span><span class="val">Up to 2.5% PWCS match on voluntary 4% DC contribution</span></div>
+      <div class="stat-row"><span class="label">Tuition reimbursement</span><span class="val" style="color: var(--good);">Yes · 3 programs (Teacher Reimbursement, ESSA Grant, Continuing Education)</span></div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <strong>FCCPS · LCPS · PWCS verification status:</strong> The cards above are populated from <em>official district documents now in your folders</em>, with rich premium and plan-design coverage for all three. A few items remain pending (admin salary scales for some, supplemental retirement details for FCCPS).
+    <br><br>
+    <strong>What's currently verified for Phase 2:</strong>
+    <ul style="margin: 6px 0 6px 20px;">
+      <li><strong>FCCPS:</strong> FY26 teacher salary scales (10/11/12-month versions) ✓ · FY26 Leadership pay scale (12 grade levels) ✓ · FY27 medical premium schedule (4 plans + cost-share + per-pay deductions) ✓ · Plan-design tables for Kaiser, KA 250, KA 500, HDHP ✓</li>
+      <li><strong>LCPS:</strong> Full FY26 teacher salary scale ✓ · 2026 medical premiums (3 Cigna plans + dental + vision) ✓ · Plan-design tables ✓ · LCPS-funded HSA + Critical Illness ✓ · Sick leave ✓ · Comprehensive comp resource guide in folder (admin scales pending extraction)</li>
+      <li><strong>PWCS:</strong> Teacher salary scale (FY26 + announced FY27 raises) ✓ · FY 2026-27 medical premiums (4 plans, all coverage tiers) ✓ · Plan-design tables ✓ · Two-Employee discount ✓ · Bundled vision + Rx ✓ · VRS Hybrid 2.5% match ✓ · Tuition reimbursement programs ✓</li>
+    </ul>
+    <strong>Highest-priority documents to drop into the folders:</strong>
+    <ul style="margin: 6px 0 6px 20px;">
+      <li>LCPS: Administrator pay scale extraction from comp resource guide (PDF in folder)</li>
+      <li>PWCS: Administrator (Grade 13+) pay scale</li>
+      <li>ACPS: FY 2026 Administrator salary scale (still on FY25)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== TEACHER SALARY ===================== -->
+<section id="teacher-salary">
+  <h2 class="section-title">Teacher Salary Scales — Detailed Comparison
+    <span class="sub">FY 2026 · classroom teachers · 3-district step-by-step deep dive</span>
+  </h2>
+
+  <div class="callout">
+    <strong>Looking for all 6 districts?</strong> The <a href="#dashboard">Quick-Compare Dashboard at the top of the page</a> shows BA/MA salary at 0/5/10 yrs across all six districts (ACPS, FCPS, APS, FCCPS, LCPS, PWCS). The detailed step-by-step tables in this section focus on the three districts with the richest published scale data — the at-a-glance cards above show the equivalent figures for FCCPS, LCPS, and PWCS.
+  </div>
+
+  <div class="callout warn">
+    <strong>Contract days differ across all 6 districts:</strong>
+    <ul style="margin: 6px 0 6px 20px;">
+      <li><strong>195 days:</strong> ACPS, FCPS, PWCS</li>
+      <li><strong>197 days:</strong> LCPS</li>
+      <li><strong>200 days:</strong> APS, FCCPS (both at 7.5 hrs/day)</li>
+    </ul>
+    Annual dollar figures are <em>not strictly comparable per workday</em>. APS and FCCPS teachers work ~5 more days/year than ACPS, FCPS, or PWCS teachers. To compare on a per-workday basis, divide each annual figure by its contract days.
+  </div>
+
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Lane / Step</th>
+        <th class="acps-col">ACPS<br><span style="font-weight: 400; font-size: 0.78em;">195 days, Steps 1–24</span></th>
+        <th class="fcps-col">FCPS<br><span style="font-weight: 400; font-size: 0.78em;">195 days, Steps 1–25</span></th>
+        <th class="aps-col">APS<br><span style="font-weight: 400; font-size: 0.78em;">200 days, Steps A–AE</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">Bachelor's, new hire — 0 years prior experience</td>
+        <td class="num">$57,207</td>
+        <td class="num">$61,747</td>
+        <td class="num">$57,810</td>
+      </tr>
+      <tr>
+        <td class="label">Bachelor's, new hire — 5 years prior experience</td>
+        <td class="num">$66,596</td>
+        <td class="num">$66,785</td>
+        <td class="num">$67,016*</td>
+      </tr>
+      <tr>
+        <td class="label">Bachelor's, new hire — 10 years prior experience</td>
+        <td class="num">$79,843</td>
+        <td class="num">$76,633</td>
+        <td class="num">$77,690*</td>
+      </tr>
+      <tr>
+        <td class="label">Bachelor's, top of scale</td>
+        <td class="num">$106,874</td>
+        <td class="num">$110,035</td>
+        <td class="num">$99,488</td>
+      </tr>
+      <tr>
+        <td class="label">Master's, new hire — 0 years prior experience</td>
+        <td class="num">$64,988</td>
+        <td class="num">$67,921</td>
+        <td class="num">$66,186</td>
+      </tr>
+      <tr>
+        <td class="label">Master's, new hire — 5 years prior experience</td>
+        <td class="num">$74,747</td>
+        <td class="num">$73,463</td>
+        <td class="num">$76,727*</td>
+      </tr>
+      <tr>
+        <td class="label">Master's, new hire — 10 years prior experience</td>
+        <td class="num">$90,067</td>
+        <td class="num">$85,116</td>
+        <td class="num">$88,948*</td>
+      </tr>
+      <tr>
+        <td class="label">Master's, top of scale</td>
+        <td class="num">$131,024</td>
+        <td class="num">$125,099</td>
+        <td class="num">$125,758</td>
+      </tr>
+      <tr>
+        <td class="label">Master's +30, entry</td>
+        <td class="num">$67,433</td>
+        <td class="num">$69,959</td>
+        <td class="num">$68,833</td>
+      </tr>
+      <tr>
+        <td class="label">Master's +30, top of scale</td>
+        <td class="num">$135,145 <span style="color: var(--muted); font-size: 0.85em;">(Step 24)</span></td>
+        <td class="num">$128,851 <span style="color: var(--muted); font-size: 0.85em;">(Step 25)</span></td>
+        <td class="num">$130,787 <span style="color: var(--muted); font-size: 0.85em;">(Step AE)</span></td>
+      </tr>
+      <tr>
+        <td class="label">PhD/Doctorate, entry</td>
+        <td class="num">Not a separate lane</td>
+        <td class="num">$71,317</td>
+        <td class="num">$71,586</td>
+      </tr>
+      <tr>
+        <td class="label">PhD/Doctorate, top of scale</td>
+        <td class="num">— (MA+30 is top)</td>
+        <td class="num">$131,353 <span style="color: var(--muted); font-size: 0.85em;">(Step 25)</span></td>
+        <td class="num">$136,019 <span style="color: var(--muted); font-size: 0.85em;">(Step AE)</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-grid">
+    <div class="district-card acps">
+      <h3>How ACPS structures its scale <span class="tag">ACPS</span></h3>
+      <ul>
+        <li><strong>Lanes:</strong> Bachelor's, Master's, Master's +30. No separate PhD lane.</li>
+        <li><strong>Steps:</strong> 23 steps for BA, 24 for MA and MA+30.</li>
+        <li><strong>Initial placement:</strong> Steps 1–16 by full-time classroom teaching years. <strong>Max experience credited for new hires: 16 years.</strong></li>
+        <li><strong>SpEd premium:</strong> SpEd teachers receive an additional step upon hire.</li>
+        <li><strong>Contract days available:</strong> 195 (standard), 206, 216, 240. A 240-day BA Step 1 = $70,409.</li>
+      </ul>
+    </div>
+    <div class="district-card fcps">
+      <h3>How FCPS structures its scale <span class="tag">FCPS</span></h3>
+      <ul>
+        <li><strong>Lanes:</strong> BA, BA+15, BA+30, MA, MA+30, PhD. Six lanes (broadest of the three).</li>
+        <li><strong>Steps:</strong> 25 steps. Initial placement maps years of experience to starting step (0–2 yrs → Step 1; 22 yrs → Step 18).</li>
+        <li><strong>Three contract types on FY26 scale:</strong> 195-day (standard), Extended Day (≈7% premium), and Additional Teaching Assignment / 6th Period (≈12% premium).</li>
+        <li><strong>Pattern:</strong> Leads on entry/mid-career pay; ACPS catches up at top of MA and MA+30.</li>
+      </ul>
+    </div>
+    <div class="district-card aps">
+      <h3>How APS structures its scale <span class="tag">APS</span></h3>
+      <ul>
+        <li><strong>Lanes:</strong> Bachelor's (B), Bachelor's +15 (C), Master's (M), Master's +30 (X), Doctorate (D). Five lanes.</li>
+        <li><strong>Steps:</strong> 31 alpha steps (A through AE). The plan explicitly states <em>"step does not equate to years of experience."</em></li>
+        <li><strong>Contract:</strong> 200 days, 7.5 hours/day. Different from ACPS/FCPS 195-day standard.</li>
+        <li><strong>FTE split:</strong> Separate scales for Retirement-Eligible (≥0.50 FTE) and Non-Retirement-Eligible (&lt;0.50 FTE) teachers.</li>
+        <li><strong>Advanced-degree stipend:</strong> Published in pay plan — $1,224/yr for Master's, $2,040/yr for Doctorate (E and P scales).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warn" style="margin-top: 14px;">
+    <strong>How "5 years experience" and "10 years experience" map to each district's pay scale</strong> — none of the three districts uses a clean Step = Years rule, and they differ from each other. The dollars above are what a <em>new hire</em> with that much prior teaching experience would earn at each district based on the published placement rule.
+    <br><br>
+    <strong>ACPS:</strong> Step <em>n</em> = <em>n</em> years of experience (clean 1:1). Capped at Step 16 for new hires. So 5 yrs → Step 5, 10 yrs → Step 10.
+    <br>
+    <strong>FCPS:</strong> Step does <em>not</em> equal years. FCPS publishes a placement table that maps experience-year ranges to a step number — and the mapping is uneven:
+    <ul style="margin: 6px 0 6px 20px; padding: 0;">
+      <li>0–2 yrs prior experience → placed at <strong>Step 1</strong> ($61,747 BA)</li>
+      <li>3 yrs → <strong>Step 2</strong> ($64,216 BA)</li>
+      <li>4, 5, or 6 yrs → <strong>Step 3</strong> ($66,785 BA) — this is why a new hire with 5 yrs exp earns the same as one with 4 or 6 yrs</li>
+      <li>7 yrs → <strong>Step 4</strong> ($69,456 BA)</li>
+      <li>8 yrs → Step 5; 9 yrs → Step 6; <strong>10 yrs → Step 7</strong> ($76,633 BA)</li>
+      <li>11 yrs → Step 8; 12 yrs → Step 9; 13 yrs → Step 10; <strong>14 or 15 yrs → Step 11</strong></li>
+    </ul>
+    So FCPS "Step 7" represents 10 years of experience (not 7), "Step 10" represents 13 years (not 10), etc. After being hired, employees advance one step per year of FCPS service until they hit Step 25.
+    <br>
+    <strong>* APS:</strong> The APS pay plan explicitly disclaims that "step does not equate to years of experience." Placement is at HR's discretion based on prior experience and credentials. APS values shown (Step F at 5 yrs, Step K at 10 yrs) are <em>positional</em> approximations (one alpha-step per year from Step A); actual APS placement may differ.
+  </div>
+
+  <details>
+    <summary>Why direct step-to-step comparison is tricky across all three</summary>
+    <div style="padding: 8px 14px 0; color: var(--muted); font-size: 0.92rem;">
+      Each district defines "step" differently. <strong>ACPS</strong> Step <em>n</em> generally equals <em>n</em> years of experience (with a 16-year cap on initial placement). <strong>FCPS</strong> Step <em>n</em> is mapped from a years-of-experience table — Step 1 covers 0–2 years, Step 3 covers 4–6 years, Step 11 covers 14–15 years, etc. <strong>APS</strong> uses 31 alpha steps (A–AE) and explicitly disclaims that "step does not equate to years of experience" — placement is determined by HR. Plus APS uses a 200-day contract vs. 195 days for ACPS and FCPS. The "Step 10 / Step J" alignment in the table above is positional only (10th step from entry); it does <em>not</em> map identically to years of service across districts.
+    </div>
+  </details>
+</section>
+
+<!-- ===================== ADMIN SALARY ===================== -->
+<section id="admin-salary">
+  <h2 class="section-title">School-Based Administrator Salaries
+    <span class="sub">3-district side-by-side · ACPS, FCPS, APS</span>
+  </h2>
+
+  <div class="callout">
+    <strong>Phase 2 administrator scales pending integration:</strong> FCCPS leadership scale (12 grade levels, $82,942 to $246,994 range) is in the folder and summarized in the at-a-glance card. LCPS administrator scale is in the LCPS Compensation Resource Guide PDF — pending extraction. PWCS administrator (Grade 13+) scale not yet located. The detailed table below covers ACPS, FCPS, and APS only.
+  </div>
+
+  <div class="callout warn">
+    <strong>Date note:</strong> Your folder has the FCPS <em>FY 2026</em> administrator scale, the APS <em>FY 2026</em> P-Scale, and the ACPS <em>FY 2025</em> administrator scale. The ACPS FY 2026 admin scale is not in the folder yet — these comparisons use FY 2025 ACPS values, which means ACPS numbers below are likely <em>~3–5% conservative</em> vs. its actual FY 2026 figures once published.
+  </div>
+
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Position (approximate match)</th>
+        <th class="acps-col">ACPS — FY25</th>
+        <th class="fcps-col">FCPS — FY26</th>
+        <th class="aps-col">APS — FY26 P-Scale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">Assistant Principal, Elementary School</td>
+        <td class="num">CP grade 240-day: $97,394 → $161,606</td>
+        <td class="num">Grade 002 260-day: $114,016 → $173,449</td>
+        <td class="num">P-Scale Grade 15: $113,650 → $186,275<br><span style="color: var(--muted); font-size: 0.85em;">(Step A → Step Z)</span></td>
+      </tr>
+      <tr>
+        <td class="label">Assistant Principal, Middle School</td>
+        <td class="num">CP grade 240-day: $97,394 → $161,606<br>(same grade as elem)</td>
+        <td class="num">Grade 002 260-day: $114,016 → $173,449</td>
+        <td class="num">P-Scale Grade 15: $113,650 → $186,275</td>
+      </tr>
+      <tr>
+        <td class="label">Assistant Principal, High School</td>
+        <td class="num">DA grade 240-day: $104,246 → $168,756</td>
+        <td class="num">Grade 003 260-day: $117,438 → $178,654</td>
+        <td class="num">P-Scale Grade 16: $121,605 → $199,314</td>
+      </tr>
+      <tr>
+        <td class="label">Dean of Students</td>
+        <td class="num">CD 240-day: $96,691 → $160,440<br>(or DA grade for HS)</td>
+        <td class="num">Grade 003 260-day: $117,438 → $178,654</td>
+        <td class="num">P-Scale Grade 11: $77,658 → $127,284<br><span style="color: var(--muted); font-size: 0.85em;">(11-month / lower than ACPS, FCPS)</span></td>
+      </tr>
+      <tr>
+        <td class="label">Principal, Elementary School</td>
+        <td class="num">FP grade 240-day: $125,947 → $198,910</td>
+        <td class="num">Grade 006 260-day: $136,819 → $208,140</td>
+        <td class="num">P-Scale Grade 17: $130,117 → $213,267</td>
+      </tr>
+      <tr>
+        <td class="label">Principal, Middle School</td>
+        <td class="num">GP grade 240-day: $132,242 → $208,860</td>
+        <td class="num">Grade 006 260-day: $136,819 → $208,140<br>(Elem &amp; Middle share grade)</td>
+        <td class="num">P-Scale Grade 17: $130,117 → $213,267</td>
+      </tr>
+      <tr>
+        <td class="label">Principal, High School</td>
+        <td class="num">I grade 240-day: $155,909 → $222,358<br>(executive principal)</td>
+        <td class="num">Grade 007 260-day: $146,798 → $220,018</td>
+        <td class="num">P-Scale Grade 18: $139,226 → $228,196</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Three different structural systems:</strong> ACPS uses <em>letter-grade families</em> (C, CD, CP, D, DA, F, FA, FP, G, GP, H, I, J) with 14–17 numeric steps. FCPS uses <em>numbered grades</em> 001–008 with 20 numeric steps. APS uses <em>numbered grades</em> 11–20 with <em>26 alpha steps</em> (A–Z). All three districts note that "steps do not equate to years of experience" — placement is HR/superintendent-discretion. APS shows both 220-day and 260-day rates per grade for daily-rate calculation purposes; the annual figures shown are the standard 12-month contract.
+  </div>
+</section>
+
+<!-- ===================== HEALTH ===================== -->
+<section id="health">
+  <h2 class="section-title">Health, Dental &amp; Vision Insurance
+    <span class="sub">2026 plan year · employee paycheck deduction</span>
+  </h2>
+
+  <h3 style="margin-top: 24px;">Medical premiums — what comes out of your paycheck</h3>
+
+  <p style="font-size: 0.88rem; color: var(--muted); margin-top: 6px;">The table below covers ACPS, FCPS, and APS side by side. <strong>FCCPS, LCPS, and PWCS premium tables are below in the "Plan structure" subsections</strong>, each with its own dedicated table because their plan portfolios are structured differently (FCCPS bundles dental, LCPS uses Cigna, PWCS has a 2-employee discount that drops Family rates 89%). The <a href="#dashboard">dashboard at the top</a> rolls all 6 districts into a single summary view.</p>
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Plan / coverage tier</th>
+        <th class="acps-col">ACPS · semi-monthly (24 pays)<br>Full-time licensed/admin</th>
+        <th class="fcps-col">FCPS · biweekly (20 pays)<br>All benefits-eligible</th>
+        <th class="aps-col">APS · semi-monthly (24 pays)<br>FT 30–40 hrs <span class="pending-badge">Verify</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">HMO — Employee Only<br><em>(ACPS: Kaiser · FCPS: Kaiser · APS: CareFirst HMO)</em></td>
+        <td class="num">$100.95 / pay → $2,423/yr</td>
+        <td class="num">$67.19 / pay → $1,344/yr</td>
+        <td class="num">$95.69 / pay → $2,297/yr <span class="pending-badge">Verify</span></td>
+      </tr>
+      <tr>
+        <td class="label">HMO — Family</td>
+        <td class="num">$268.86 / pay → $6,453/yr</td>
+        <td class="num">$321.94 / pay → $6,439/yr</td>
+        <td class="num">$404.54 / pay → $9,709/yr <span class="pending-badge">Verify</span></td>
+      </tr>
+      <tr>
+        <td class="label">Main PPO/POS — Employee Only<br><em>(ACPS: UHC POS · FCPS: CareFirst BlueChoice Advantage · APS: CareFirst Low PPO)</em></td>
+        <td class="num">$143.84 / pay → $3,452/yr</td>
+        <td class="num">$76.43 / pay → $1,529/yr</td>
+        <td class="num">$110.87 / pay → $2,661/yr <span class="pending-badge">Verify</span></td>
+      </tr>
+      <tr>
+        <td class="label">Main PPO/POS — Family</td>
+        <td class="num">$383.80 / pay → $9,211/yr</td>
+        <td class="num">$365.30 / pay → $7,306/yr</td>
+        <td class="num">$486.14 / pay → $11,667/yr <span class="pending-badge">Verify</span></td>
+      </tr>
+      <tr>
+        <td class="label">Premium PPO — Employee Only<br><em>(APS only: CareFirst High Option PPO)</em></td>
+        <td class="num">— (no premium PPO tier)</td>
+        <td class="num">— (no premium PPO tier)</td>
+        <td class="num">$144.18 / pay → $3,460/yr <span class="pending-badge">Verify</span></td>
+      </tr>
+      <tr>
+        <td class="label">Premium PPO — Family</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td class="num">$581.24 / pay → $13,950/yr <span class="pending-badge">Verify</span></td>
+      </tr>
+      <tr>
+        <td class="label">High-deductible / HSA-eligible — EE Only</td>
+        <td class="num">$103.56 / pay → $2,485/yr <br>(UHC QHP w/ HSA)</td>
+        <td class="num">— Not offered</td>
+        <td class="num">— Not offered</td>
+      </tr>
+      <tr>
+        <td class="label">Employer HSA contribution</td>
+        <td class="num">$600 (ind) / $1,200 (family) per year</td>
+        <td class="num">N/A — no HSA plan</td>
+        <td class="num">N/A — no HSA plan</td>
+      </tr>
+      <tr>
+        <td class="label">2-employee couple (both work in district)</td>
+        <td class="num">No discount documented</td>
+        <td class="num">2-Employee Family rate = Employee+1 (sizable discount)</td>
+        <td class="num">Not offered</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Translating between districts:</strong> ACPS deducts over 24 paychecks (semi-monthly), FCPS over 20 paychecks (biweekly with summer holidays). The <em>annual cost</em> column above normalizes both. On medical, FCPS is meaningfully cheaper for employees on the main PPO and Kaiser-EE-only plans, while annual Kaiser Family cost is essentially identical. ACPS adds a high-deductible / HSA option that FCPS does not offer.
+  </div>
+
+  <h3 style="margin-top: 30px;">Plan structure — what you actually pay for care</h3>
+
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Plan feature</th>
+        <th class="aps-col">APS — CareFirst BlueChoice HMO (in-network)</th>
+        <th class="aps-col">APS — BluePreferred Low PPO 80/60 (in-network)</th>
+        <th class="aps-col">APS — BluePreferred High PPO 90/70 (in-network)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="label">Annual deductible (ind/family)</td><td>$0 / $0</td><td>$400 / $800</td><td>$300 / $600</td></tr>
+      <tr><td class="label">Out-of-pocket max (ind/family)</td><td>$2,250 / $4,500</td><td>$3,000 / $6,000</td><td>$3,000 / $6,000</td></tr>
+      <tr><td class="label">PCP office visit</td><td>$15 copay</td><td>$30 copay</td><td>$30 copay</td></tr>
+      <tr><td class="label">Specialist visit</td><td>$20 copay</td><td>$60 copay</td><td>$60 copay</td></tr>
+      <tr><td class="label">Coinsurance after deductible</td><td>N/A — copay only</td><td>20% in-network</td><td>10% in-network</td></tr>
+      <tr><td class="label">Emergency room</td><td>$50 copay (waived if admitted)</td><td>$250 copay (waived if admitted)</td><td>$200 copay (waived if admitted)</td></tr>
+      <tr><td class="label">Out-of-network coverage</td><td>None (HMO)</td><td>$800 ded ind / $1,600 family · 40% coinsurance · $5,000/$10,000 OOP</td><td>$750 ded ind / $1,500 family · 30% coinsurance · $3,750/$7,500 OOP</td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size: 0.86rem; color: var(--muted); margin-top: 6px;">APS plan structure verified from <a href="https://www.apsva.us/wp-content/uploads/sites/57/2025/10/APS-Medical-and-Rx-Benefit-Designs.pdf" target="_blank">APS-Medical-and-Rx-Benefit-Designs.pdf</a> (Appendix M to RFP 30FY26).</p>
+
+  <h4 style="margin-top: 28px; font-size: 1rem; color: var(--fccps);">FCCPS — four plans (each with Delta Dental or Liberty Dental BUNDLED into the premium)</h4>
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Plan feature</th>
+        <th class="fccps-col">Kaiser Permanente HMO</th>
+        <th class="fccps-col">Key Advantage 250 (PPO)</th>
+        <th class="fccps-col">Key Advantage 500 (PPO)</th>
+        <th class="fccps-col">TLC HDHP (HSA-eligible)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="label">Annual deductible (ind/family)</td><td>$0 / $0</td><td>$250 / $500 (in-network)</td><td>$500 / $1,000 (in-network)</td><td>$3,400 / $6,800 (combined in/out)</td></tr>
+      <tr><td class="label">Out-of-pocket max (ind/family)</td><td>not extracted</td><td>$3,000 / $6,000 (in-network)</td><td>$4,000 / $8,000 (in-network)</td><td>$5,000 / $10,000 (in-network)</td></tr>
+      <tr><td class="label">PCP office visit</td><td>$25 copay</td><td>$20 copay</td><td>$25 copay</td><td>20% after deductible</td></tr>
+      <tr><td class="label">Specialist visit</td><td>$40 copay</td><td>$35 copay</td><td>$40 copay</td><td>20% after deductible</td></tr>
+      <tr><td class="label">Coinsurance after deductible</td><td>copay-based</td><td>30% out-of-network only</td><td>20% in-network · 30% out-of-network</td><td>20% in-network · 40% out-of-network</td></tr>
+      <tr><td class="label">Inpatient hospitalization</td><td>$300 per admission</td><td>$400 per stay</td><td>20% after deductible</td><td>20% after deductible</td></tr>
+      <tr><td class="label">Outpatient surgery</td><td>$75 copay</td><td>per plan terms</td><td>per plan terms</td><td>20% after deductible</td></tr>
+      <tr><td class="label">Preventive care</td><td>$0</td><td>$0</td><td>$0</td><td>$0 (100% in-network, no deductible)</td></tr>
+      <tr><td class="label">Lifetime maximum</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
+      <tr><td class="label">Dental — bundled into premium?</td><td>Yes · Liberty Dental</td><td>Yes · Delta Dental (preventive-only or comprehensive)</td><td>Yes · Delta Dental</td><td>Yes · Delta Dental</td></tr>
+      <tr><td class="label">Routine vision exam</td><td>covered</td><td>covered</td><td>covered</td><td>One routine eye exam/yr included</td></tr>
+      <tr><td class="label">Family annual premium (employee portion, 24 pays, comprehensive dental version)</td><td>$6,954</td><td>$8,598</td><td>$7,716</td><td><strong>$6,273</strong> — cheapest</td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size: 0.86rem; color: var(--muted); margin-top: 6px;">FCCPS plan structure verified from folder PDFs: <a href="FCCPS/Kaiser Permanente Benefits Summary.pdf">Kaiser Permanente Benefits Summary.pdf</a>, <a href="FCCPS/Key Advantage 250 Benefits Summary.pdf">Key Advantage 250 Benefits Summary.pdf</a>, <a href="FCCPS/Key Advantage 500 Benefits Summary.pdf">Key Advantage 500 Benefits Summary.pdf</a>, <a href="FCCPS/High Deductible Health Plan Benefits Summary.pdf">High Deductible Health Plan Benefits Summary.pdf</a>. Premiums from <a href="FCCPS/Health Insurance Rates.pdf">Health Insurance Rates.pdf</a> (FY 2027, July 2026 – June 2027).</p>
+
+  <div class="callout" style="border-left-color: var(--fccps);">
+    <strong>FCCPS structural callout:</strong> The "Key Advantage" plans are part of <em>The Local Choice (TLC)</em> — a Commonwealth of Virginia program administered by Anthem Blue Cross Blue Shield, used by many small-to-mid-size Virginia school divisions and local governments. The same plans are offered to FCCPS, but the rates and cost-share are negotiated at the district level. FCCPS bundles dental directly into each medical premium (Liberty Dental on Kaiser, Delta Dental on the Anthem plans), unlike ACPS, FCPS, and APS, which charge dental separately.
+  </div>
+
+  <h4 style="margin-top: 28px; font-size: 1rem; color: var(--lcps);">LCPS — three Cigna plans (effective January 1, 2026)</h4>
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Plan feature</th>
+        <th class="lcps-col">OAP HIGH (Open Access Plus High)</th>
+        <th class="lcps-col">OAP (Open Access Plus)</th>
+        <th class="lcps-col">HDHP w/ HSA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="label">Annual deductible (ind/family, in-network)</td><td>$450 / $900</td><td>$650 / $1,300</td><td>$1,800 / $3,600</td></tr>
+      <tr><td class="label">Out-of-pocket max (ind/family, in-network)</td><td>$3,500 / $7,000</td><td>$2,500 / $5,000</td><td>$6,500 / $13,000</td></tr>
+      <tr><td class="label">PCP office visit</td><td>$20 copay</td><td>$20 copay</td><td>10% after deductible</td></tr>
+      <tr><td class="label">Specialist visit</td><td>$40 copay</td><td>$40 copay</td><td>10% after deductible</td></tr>
+      <tr><td class="label">Emergency room</td><td>$150 copay</td><td>$150 copay</td><td>10% after deductible</td></tr>
+      <tr><td class="label">Urgent care</td><td>$50 copay</td><td>$50 copay</td><td>10% after deductible</td></tr>
+      <tr><td class="label">Lab work / X-rays</td><td>Covered in full</td><td>10% after deductible</td><td>10% after deductible</td></tr>
+      <tr><td class="label">Inpatient hospitalization (in-network)</td><td>Covered in full after deductible</td><td>$200 copay + 10% after deductible</td><td>10% after deductible</td></tr>
+      <tr><td class="label">Coinsurance after deductible</td><td>0% in-network · 20% out-of-network</td><td>10% in-network · 30% out-of-network</td><td>10% in-network · 30% out-of-network</td></tr>
+      <tr><td class="label">Preventive care</td><td>$0 (100%)</td><td>$0 (100%)</td><td>$0 (100%)</td></tr>
+      <tr><td class="label">Employee-only annual premium (26 biweekly pays)</td><td>$2,087</td><td>$266</td><td><strong>$139</strong> — cheapest</td></tr>
+      <tr><td class="label">Family annual premium (26 biweekly pays)</td><td>$9,870</td><td>$5,193</td><td><strong>$2,822</strong> — cheapest family medical in NoVA</td></tr>
+      <tr><td class="label">LCPS HSA contribution</td><td>N/A</td><td>N/A</td><td>$1,100 (EE only) / $2,200 (family) per year</td></tr>
+      <tr><td class="label">Bonus enrollment perk</td><td>—</td><td>—</td><td>$5,000 LCPS-funded Critical Illness Policy</td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size: 0.86rem; color: var(--muted); margin-top: 6px;">LCPS plan structure verified from <a href="LCPS/LCPS_Benefits_Handbook_2025.pdf">LCPS_Benefits_Handbook_2025.pdf</a>, page 2-3 (premiums) and 2-4 to 2-6 (plan-design comparison). Salary scale from <a href="LCPS/FY26-Teacher-Salary-Scale---Scale-A-2.pdf">FY26-Teacher-Salary-Scale---Scale-A-2.pdf</a>.</p>
+
+  <div class="callout" style="border-left-color: var(--lcps);">
+    <strong>LCPS structural callout:</strong> LCPS uses Cigna for medical (instead of CareFirst, Kaiser, Anthem, or UHC like the other districts). Three plans, all PPO-style (no HMO option). Premium structure is unusually generous on the low end — the OAP plan at $266/yr employee-only is roughly 80% cheaper than ACPS Kaiser ($2,423/yr), and the HDHP family at $2,822/yr undercuts every other district's family plan by thousands. LCPS's tradeoff: the OAP plan has higher deductibles ($650/$1,300) than competing PPOs at other districts. Pay frequency is 26 biweekly pays (every two weeks year-round), unlike FCPS's 20 biweekly pays (which skip July–August).
+  </div>
+
+  <h4 style="margin-top: 28px; font-size: 1rem; color: var(--pwcs);">PWCS — four plans (FY 2026-27, effective July 1, 2026)</h4>
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Plan feature</th>
+        <th class="pwcs-col">Anthem Enhanced PPO</th>
+        <th class="pwcs-col">Anthem Core PPO</th>
+        <th class="pwcs-col">Anthem HMO/POS</th>
+        <th class="pwcs-col">Kaiser Permanente HMO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="label">Annual deductible (in-network ind/family)</td><td>$0 / $0</td><td>$0 / $0</td><td>$0 / $0</td><td>$0 / $0</td></tr>
+      <tr><td class="label">Annual deductible (out-of-network)</td><td>$400 / $800</td><td>$500 / $1,000</td><td>$750 / $1,500</td><td>N/A</td></tr>
+      <tr><td class="label">Out-of-pocket max (in-network ind/family, includes Rx)</td><td>$2,500 / $5,000</td><td>$4,000 / $8,000</td><td>$2,500 / $5,000</td><td>$3,500 / $9,400</td></tr>
+      <tr><td class="label">PCP office visit</td><td>$20 copay</td><td>$25 copay</td><td>$20 copay (PCP referral required)</td><td>$15 copay</td></tr>
+      <tr><td class="label">Specialist visit</td><td>$35 copay</td><td>$50 copay</td><td>$40 copay (PCP referral required)</td><td>$25 copay</td></tr>
+      <tr><td class="label">Inpatient hospitalization</td><td>$350 copay/admission</td><td>$400 + 20% coinsurance</td><td>$200/day, max $1,000/admission</td><td>$250 copay</td></tr>
+      <tr><td class="label">Emergency room</td><td>$200 copay/visit</td><td>$200 + 20% coinsurance</td><td>$200 copay/visit</td><td>$100 copay</td></tr>
+      <tr><td class="label">Urgent care</td><td>$35 copay</td><td>$50 copay</td><td>$40 copay</td><td>$25 copay</td></tr>
+      <tr><td class="label">Eye exam (vision included)</td><td>$15 copay</td><td>$15 copay</td><td>$15 copay</td><td>$15-25 copay</td></tr>
+      <tr><td class="label">Generic Rx (retail 30-day)</td><td>$10 copay</td><td>$10 copay</td><td>$10 copay</td><td>$10 copay</td></tr>
+      <tr><td class="label">Brand-name preferred Rx</td><td>$35 copay</td><td>$35 copay</td><td>$35 copay</td><td>$20 copay</td></tr>
+      <tr><td class="label">Brand non-preferred Rx</td><td>$70 copay</td><td>$70 copay</td><td>$70 copay</td><td>$35 copay</td></tr>
+      <tr><td class="label">EE-only annual premium (10-month staff, 20 pays)</td><td>$1,919</td><td>$953</td><td>$452</td><td><strong>$440</strong> — cheapest</td></tr>
+      <tr><td class="label">Family annual premium (10-month staff, 20 pays)</td><td>$12,405</td><td>$9,580</td><td>$8,185</td><td><strong>$7,951</strong> — cheapest</td></tr>
+      <tr><td class="label">Two-Employee Family annual premium</td><td>$3,838</td><td>$1,907</td><td>$905</td><td><strong>$879</strong> — dramatic discount</td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size: 0.86rem; color: var(--muted); margin-top: 6px;">PWCS plan structure verified from <a href="PWCS/2026-27_benefits_guide.pdf">2026-27_benefits_guide.pdf</a>, pages 6–11. Annual premiums calculated for 10-month staff (teachers, paid over 20 biweekly pays); 12-month staff pay over 24 semi-monthly pays at slightly different rates.</p>
+
+  <div class="callout" style="border-left-color: var(--pwcs);">
+    <strong>PWCS structural callout:</strong> All four PWCS plans have <strong>$0 in-network deductible</strong> — that's a meaningful comfort vs. ACPS, FCPS, APS, and FCCPS, which all have at least some deductible on most plans. PWCS uses Anthem (3 plans) and Kaiser (1 plan); no HDHP/HSA option. <strong>The 2-employee couple discount is the largest of any district</strong> — Kaiser Family drops from $7,951/yr to $879/yr when both spouses work for PWCS, an ~89% reduction. Vision is bundled into all medical plans (Blue View Vision on Anthem, native vision on Kaiser); VSP is offered as an additional voluntary supplement. PWCS also has a published 2.5% match on voluntary VRS Hybrid contributions plus three tuition-reimbursement programs — a significant ongoing benefit not visible in the headline premium numbers.
+  </div>
+
+  <details style="margin: 18px 0 8px 0; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--pwcs); border-radius: 6px; padding: 4px 18px;">
+    <summary style="font-size: 1rem; padding: 12px 0; color: var(--pwcs);">Why does PWCS have no in-network deductible? Click to expand the deep dive →</summary>
+    <div style="padding: 6px 0 18px 0; font-size: 0.92rem; line-height: 1.6;">
+      <p><strong>The short version:</strong> PWCS uses a "copay-only" plan design. Instead of charging you a deductible plus coinsurance, you pay a fixed copay for each service from your very first visit of the year. The trade-off is you pay a higher premium to get this structure.</p>
+
+      <h4 style="margin: 18px 0 6px 0; font-size: 0.95rem; color: var(--ink);">How a deductible normally works (the other 5 districts)</h4>
+      <p>You start the year owing the plan a deductible — typically $300–$1,300 for a family. Until you've paid that out of pocket, the plan doesn't share costs on most services. So a family hits the new year, mom needs an MRI ($1,200 retail), and they're paying the full $1,200 because the deductible hasn't been met yet. Only after that threshold is reached do copays and coinsurance kick in. This shifts upfront risk to the employee in exchange for a lower premium.</p>
+
+      <h4 style="margin: 18px 0 6px 0; font-size: 0.95rem; color: var(--ink);">How PWCS works</h4>
+      <p>Day one of the plan year, you walk into a PCP visit and pay $20 (Anthem Enhanced PPO, HMO/POS) or $25 (Core PPO). Next month, your child needs a specialist — you pay $35, $40, or $50. Need an outpatient procedure? $200 copay. Inpatient stay? $350 copay (Enhanced) or $400 + 20% coinsurance (Core). No deductible needs to be met first. Costs are predictable from the start.</p>
+
+      <h4 style="margin: 18px 0 6px 0; font-size: 0.95rem; color: var(--ink);">Why PWCS designed it this way</h4>
+      <ol style="margin: 6px 0 6px 24px;">
+        <li><strong>Negotiating leverage.</strong> PWCS insures roughly 13,500 staff. With that scale and Anthem's relationship with VA local governments, PWCS could negotiate a richer plan-design that costs more in premium but eliminates the deductible.</li>
+        <li><strong>Behavioral pitch to employees.</strong> A $0 deductible plan is psychologically appealing — it removes the "I have to spend $1,000 of my own money before insurance does anything" friction that makes people skip care.</li>
+        <li><strong>Recruiting/retention.</strong> Northern Virginia school districts compete for teachers. PWCS's published "$0 deductible across all plans" is a clean recruiting line, similar to FCPS leaning into its 2-employee couple discount or FCCPS leaning into its 80% employer cost-share.</li>
+        <li><strong>Predictability for budgeting.</strong> Teachers and school staff often have tight household budgets. Paying $20 per PCP visit consistently is easier to plan around than knowing the first $1,200 of family medical costs will come out of savings.</li>
+      </ol>
+
+      <h4 style="margin: 18px 0 6px 0; font-size: 0.95rem; color: var(--ink);">The trade-off (the catch)</h4>
+      <p>PWCS premiums are noticeably higher than peer districts. Family Anthem Enhanced PPO is $12,405/yr — the second most expensive PPO in NoVA after APS High PPO ($13,950). Family Core PPO is $9,580/yr — more than FCPS BlueChoice Advantage at $7,306 and meaningfully more than LCPS OAP at $5,193.</p>
+      <p>You're paying for the no-deductible feature in your premium. A family that barely uses healthcare ends up over-paying compared to a high-deductible plan elsewhere. A family that uses healthcare regularly comes out ahead.</p>
+
+      <h4 style="margin: 18px 0 6px 0; font-size: 0.95rem; color: var(--ink);">Important caveat: this is in-network only</h4>
+      <p>Every PWCS plan still has an out-of-network deductible:</p>
+      <ul style="margin: 6px 0 6px 24px;">
+        <li>Anthem Enhanced PPO: $400 individual / $800 family out-of-network deductible</li>
+        <li>Anthem Core PPO: $500 / $1,000 out-of-network</li>
+        <li>Anthem HMO/POS: $750 / $1,500 out-of-network</li>
+      </ul>
+      <p>Out-of-network services trigger a 30% coinsurance after that deductible. So the $0 deductible promise only holds if you stay in the Anthem network.</p>
+
+      <h4 style="margin: 18px 0 6px 0; font-size: 0.95rem; color: var(--ink);">Other PWCS coverage features worth knowing</h4>
+      <ul style="margin: 6px 0 6px 24px;">
+        <li><strong>All four plans include vision benefits</strong> at no extra cost. Annual eye exam is a $15 copay across all PPOs. Anthem plans use Blue View Vision; Kaiser uses its own vision. There's an additional voluntary VSP plan if you want richer vision benefits, but you don't <em>need</em> a separate vision plan to get an exam.</li>
+        <li><strong>Prescription drug coverage</strong> is bundled into all medical plans — no separate Rx card needed. The Rx tier copays are the same across all three Anthem plans ($10 generic, $35 preferred brand, $70 non-preferred brand at retail).</li>
+        <li><strong>OOP max ranges</strong> are reasonable: $5,000 family (Enhanced PPO, HMO/POS), $8,000 family (Core PPO). Your absolute worst-case PWCS year on any plan is premium + $5,000–$8,000 — landing between $13,000 and $20,000 total annual exposure.</li>
+        <li><strong>Two-employee couple discount</strong> dramatically changes everything. If both spouses work for PWCS, the family premium drops to roughly $880–$3,840/yr depending on plan. At that price, the $0-deductible structure becomes extraordinarily generous.</li>
+      </ul>
+
+      <h4 style="margin: 18px 0 6px 0; font-size: 0.95rem; color: var(--ink);">Bottom line</h4>
+      <p>PWCS plans are designed for <strong>predictability, not for cheapness</strong>. They're priced as if every family will use the deductible-free feature. If you use a fair amount of care, the math works in your favor — you skip the deductible-accumulation period and pay only copays. If you're a low-utilizer (and you don't qualify for the 2-employee discount), you'd save money at FCPS or LCPS by accepting their deductible-then-cheaper-premiums structure.</p>
+    </div>
+  </details>
+
+  <h4 style="margin-top: 28px; font-size: 1rem;">ACPS vs FCPS — main PPO/POS plans</h4>
+
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Plan feature</th>
+        <th class="acps-col">ACPS — UHC POS (in-network)</th>
+        <th class="fcps-col">FCPS — CareFirst BlueChoice Advantage (in-network)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="label">Annual deductible (ind/family)</td><td>$300 / $600</td><td>$300 / $600 (combined in &amp; out)</td></tr>
+      <tr><td class="label">Out-of-pocket max (ind/family)</td><td>$4,000 / $8,000</td><td>$2,500 / $5,000</td></tr>
+      <tr><td class="label">PCP office visit</td><td>$20 copay</td><td>Deductible, then $10 copay</td></tr>
+      <tr><td class="label">Specialist visit</td><td>$35 copay</td><td>Deductible, then $20 copay</td></tr>
+      <tr><td class="label">Coinsurance after deductible</td><td>10% in-network</td><td>10% in-network</td></tr>
+      <tr><td class="label">Generic Rx (retail, 30/34-day)</td><td>$10 copay</td><td>$30 copay (community pharmacy, up to 60-day)</td></tr>
+      <tr><td class="label">Emergency Room</td><td>10% after deductible</td><td>$250 copay + 10% coinsurance (waived if admitted)</td></tr>
+    </tbody>
+  </table>
+
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Plan feature — Kaiser plan</th>
+        <th class="acps-col">ACPS — Kaiser HMO</th>
+        <th class="fcps-col">FCPS — Kaiser Permanente</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="label">Annual deductible</td><td>$0 (no deductible)</td><td>$0 (no deductible)</td></tr>
+      <tr><td class="label">Out-of-pocket max (ind/family)</td><td>$2,250 / $4,500</td><td>$2,000 / $4,000</td></tr>
+      <tr><td class="label">PCP visit</td><td>$20 copay</td><td>$20 copay</td></tr>
+      <tr><td class="label">Specialist visit</td><td>$30 copay</td><td>$40 copay</td></tr>
+      <tr><td class="label">Generic Rx (mail order, 90-day)</td><td>$15 copay</td><td>$10 copay</td></tr>
+      <tr><td class="label">Emergency Room</td><td>$200 copay</td><td>$250 copay</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top: 30px;">Dental &amp; vision premiums — ACPS, FCPS, APS</h3>
+
+  <p style="font-size: 0.88rem; color: var(--muted); margin-top: 6px;">The table below shows ACPS, FCPS, and APS dental/vision side by side. The other three districts have notable structural differences: <strong>FCCPS</strong> bundles comprehensive dental into the medical premium (no separate dental cost on Kaiser, KA 250, KA 500, HDHP). <strong>LCPS</strong> dental (Delta) is $21/yr EE-only, vision (Davis) is $2/yr — both extraordinarily cheap. <strong>PWCS</strong> dental (Delta High $151/yr or Standard $22/yr) and vision (VSP voluntary, $107/yr) — vision is also bundled into all PWCS medical plans. See the at-a-glance cards near the top for details.</p>
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Coverage</th>
+        <th class="acps-col">ACPS</th>
+        <th class="fcps-col">FCPS</th>
+        <th class="aps-col">APS <span class="pending-badge">Verify</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">Dental — provider</td>
+        <td>CareFirst BlueDental Plus (single plan)</td>
+        <td>Aetna DNO (HMO) and Aetna PPO (two plans)</td>
+        <td>Delta Dental (single plan)</td>
+      </tr>
+      <tr>
+        <td class="label">Dental — Employee-only paycheck cost</td>
+        <td class="num">$11.50 / pay → $276/yr</td>
+        <td class="num">DNO: $1.49/pay → $30/yr<br>PPO: $4.21/pay → $84/yr</td>
+        <td class="num">$15.97 / pay → $383/yr</td>
+      </tr>
+      <tr>
+        <td class="label">Dental — Family paycheck cost</td>
+        <td class="num">$30.16 / pay → $724/yr</td>
+        <td class="num">DNO: $6.87/pay → $137/yr<br>PPO: $19.46/pay → $389/yr</td>
+        <td class="num">$46.50 / pay → $1,116/yr</td>
+      </tr>
+      <tr>
+        <td class="label">Dental annual max / orthodontia</td>
+        <td>$2,000 annual max · $1,000 lifetime ortho</td>
+        <td>Per-plan terms (see Aetna SBC)</td>
+        <td>$1,500 annual max per family member · $1,500 lifetime ortho per family member <span class="pending-badge">2018 baseline · 2026 unverified</span></td>
+      </tr>
+      <tr>
+        <td class="label">Dental coinsurance (in-network)</td>
+        <td>Preventive 100% · Basic 80% · Major 80%</td>
+        <td>Per Aetna SBC</td>
+        <td>Preventive 100% · Basic 80% · Major 50% <span class="pending-badge">2018 baseline</span></td>
+      </tr>
+      <tr>
+        <td class="label">Vision plan</td>
+        <td>EyeMed (standalone, with new "Eye360" PLUS tier for 2026–27)</td>
+        <td>$150/yr allowance bundled into medical (no separate plan)</td>
+        <td>BlueVision Plus (standalone, via CareFirst). $10 exam copay · $250 frame allowance · $200 contact lens allowance · 12-month benefit period.</td>
+      </tr>
+      <tr>
+        <td class="label">Vision — Employee-only paycheck cost</td>
+        <td class="num">$3.17 / pay → $76/yr</td>
+        <td class="num">N/A — bundled</td>
+        <td class="num">$4.20 / pay → $101/yr</td>
+      </tr>
+      <tr>
+        <td class="label">Vision — Family paycheck cost</td>
+        <td class="num">$8.85 / pay → $212/yr</td>
+        <td class="num">N/A — bundled</td>
+        <td class="num">$12.31 / pay → $295/yr</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Dental cost ranking:</strong> FCPS Aetna DNO is dramatically cheaper than the others — about $30/yr employee-only, vs. $276/yr at ACPS and $383/yr at APS. For a family, the spread is even larger: FCPS DNO at $137/yr vs. ACPS at $724/yr vs. APS at $1,116/yr. Vision is similar: APS appears to be the most expensive standalone vision plan of the three; FCPS includes basic vision in its medical plan rather than charging separately.
+  </div>
+</section>
+
+<!-- ===================== RETIREMENT ===================== -->
+<section id="retirement">
+  <h2 class="section-title">Retirement Plans
+    <span class="sub">VRS primary pension + district-specific supplemental + voluntary 403(b)/457(b)</span>
+  </h2>
+
+  <p style="color: var(--muted); margin-top: 4px;">All Virginia public school employees participate in the <strong>Virginia Retirement System (VRS)</strong> as their primary pension. <strong>Only ACPS and FCPS layer a second mandatory defined-benefit plan on top of VRS.</strong> APS, FCCPS, LCPS, and PWCS rely on VRS alone, with varying voluntary 403(b)/457(b) match richness. The detailed table below compares ACPS Principal vs. FCPS ERFC 2001 vs. APS — see the at-a-glance cards and the dashboard for FCCPS, LCPS, and PWCS retirement structures.</p>
+
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Plan layer</th>
+        <th class="acps-col">ACPS</th>
+        <th class="fcps-col">FCPS</th>
+        <th class="aps-col">APS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">Primary plan — VRS</td>
+        <td>VRS Plan 1, Plan 2, or Hybrid based on hire date. <strong>Hybrid (1/1/2014+):</strong> 4% DB + 1% mandatory DC = 5% total employee.</td>
+        <td>Same VRS Hybrid for new hires. 4% DB + 1% mandatory DC, plus voluntary up to 4% more matched by employer up to 2.5%.</td>
+        <td>Same VRS Hybrid for new hires (all VA school districts use VRS).</td>
+      </tr>
+      <tr>
+        <td class="label">VRS vesting</td>
+        <td>5 years for DB; mandatory + voluntary DC always 100% vested.</td>
+        <td>Same.</td>
+        <td>Same.</td>
+      </tr>
+      <tr>
+        <td class="label">Supplemental DB plan</td>
+        <td><strong>ACPS Supplemental Retirement Plan</strong> (Principal Financial Group)</td>
+        <td><strong>ERFC 2001 Tier 2</strong> (hired 7/1/2017 or later)</td>
+        <td><strong>None.</strong> APS does not offer a supplemental defined-benefit pension above VRS.</td>
+      </tr>
+      <tr>
+        <td class="label">Supplemental — employee contribution</td>
+        <td>1.5% of pay (mandatory)</td>
+        <td>3% of pay (mandatory)</td>
+        <td>$0 (no supplemental DB plan)</td>
+      </tr>
+      <tr>
+        <td class="label">Supplemental — employer contribution</td>
+        <td>Variable — employer funds benefit gap</td>
+        <td>6.61% of pay (FCPS contribution)</td>
+        <td>$0 to a DB plan; small DC match instead (see below)</td>
+      </tr>
+      <tr>
+        <td class="label">Supplemental — benefit formula</td>
+        <td>0.40% × avg monthly pay × benefit service</td>
+        <td>0.8% × 5-yr highest-consecutive-salary average × years of credited service ÷ 12</td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <td class="label">Voluntary 403(b) / 457(b) plans</td>
+        <td>403(b) and 457(b) via TSACG</td>
+        <td>403(b) and 457(b) available</td>
+        <td>403(b) and 457(b) via Lincoln Financial Group and AXA Advisors / PlanMember Services <span class="pending-badge">2018 baseline · verify 2026 vendors</span></td>
+      </tr>
+      <tr>
+        <td class="label">Employer match on voluntary DC plan</td>
+        <td>None documented</td>
+        <td>None documented for 403(b)/457(b) (VRS Hybrid voluntary match applies separately)</td>
+        <td><strong>Up to 0.4% of base salary or $240/yr</strong>, whichever is greater (APS School Board match into 403(b) or 457). VRS Hybrid voluntary match applies separately. <span class="pending-badge">2018 baseline</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Total mandatory retirement contribution (pre-tax) for a Hybrid-plan new hire:</strong>
+    <br>· ACPS: 5% VRS + 1.5% Principal supplemental = <strong>6.5% of pay</strong> (employee side)
+    <br>· FCPS: 5% VRS + 3% ERFC supplemental = <strong>8.0% of pay</strong> (employee side)
+    <br>· APS, FCCPS, LCPS, PWCS: 5% VRS only = <strong>5.0% of pay</strong> (employee side)
+    <br><br>
+    <strong>What this means for retirement income:</strong> Districts on VRS-only (APS, FCCPS, LCPS, PWCS) ask the least out of paychecks today, but they produce the smallest projected retirement income because there is no supplemental DB pension to layer on top of VRS. ACPS and FCPS each provide a second pension that meaningfully increases lifetime retirement benefits — at the cost of more take-home pay deducted now. Employees at the four VRS-only districts who want comparable retirement security need to self-direct contributions into 403(b)/457(b) accounts. PWCS at least adds a 2.5% match on voluntary VRS Hybrid contributions, which makes the self-directed route more attractive there than at APS, FCCPS, or LCPS.
+  </div>
+</section>
+
+<!-- ===================== LEAVE & EXTRAS ===================== -->
+<section id="leave-extras">
+  <h2 class="section-title">Leave, Disability, Life Insurance &amp; Other Perks
+    <span class="sub">Time away from work and income-protection benefits · ACPS / FCPS / APS detailed below</span>
+  </h2>
+
+  <div class="callout">
+    <strong>For LCPS, FCCPS, and PWCS leave/disability/life details</strong>, see the at-a-glance cards near the top of the page and the dashboard's "District extras" row. Key items already verified: <strong>LCPS sick leave</strong> = 10 days (10-mo) / 11 (11-mo) / 14 (12-mo); <strong>PWCS leave program</strong> = annual leave (250-day employees), personal, sick, paid parental, FMLA, military, civil, bereavement; <strong>FCCPS leave</strong> details are pending. STD/LTD carriers and benefit terms for the three Phase-2 districts are also pending detailed integration.
+  </div>
+
+  <table class="compare">
+    <thead>
+      <tr>
+        <th>Benefit</th>
+        <th class="acps-col">ACPS</th>
+        <th class="fcps-col">FCPS</th>
+        <th class="aps-col">APS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">Sick leave (annual entitlement)</td>
+        <td>Sick, personal, and annual leave offered. Specific day amounts in Paid Leave Quick Reference Guide.</td>
+        <td>14 sick days granted at start of fiscal year (July 1). Prorated for new hires after July.</td>
+        <td class="data-pending">Pending — APS HR / Employee Handbook not yet in folder</td>
+      </tr>
+      <tr>
+        <td class="label">Personal leave</td>
+        <td>Included in the leave program (separate bucket from sick).</td>
+        <td>Beginning 7/1/2025, instructional staff may use up to 6 sick days as personal leave. Unused carries over as sick.</td>
+        <td class="data-pending">Pending</td>
+      </tr>
+      <tr>
+        <td class="label">Annual (vacation) leave</td>
+        <td>Available to 12-month employees; accrual rate varies by employee group.</td>
+        <td>12-month employees only (instructional staff have summer break instead).</td>
+        <td class="data-pending">Pending — verify for 12-month vs. instructional employees</td>
+      </tr>
+      <tr>
+        <td class="label">Advanced-degree stipend</td>
+        <td>Not detailed in folder docs.</td>
+        <td>Not detailed in folder docs.</td>
+        <td><strong>Yes — published in pay plan:</strong> $1,224/yr Master's, $2,040/yr Doctorate (E and P scales)</td>
+      </tr>
+      <tr>
+        <td class="label">Professional Standards stipend (support staff)</td>
+        <td>Not documented.</td>
+        <td>Not documented.</td>
+        <td><strong>Yes — APS-specific:</strong> $636 (Basic) → $1,593 (Professional) for full-time A/C/D/G/M/N/X-scale staff</td>
+      </tr>
+      <tr>
+        <td class="label">Short-term disability</td>
+        <td>The Hartford. <strong>No employee cost.</strong> 60% of base, max $13,500/mo, up to 26 weeks (after 6 days out).</td>
+        <td>VRS Disability Program for Hybrid members.</td>
+        <td class="data-pending">Pending verification</td>
+      </tr>
+      <tr>
+        <td class="label">Long-term disability</td>
+        <td>The Hartford. 60% of base monthly, max $13,500/mo, begins after 60 days.</td>
+        <td>VRS LTD or comparable.</td>
+        <td class="data-pending">Pending verification</td>
+      </tr>
+      <tr>
+        <td class="label">Basic life insurance</td>
+        <td>VRS Basic Life: 2× annual salary, AD&amp;D included.</td>
+        <td>VRS Basic Life: same 2× salary structure.</td>
+        <td>VRS Basic Life: same 2× salary structure (all VA districts).</td>
+      </tr>
+      <tr>
+        <td class="label">Flexible Spending Accounts</td>
+        <td>Health FSA: $3,400 · DepCare FSA: $7,500 ($3,750 MFS). $680 carryover on Health FSA.</td>
+        <td>FSA available; standard IRS limits.</td>
+        <td>Standard FSAs typically offered; verify with APS HR.</td>
+      </tr>
+      <tr>
+        <td class="label">Health Savings Account (HSA)</td>
+        <td>Available with UHC QHP plan. ACPS contributes $600 / $1,200 per year.</td>
+        <td>Not offered.</td>
+        <td class="data-pending">Pending verification</td>
+      </tr>
+      <tr>
+        <td class="label">Employee Assistance Program (EAP)</td>
+        <td>The Hartford / ComPsych GuidanceResources.</td>
+        <td>FCPS EAP — phone 855-355-9097.</td>
+        <td class="data-pending">Pending — verify carrier &amp; contact</td>
+      </tr>
+      <tr>
+        <td class="label">Long-term care insurance</td>
+        <td>Voluntary via Genworth (Commonwealth of VA group rate).</td>
+        <td>Available via VRS / Genworth.</td>
+        <td>Same Commonwealth of VA Genworth program likely available.</td>
+      </tr>
+      <tr>
+        <td class="label">Tuition reimbursement</td>
+        <td>Not detailed in folder docs.</td>
+        <td>Not detailed in folder docs.</td>
+        <td>Not detailed in folder docs.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===================== TAKEAWAYS ===================== -->
+<section id="takeaways">
+  <h2 class="section-title">Key Takeaways</h2>
+  <div class="takeaways">
+    <h3>Who wins on each metric</h3>
+    <ul>
+      <li><strong>Highest entry-level pay (BA &amp; MA Step 1):</strong> <span style="color: var(--pwcs); font-weight: 600;">PWCS</span> wins both — $62,562 BA Step 1 (vs. $57,207 lowest at ACPS) and $68,562 MA Step 1 (vs. $64,988 lowest at ACPS). The new 2-yr PWEA contract pushes this even higher in FY27.</li>
+      <li><strong>Highest mid-career Master's (5 years experience):</strong> <span style="color: var(--aps); font-weight: 600;">APS</span> at $76,727 — partially because APS uses a 200-day contract.</li>
+      <li><strong>Highest mid-career Master's (10 years experience):</strong> <span style="color: var(--acps); font-weight: 600;">ACPS</span> at $90,067 (vs. $88,948 APS, $87,947 FCCPS, $86,995 LCPS, $85,116 FCPS).</li>
+      <li><strong>Highest top-of-Doctorate pay:</strong> <span style="color: var(--fccps); font-weight: 600;">FCCPS</span> at $140,571 (Long 3 tier on 10-month/200-day scale), beating APS ($136,019) and FCPS ($131,353). ACPS has no separate PhD lane.</li>
+      <li><strong>Cheapest healthcare across the board:</strong> <span style="color: var(--lcps); font-weight: 600;">LCPS</span> dominates — $139/yr EE-only HDHP, $266/yr OAP, $2,822/yr family HDHP, $5,193/yr family OAP. The LCPS HDHP family premium beats every other district by thousands, AND LCPS adds a $2,200 HSA contribution + free $5,000 Critical Illness Policy on top.</li>
+      <li><strong>Best supplemental retirement:</strong> <span style="color: var(--fcps); font-weight: 600;">FCPS</span> ERFC 2001 — 0.8% multiplier on top of VRS, the only district with a substantial supplemental DB pension above VRS. ACPS adds a smaller Principal-managed DB plan (0.40% multiplier). APS, FCCPS, LCPS, and PWCS rely on VRS alone.</li>
+      <li><strong>Cheapest dental:</strong> <span style="color: var(--lcps); font-weight: 600;">LCPS</span> at $21/yr EE-only via Delta Dental, narrowly edging out FCPS Aetna DNO at $30/yr. Both are an order of magnitude cheaper than ACPS ($276), FCCPS (bundled into medical), APS ($383), or PWCS ($151 High / $22 Standard).</li>
+      <li><strong>Largest 2-Employee couple discount:</strong> <span style="color: var(--pwcs); font-weight: 600;">PWCS</span> — Family medical drops from $7,951/yr to $879/yr when both spouses work for PWCS (Kaiser HMO; ~89% reduction). FCPS also offers a couple discount but at a smaller scale. ACPS, APS, FCCPS, and LCPS don't document one.</li>
+      <li><strong>Highest employer cost-share:</strong> <span style="color: var(--fccps); font-weight: 600;">FCCPS</span> — School Board pays 80% of individual premium and 75% of family premium. FCCPS also bundles comprehensive dental into the medical premium, which other districts charge separately.</li>
+      <li><strong>Most generous HSA contribution:</strong> <span style="color: var(--lcps); font-weight: 600;">LCPS</span> — $1,100 individual / $2,200 family per year on the HDHP. ACPS contributes $600/$1,200; FCCPS HDHP exists but employer HSA contribution not disclosed in folder. FCPS, APS, and PWCS don't offer HDHPs at all.</li>
+      <li><strong>Longest contract:</strong> <span style="color: var(--aps); font-weight: 600;">APS</span> and <span style="color: var(--fccps); font-weight: 600;">FCCPS</span> tie at 200 days. LCPS at 197. ACPS, FCPS, and PWCS at 195. The 5-day difference is partly why APS and FCCPS annualized salaries look higher at the same step level.</li>
+      <li><strong>$0 in-network deductible:</strong> <span style="color: var(--pwcs); font-weight: 600;">PWCS</span> uniquely offers $0 in-network deductible on all 4 medical plans — no district matches this.</li>
+      <li><strong>Documented advanced-degree stipends:</strong> <span style="color: var(--aps); font-weight: 600;">APS</span> publishes them on the pay plan ($1,224 Master's, $2,040 Doctorate) plus Professional Standards stipends for support staff ($636–$1,593). The other districts don't publish equivalents in folder docs.</li>
+    </ul>
+
+    <h3 style="margin-top: 22px;">Each district's elevator pitch</h3>
+    <ul>
+      <li><strong style="color: var(--acps);">ACPS:</strong> Mid-tier salary that catches up at MA top. The only district with BOTH a supplemental DB pension AND an HSA option. Standalone EyeMed vision plan with new Eye360 PLUS tier. SpEd teachers get +1 step on hire.</li>
+      <li><strong style="color: var(--fcps);">FCPS:</strong> Lowest medical premiums for the Kaiser/POS crowd. Most generous supplemental DB pension (ERFC 2001 at 0.8% multiplier). 2-Employee couple discount. Six lanes including a separate PhD lane. 14 sick days/yr with up to 6 usable as personal leave.</li>
+      <li><strong style="color: var(--aps);">APS:</strong> Highest early/mid-career Master's pay. 200-day contract. Published advanced-degree and Professional Standards stipends. CAP1/CAP2 career advancement program lets teachers earn portfolio-based pay bumps. But APS has the highest medical premiums and no supplemental DB pension.</li>
+      <li><strong style="color: var(--fccps);">FCCPS:</strong> Smallest district in NoVA. Highest employer cost-share (80%/75%). Comprehensive dental BUNDLED into medical premium. Highest top-of-Doctorate pay. Unique 5-lane structure with Bachelor's +18. BA scale caps relatively low — designed to incentivize advanced degrees.</li>
+      <li><strong style="color: var(--lcps);">LCPS:</strong> Cheapest healthcare in NoVA, period. LCPS-funded HSA ($1,100/$2,200) plus free $5,000 Critical Illness Policy on the HDHP. $234/yr opt-out credit if you waive coverage. 197-day contract. Cigna across all plans.</li>
+      <li><strong style="color: var(--pwcs);">PWCS:</strong> Highest entry-level pay. $0 in-network deductible across all 4 medical plans. Largest 2-Employee couple discount in the region (89% off Family rate). Three tuition reimbursement programs. New 2-yr PWEA contract pushes pay 7% in FY27 and another 6.4% in FY28.</li>
+    </ul>
+
+    <h3 style="margin-top: 22px;">Recommendations by candidate profile</h3>
+    <ul>
+      <li><strong>Early-career teacher with a Bachelor's:</strong> PWCS for highest pay ($62,562 Step 1) plus FY27 raises coming. LCPS for lowest healthcare cost. FCPS for combined "decent salary + cheap medical" balance.</li>
+      <li><strong>Mid-career teacher with a Master's reaching top step:</strong> ACPS pulls ahead at $131,024 top of MA, $135,145 top of MA+30. Strong supplemental retirement (Principal DB) is a bonus.</li>
+      <li><strong>Doctorate holder:</strong> FCCPS top-of-Doctorate at $140,571 leads, then APS at $136,019, then FCPS at $131,353. ACPS has no separate PhD lane.</li>
+      <li><strong>Two-teacher couple:</strong> PWCS for the dramatic 2-employee discount (89% off family). FCPS as a strong second option. Both spouses must work for the same district to qualify.</li>
+      <li><strong>Family healthcare cost is the priority:</strong> LCPS Cigna HDHP at $2,822/yr family — and LCPS adds $2,200 to your HSA on top. Alternative: FCCPS HDHP at $6,273/yr with comprehensive dental bundled in.</li>
+      <li><strong>HSA enthusiast / high-deductible plan preferrer:</strong> LCPS first ($2,200 employer HSA + Critical Illness). ACPS second ($1,200 HSA). FCCPS third (HDHP available, employer HSA contribution not in folder). FCPS, APS, and PWCS don't offer HDHPs.</li>
+      <li><strong>Want the strongest projected retirement income:</strong> FCPS — its ERFC 2001 supplemental DB pension (0.8% multiplier) layered on top of VRS produces meaningfully more lifetime retirement benefit than VRS alone. ACPS's Principal plan (0.40%) adds a smaller layer. APS, FCCPS, LCPS, PWCS rely on VRS only — comparable retirement security at those districts requires self-directed 403(b)/457(b) contributions.</li>
+      <li><strong>Want richest in-network plan-design (low copays, no deductible):</strong> PWCS Anthem Enhanced PPO ($0 deductible, $20 PCP / $35 specialist) — but at $12,405/yr family, you pay for it. FCPS BlueChoice Advantage is the value play ($300 deductible, $10 PCP after deductible, $7,306 family).</li>
+      <li><strong>Career-changer with an advanced degree credential:</strong> APS publishes advanced-degree stipends ($1,224 MA / $2,040 PhD) — the only district that does so transparently. FCCPS rewards advanced degrees through its scale structure (BA caps low; MA/MA+30/Doctorate continue progressing).</li>
+      <li><strong>Substitute / part-time / non-FTE teacher:</strong> APS publishes a separate Non-Retirement-Eligible scale for &lt;0.50 FTE. LCPS lists explicit pay differences for 10/11/12-month employees. FCCPS shows a 10-month and 11-month variant in addition to the standard 12-month leadership scale.</li>
+    </ul>
+
+    <h3 style="margin-top: 22px;">Structural patterns to know</h3>
+    <ul>
+      <li><strong>Three districts (ACPS, FCCPS, LCPS) offer HSA-eligible HDHPs;</strong> FCPS, APS, and PWCS do not. LCPS and ACPS make explicit employer HSA contributions.</li>
+      <li><strong>Two districts (FCPS, PWCS) offer 2-Employee couple discounts;</strong> the discount at PWCS is dramatically larger.</li>
+      <li><strong>Two districts (ACPS, FCPS) offer supplemental DB pensions above VRS.</strong> APS, FCCPS, LCPS, PWCS rely on VRS alone — though PWCS adds a 2.5% Hybrid voluntary match that makes the 403(b) route more attractive there.</li>
+      <li><strong>One district (FCCPS) bundles dental into medical premium.</strong> The other five charge dental separately.</li>
+      <li><strong>One district (PWCS) has $0 in-network deductible across all medical plans.</strong> Every other district has at least some deductible on at least some plans.</li>
+      <li><strong>Plan-year start dates split:</strong> ACPS, APS, FCCPS, PWCS run a July fiscal year. FCPS, LCPS run a January calendar year.</li>
+      <li><strong>Pay frequency varies:</strong> ACPS, APS, FCCPS use 24 semi-monthly pays. FCPS uses 20 biweekly pays (skips summer). LCPS uses 26 biweekly pays (every 2 weeks year-round). PWCS uses 20 biweekly for 10-month staff, 24 semi-monthly for 12-month.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== SOURCES ===================== -->
+<section id="sources">
+  <h2 class="section-title">Sources &amp; Citations</h2>
+  <p style="color: var(--muted);">All figures pulled from the documents in your <em>schools in area</em> folder, supplemented by official district websites where noted. Each source links to the original document.</p>
+
+  <h4 style="margin-top: 18px; color: var(--acps);">Alexandria City Public Schools (ACPS)</h4>
+  <ul class="source-list">
+    <li><span class="doc">Folder PDF</span> 2025-26 Teacher Salary Scales (FY 2026) — ACPS Human Resources, dated 5/16/25 — <a href="ACPS/2025-26TeacherSalaryScales.pdf">2025-26TeacherSalaryScales.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> FY 2025 Administrator Salary Scale (Licensed &amp; Support) — ACPS HR, dated 5/8/24 — <a href="ACPS/AdministratorSalaryScaleFY25.pdf">AdministratorSalaryScaleFY25.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> FY 2026 Active Health Insurance Rates (effective July 1, 2026) — <a href="ACPS/FY2026ActiveRatesforwebsite.pdf">FY2026ActiveRatesforwebsite.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> 2026–2027 ACPS Waves Benefit Enrollment Guide (24-pg) — <a href="ACPS/2026-2027AlexandriaCityPublicSchoolsWaves24pgGuidev5a1.pdf">2026-2027AlexandriaCityPublicSchoolsWaves24pgGuidev5a1.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> ACPS Supplemental Retirement Plan Summary (Principal Financial Group, contract 4-35557) — <a href="ACPS/supplemental-plan-summary.pdf">supplemental-plan-summary.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> FY 2026 Open Enrollment FAQs — <a href="ACPS/FY2026OpenEnrollmentFAQs.pdf">FY2026OpenEnrollmentFAQs.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> FY 2025 Teacher Salary Scales (prior year reference) — <a href="ACPS/TeacherSalaryScalesFY25.pdf">TeacherSalaryScalesFY25.pdf</a></li>
+    <li><span class="doc">Web</span> ACPS Benefits page — <a href="https://www.acps.k12.va.us/departments/human-resources/benefits" target="_blank">acps.k12.va.us/departments/human-resources/benefits</a></li>
+  </ul>
+
+  <h4 style="margin-top: 18px; color: var(--fcps);">Fairfax County Public Schools (FCPS)</h4>
+  <ul class="source-list">
+    <li><span class="doc">Folder PDF</span> FY 2026 Teacher Salary Scale (195-day, Extended Day, 6th Period) — <a href="FCPS/fy26-teacher-195-day.pdf">fy26-teacher-195-day.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> FY 2026 School-Based Administrator Scale — <a href="FCPS/fy26-school-based-administrator.pdf">fy26-school-based-administrator.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> FY 2025 Teacher and Administrator Scales (prior-year reference) — <a href="FCPS/fy25-teacher-195-day.pdf">fy25-teacher-195-day.pdf</a>, <a href="FCPS/fy25-school-based-administrator.pdf">fy25-school-based-administrator.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> 2026 Employee Benefits Premium Schedule — <a href="FCPS/employee-benefits-premiums.pdf">employee-benefits-premiums.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> 2026 BlueChoice Advantage Summary of Benefits (CareFirst BCBS) — <a href="FCPS/fcps-bc-adv-benefit-summary-cst2977-2.pdf">fcps-bc-adv-benefit-summary-cst2977-2.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> 2026 BlueChoice Advantage SBC (Summary of Benefits and Coverage) — <a href="FCPS/bluechoice-advantage-sbc.pdf">bluechoice-advantage-sbc.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> FCPS BlueVision Plus — <a href="FCPS/fcps-bluevision-plus-cst7813.pdf">fcps-bluevision-plus-cst7813.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> 2026 OE FCPS Plan Changes (Kaiser) — <a href="FCPS/2025ML1396-–-OE-2026-FCPS-Plan-Changes-Document_CGS_R1.pdf">2025ML1396-OE-2026 FCPS Plan Changes</a></li>
+    <li><span class="doc">Folder PDF</span> ERFC 2001 Tier 2 Plan Brochure (hired 7/1/2017 to present) — <a href="FCPS/2001_Tier-2-Plan-Brochure.pdf">2001_Tier-2-Plan-Brochure.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> ERFC 2001 Member Handbook + Plan Document — <a href="FCPS/ERFC_2001_Handbook.pdf">ERFC_2001_Handbook.pdf</a>, <a href="FCPS/ERFC-2001-Plan-Document.pdf">ERFC-2001-Plan-Document.pdf</a></li>
+    <li><span class="doc">Web</span> FCPS Time Away from Work — <a href="https://www.fcps.edu/about-fcps/employees/salary-and-benefits/benefits-package/time-away-work" target="_blank">fcps.edu/about-fcps/employees/salary-and-benefits/benefits-package/time-away-work</a></li>
+    <li><span class="doc">Web</span> FCPS Types of Leave — <a href="https://www.fcps.edu/types-leave" target="_blank">fcps.edu/types-leave</a></li>
+    <li><span class="doc">Web</span> FCPS Benefits at a Glance (SY24/25) — <a href="https://www.fcps.edu/sites/default/files/media/pdf/benefits-glance-all-employees.pdf" target="_blank">fcps.edu Benefits at a Glance PDF</a></li>
+  </ul>
+
+  <h4 style="margin-top: 18px; color: var(--aps);">Arlington Public Schools (APS)</h4>
+  <ul class="source-list">
+    <li><span class="doc">Folder PDF</span> APS Pay Plan FY 2026 (effective July 1, 2025) — <a href="APS/Pay-Plan-25-26-March-3-2026.pdf">Pay-Plan-25-26-March-3-2026.pdf</a></li>
+    <li><span class="doc">Web (verified)</span> APS Medical and Rx Benefit Designs (Appendix M to RFP 30FY26) — <a href="https://www.apsva.us/wp-content/uploads/sites/57/2025/10/APS-Medical-and-Rx-Benefit-Designs.pdf" target="_blank">APS-Medical-and-Rx-Benefit-Designs.pdf</a> (source for HMO/Low PPO/High PPO deductibles, OOP max, copays)</li>
+    <li><span class="doc">Web (verified)</span> APS BlueChoice HMO Summary of Benefits — <a href="https://www.apsva.us/wp-content/uploads/sites/57/2025/10/BlueChoice-HMO-Plan.pdf" target="_blank">BlueChoice-HMO-Plan.pdf</a></li>
+    <li><span class="doc">Web (verified)</span> APS BluePreferred High Option PPO 90/70 SPD — <a href="https://www.apsva.us/wp-content/uploads/sites/57/2025/11/2025-01-01-Arlington-Public-Schools-BP-High-Option-Plan-90-70-SPD.pdf" target="_blank">High Option PPO 90/70 SPD</a></li>
+    <li><span class="doc">Web (verified)</span> APS 2026 Vision Benefits Summary (Appendix N to RFP 30FY26) — <a href="https://www.apsva.us/wp-content/uploads/sites/57/2025/10/APS-2026-Vision-Benefits-Summary.pdf" target="_blank">APS-2026-Vision-Benefits-Summary.pdf</a> (BlueVision Plus carrier, $10 exam, $250 frame, $200 contacts)</li>
+    <li><span class="doc">Web</span> Appendix R — 2026 Dental and Vision Plan Rates and Contributions <span class="pending-badge">Image-based · not OCR-readable</span> — <a href="https://www.apsva.us/wp-content/uploads/sites/57/2025/11/Appendix-R.-Employee-FT-and-PT-Dental-and-Vision-Plan-Rates-and-Contributions-1-1-26.pdf" target="_blank">Appendix R PDF</a></li>
+    <li><span class="doc">Web</span> Appendix S — 2026 Medical Plan Rates and Contributions <span class="pending-badge">Image-based · not OCR-readable</span> — <a href="https://www.apsva.us/wp-content/uploads/sites/57/2025/11/Appendix-S.-Employee-FT-and-PT-Medical-Plan-Rates-and-Contributions-1-1-26.pdf" target="_blank">Appendix S PDF</a></li>
+    <li><span class="doc">Web</span> APS Procurement Solicitations (RFP 30FY26 Health Care Services and Addenda 1–8) — <a href="https://www.apsva.us/procurement-office/solicitations/" target="_blank">apsva.us/procurement-office/solicitations</a></li>
+    <li><span class="doc">Web</span> APS RFP 30FY26 Health Care Services (main RFP PDF) — <a href="https://www.apsva.us/wp-content/uploads/sites/57/2025/10/RFP-30FY26-for-APS-Health-Care-Services.pdf" target="_blank">RFP 30FY26 Health Care Services PDF</a></li>
+    <li><span class="doc">Web</span> APS New Hire Benefits Orientation (2018 baseline; older but used for retirement, dental design, life insurance background) — <a href="https://www.apsva.us/wp-content/uploads/2018/02/New-Hire-Orientation_Benefits-Packet_rev-02-03-18-1.pdf" target="_blank">New-Hire-Orientation Benefits Packet (2018)</a></li>
+    <li><span class="doc">Web</span> APS AEA Licensed Agreement (2024) — <a href="https://www.apsva.us/wp-content/uploads/sites/57/2024/06/APS-AEA-Licensed-Agreement-Signed-@-06.20.2024.pdf" target="_blank">AEA Licensed CBA PDF</a> (likely source for leave/disability details once OCR'd)</li>
+    <li><span class="doc">Web</span> APS Careers — Retiree Medical and Dental — <a href="https://www.apsva.us/careers-aps/retiree-medical-and-dental/" target="_blank">apsva.us/careers-aps/retiree-medical-and-dental</a></li>
+    <li><span class="doc">3rd-party summary <span class="pending-badge">Verify</span></span> 2026 APS premium dollar amounts (semi-monthly): citing Appendix S — Appendix S exists at the official URL above but the PDF is image-only and not machine-verifiable. Premium numbers should be confirmed by request to APS Benefits (Benefits@apsva.us, 703-228-2726) or APS Procurement.</li>
+  </ul>
+
+  <h4 style="margin-top: 18px; color: var(--fccps);">Falls Church City Public Schools (FCCPS)</h4>
+  <ul class="source-list">
+    <li><span class="doc">Folder PDF (verified)</span> FCCPS FY 2026 Approved Teacher Salary Scales (10/11/12-month) — <a href="FCCPS/FCCPS FY26 Approved Teacher Scales.pdf">FCCPS FY26 Approved Teacher Scales.pdf</a></li>
+    <li><span class="doc">Folder PDF (verified)</span> FCCPS FY 2026 Approved Leadership Pay Scale — <a href="FCCPS/FCCPS FY26 Approved Leadership Scale.pdf">FCCPS FY26 Approved Leadership Scale.pdf</a></li>
+    <li><span class="doc">Folder PDF (verified)</span> FCCPS FY 2027 Health Insurance Rates (July 2026 – June 2027) — <a href="FCCPS/Health Insurance Rates.pdf">Health Insurance Rates.pdf</a></li>
+    <li><span class="doc">Folder PDF (verified)</span> Key Advantage 250 Benefits Summary — <a href="FCCPS/Key Advantage 250 Benefits Summary.pdf">Key Advantage 250 Benefits Summary.pdf</a></li>
+    <li><span class="doc">Folder PDF (verified)</span> Key Advantage 500 Benefits Summary — <a href="FCCPS/Key Advantage 500 Benefits Summary.pdf">Key Advantage 500 Benefits Summary.pdf</a></li>
+    <li><span class="doc">Folder PDF (verified)</span> TLC HDHP Benefits Summary — <a href="FCCPS/High Deductible Health Plan Benefits Summary.pdf">High Deductible Health Plan Benefits Summary.pdf</a></li>
+    <li><span class="doc">Folder PDF (verified)</span> Kaiser Permanente Benefits Summary — <a href="FCCPS/Kaiser Permanente Benefits Summary.pdf">Kaiser Permanente Benefits Summary.pdf</a></li>
+    <li><span class="doc">Web</span> FCCPS Salary Scales — <a href="https://www.fccps.org/page/salary-scales" target="_blank">fccps.org/page/salary-scales</a></li>
+    <li><span class="doc">Web</span> FCCPS Benefits Overview &amp; Rates — <a href="https://www.fccps.org/page/benefits-overview-rates" target="_blank">fccps.org/page/benefits-overview-rates</a></li>
+  </ul>
+
+  <h4 style="margin-top: 18px; color: var(--lcps);">Loudoun County Public Schools (LCPS)</h4>
+  <ul class="source-list">
+    <li><span class="doc">Folder PDF (verified)</span> LCPS FY26 Adopted Teacher Salary Scale (Scale A, 197 days) — <a href="LCPS/FY26-Teacher-Salary-Scale---Scale-A-2.pdf">FY26-Teacher-Salary-Scale---Scale-A-2.pdf</a></li>
+    <li><span class="doc">Folder PDF (verified)</span> LCPS 2025 Employee Benefits Handbook (premium rates effective Jan 1, 2026) — <a href="LCPS/LCPS_Benefits_Handbook_2025.pdf">LCPS_Benefits_Handbook_2025.pdf</a></li>
+    <li><span class="doc">Folder PDF</span> LCPS 2025-26 Employee Calendars and Compensation Resource Guide (all salary scales A-F including administrators) — <a href="LCPS/2025-2026-employee-calendars-and-compensation-resource-guide.pdf">2025-2026-employee-calendars-and-compensation-resource-guide.pdf</a></li>
+    <li><span class="doc">Web</span> LCPS Human Resources / Classification &amp; Compensation — <a href="https://www.lcps.org/o/hr/page/classification-compensation" target="_blank">lcps.org/o/hr/page/classification-compensation</a></li>
+    <li><span class="doc">Web</span> LCPS HDHP page — <a href="https://www.lcps.org/o/hr/page/hdhp" target="_blank">lcps.org/o/hr/page/hdhp</a></li>
+    <li><span class="doc">Web</span> LCPS FY26 Strategic Equity-Oriented Need (SEON) Budget context — <a href="https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/4461/Business/c06f4a5c-0180-49fa-bdd2-6dc8d909826d/FY26-SEON---Web2.pdf" target="_blank">FY26 SEON PDF</a></li>
+  </ul>
+
+  <h4 style="margin-top: 18px; color: var(--pwcs);">Prince William County Public Schools (PWCS)</h4>
+  <ul class="source-list">
+    <li><span class="doc">Folder PDF (verified)</span> PWCS 2026-27 Benefits Guide — <a href="PWCS/2026-27_benefits_guide.pdf">2026-27_benefits_guide.pdf</a> (medical, dental, vision rates and plan designs)</li>
+    <li><span class="doc">Web</span> PWCS Salary Scale Information — <a href="https://www.pwcs.edu/about/departments/talent_acquisition/compensation/salary_scale_information" target="_blank">pwcs.edu Compensation/Salary Scale Information</a></li>
+    <li><span class="doc">Web</span> PWCS Exhibit A — Salary Scales for Grade 12 (FY26 &amp; FY27) — <a href="https://www.pwcs.edu/userfiles/servers/server_340140/file/school-board/exhibit-a-salary-scales-for-grade-12-for-fiscal-years-2026-and-2027.pdf" target="_blank">Exhibit A FY26-27 PDF</a></li>
+    <li><span class="doc">Web</span> PWCS Employee Benefits / Insurance — <a href="https://www.pwcs.edu/departments/hr/employee_benefits/insurance/index" target="_blank">pwcs.edu Employee Benefits</a></li>
+    <li><span class="doc">Web</span> PWCS HR / Compensation — <a href="https://www.pwcs.edu/departments/hr/compensation/index" target="_blank">pwcs.edu HR Compensation</a></li>
+  </ul>
+
+  <h4 style="margin-top: 18px;">Virginia Retirement System (used by all six districts)</h4>
+  <ul class="source-list">
+    <li><span class="doc">Web</span> VRS Hybrid Retirement Plan — <a href="https://www.varetire.org/retirement-plans/hybrid/" target="_blank">varetire.org/retirement-plans/hybrid</a></li>
+    <li><span class="doc">Web</span> VRS Hybrid Plan Contributions — <a href="https://www.varetire.org/retirement-plans/hybrid/contributions/" target="_blank">varetire.org/retirement-plans/hybrid/contributions</a></li>
+    <li><span class="doc">Web</span> VRS Hybrid Plan Overview (PDF) — <a href="https://www.varetire.org/media/shared/pdf/publications/hybrid-overview.pdf" target="_blank">VRS Hybrid Plan Overview</a></li>
+  </ul>
+
+  <h4 style="margin-top: 18px;">Documents not yet in folder (gaps to close)</h4>
+  <ul class="source-list">
+    <li><strong>ACPS:</strong> FY 2026 Administrator Salary Scale (only FY25 in folder)</li>
+    <li><strong>ACPS:</strong> Paid Leave Quick Reference Guide (specific sick/personal/annual day counts by employee group)</li>
+    <li><strong>FCPS:</strong> Aetna DNO and Aetna PPO Dental SBCs (annual max, ortho coverage, in-network coinsurance)</li>
+    <li><strong>FCPS:</strong> hard-to-staff / national board / advanced-degree stipend documentation</li>
+    <li><strong>ACPS:</strong> hard-to-staff / advanced-degree stipend documentation</li>
+    <li><strong>APS:</strong> Machine-readable / official confirmation of Appendix S (medical) and Appendix R (dental & vision) premium dollar amounts. Both PDFs are posted but image-only — confirm by request to APS Benefits.</li>
+    <li><strong>APS:</strong> 2026 Delta Dental plan design (annual max, ortho, basic/major coinsurance) — only 2018 baseline available currently.</li>
+    <li><strong>APS:</strong> Confirm current 403(b)/457(b) approved-vendor list and APS School Board match formula (only 2018 reference available; Lincoln Financial + AXA Advisors).</li>
+    <li><strong>APS:</strong> Sick / personal / annual leave entitlements (likely in AEA Licensed CBA — large image-based PDF, OCR needed).</li>
+    <li><strong>APS:</strong> Short-term and long-term disability carrier and benefit terms (only 2018 baseline available).</li>
+    <li><strong>RESOLVED for APS:</strong> Medical plan designs, vision plan (BlueVision Plus), HSA/HDHP availability (none), 2-employee discount (none), supplemental DB pension (none — VRS only).</li>
+    <li><strong>RESOLVED for FCCPS:</strong> FY26 teacher and leadership salary scales, FY27 premiums (4 plans), plan-design tables for Kaiser/KA 250/KA 500/HDHP, dental-bundled-into-medical structure confirmed, HSA availability via TLC HDHP.</li>
+    <li><strong>RESOLVED for LCPS:</strong> FY 2026 teacher salary scale (verified, 197-day contract), 2026 medical/dental/vision premiums (3 Cigna plans), full plan-design tables, LCPS-funded HSA ($1,100/$2,200) and Critical Illness Policy ($5,000) on HDHP, opt-out credit ($9/pay).</li>
+    <li><strong>RESOLVED for PWCS:</strong> FY 2026-27 premiums for all 4 medical plans, dental (2 Delta plans), vision (VSP voluntary), full plan-design table, two-employee couple discount confirmed (large discount), VRS Hybrid 2.5% match, tuition reimbursement programs documented, $0 in-network deductible across all plans.</li>
+    <li><strong>STILL PENDING for LCPS:</strong> Administrator salary scale extraction (PDF is in folder), retirement supplemental confirmation (likely VRS-only).</li>
+    <li><strong>STILL PENDING for PWCS:</strong> Administrator (Grade 13+) salary scale, retirement supplemental beyond VRS Hybrid (confirmed no separate DB plan in benefits guide).</li>
+    <li><strong>All districts:</strong> Tuition reimbursement / professional development funding policies; hard-to-staff school stipends</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Northern VA School District Salary &amp; Benefits Comparison</strong> · Built for educators and administrators evaluating offers across the region.</p>
+    <p>This v1.3 covers ACPS, FCPS, APS, FCCPS, LCPS, and PWCS. Phase 3 will add MCPS, PG County Schools, and DCPS using the same data structure.</p>
+    <p style="margin-top: 14px; color: #8a96a4; font-size: 0.78rem;">Data is summarized for comparison purposes only. Plan provisions are governed by official plan documents and collective bargaining agreements; verify current numbers with each district's HR before making employment decisions. Last updated: May 7, 2026.</p>
+  </div>
+</footer>
+
+</body>
+</html>
