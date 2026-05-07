@@ -310,6 +310,171 @@
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px;
   }
   @media (max-width: 700px) { .scale-mini { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ============== QHP visual de-emphasis ============== */
+  table.dashboard tr.qhp-row td {
+    background-color: #fafbfc;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  table.dashboard tr.qhp-row td:first-child {
+    color: var(--muted);
+  }
+  table.dashboard tr.qhp-row td.winner {
+    background-color: #ecfdf5;
+    color: var(--good);
+    font-weight: 700;
+  }
+  table.dashboard tr.qhp-row td.perk {
+    color: var(--muted);
+  }
+  /* "RECOMMENDED" badge for typical family-choice PPO plans */
+  .pop-badge {
+    display: inline-block;
+    background: var(--good);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: 2px;
+  }
+  .qhp-tag {
+    display: inline-block;
+    background: #f0f2f6;
+    color: var(--muted);
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: 2px;
+    border: 1px solid var(--line);
+  }
+
+  /* ============== Mobile-only / Desktop-only ============== */
+  .mobile-only { display: none; }
+  .mobile-hint { display: none; }
+
+  /* ============== Mobile responsive — narrow screens ============== */
+  @media (max-width: 700px) {
+    body { font-size: 15px; }
+
+    .mobile-only { display: block; }
+    .mobile-hint { display: inline-block; }
+
+    /* Hero: tighter padding on mobile */
+    header.hero { padding: 28px 18px 32px; }
+    header.hero h1 { font-size: 1.55rem; line-height: 1.25; }
+    header.hero p { font-size: 0.92rem; }
+    header.hero .meta { font-size: 0.78rem; line-height: 1.55; }
+    header.hero .draft-badge { display: inline-block; margin-top: 6px; }
+
+    /* Nav: scroll horizontally instead of wrapping */
+    nav.toc .wrap {
+      padding: 8px 16px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      gap: 14px;
+      font-size: 0.85rem;
+    }
+    nav.toc a { white-space: nowrap; padding: 4px 2px; }
+
+    /* Main content: reduce padding */
+    main { padding: 18px 16px; }
+
+    /* Section titles: smaller */
+    h2.section-title { font-size: 1.2rem; padding-left: 10px; }
+    h2.section-title .sub { font-size: 0.78rem; }
+
+    /* Cards: tighter padding */
+    .district-card { padding: 16px 16px; border-radius: 8px; }
+    .district-card h3 { font-size: 1.02rem; }
+    .district-card .tagline { font-size: 0.8rem; }
+    .district-card h4.card-subhead { font-size: 0.72rem; margin: 14px 0 4px; }
+
+    /* Stat-row stack vertically on tight screens */
+    .stat-row {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 7px 0;
+      font-size: 0.85rem;
+    }
+    .stat-row .label {
+      font-size: 0.78rem;
+      margin-bottom: 2px;
+    }
+    .stat-row .val {
+      text-align: left;
+      font-size: 0.92rem;
+    }
+
+    /* Tables: wrap with scroll, add subtle indicator */
+    .dashboard-wrap {
+      margin: 0 -16px;
+      padding: 0 16px;
+      position: relative;
+    }
+    .dashboard-wrap::after {
+      content: "← swipe →";
+      display: block;
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--muted);
+      padding: 4px 0;
+    }
+
+    /* Compact table cells */
+    table.dashboard th, table.dashboard td {
+      padding: 8px 8px;
+      font-size: 0.82rem;
+    }
+    table.dashboard thead th { padding: 8px 6px; font-size: 0.85rem; }
+
+    table.compare th, table.compare td {
+      padding: 8px 10px;
+      font-size: 0.83rem;
+    }
+
+    /* Callouts: tighter */
+    .callout, .callout.warn { padding: 12px 14px; font-size: 0.85rem; }
+    .callout ul, .callout.warn ul { margin-left: 14px; padding-left: 4px; }
+
+    /* Details/toggles: tighter padding */
+    details summary { font-size: 0.92rem; padding: 10px 0; }
+
+    /* Takeaways: tighter */
+    .takeaways { padding: 16px 18px; }
+    .takeaways h3 { font-size: 1.02rem; }
+    .takeaways li { font-size: 0.86rem; }
+
+    /* Footer: compact */
+    footer { padding: 18px 16px; font-size: 0.78rem; }
+  }
+
+  /* ============== Mobile compact summary card (visible only on mobile) ============== */
+  .mobile-summary {
+    display: none;
+    background: linear-gradient(135deg, var(--lcps-soft) 0%, var(--pwcs-soft) 100%);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+  .mobile-summary h3 { margin: 0 0 6px; font-size: 0.95rem; }
+  .mobile-summary p { margin: 6px 0; }
+  .mobile-summary strong { color: var(--ink); }
+  @media (max-width: 700px) {
+    .mobile-summary { display: block; }
+  }
   .scale-mini .cell {
     background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px;
   }
@@ -327,7 +492,7 @@
 
 <header class="hero">
   <div class="wrap">
-    <h1>Northern Virginia School Districts<br>Salary &amp; Benefits Comparison <span class="draft-badge">v1.3 — 6 districts</span></h1>
+    <h1>Northern Virginia School Districts<br>Salary &amp; Benefits Comparison <span class="draft-badge">v1.4 — mobile-friendly</span></h1>
     <p>A side-by-side comparison of teacher and school-based administrator compensation, health insurance, retirement, and leave benefits across Northern Virginia's largest public school districts. Designed for educators evaluating job offers and administrators benchmarking total compensation.</p>
     <p class="meta">Currently included: <strong>ACPS · FCPS · APS · FCCPS · LCPS · PWCS</strong> &nbsp;|&nbsp; Data year: FY 2026 (school year 2025–26) unless noted; FCCPS health insurance is FY 2027 forward-looking · PWCS health insurance is FY 2026-27 &nbsp;|&nbsp; Coming next: MCPS, PG County, DCPS</p>
   </div>
@@ -349,10 +514,20 @@
 
 <main>
 
+<!-- ===================== MOBILE QUICK SUMMARY ===================== -->
+<div class="mobile-summary">
+  <h3>Quick mobile summary</h3>
+  <p><strong>Six districts compared:</strong> ACPS · FCPS · APS · FCCPS · LCPS · PWCS</p>
+  <p><strong>Salary highlights:</strong> PWCS leads on entry-level pay. APS leads on early-career MA. ACPS leads on mid-career MA top.</p>
+  <p><strong>Healthcare highlights:</strong> LCPS is the cheapest in every category for a family. FCPS is the cheapest standard PPO. PWCS uniquely offers $0 in-network deductible across all 4 plans.</p>
+  <p><strong>For most families with kids, choose a PPO or POS plan</strong> — they have low deductibles and predictable copays. QHPs (HSA-eligible HDHPs) are a niche choice for healthy people who can fund the deductible upfront.</p>
+  <p style="margin-top: 10px;"><strong>Tip:</strong> tables scroll horizontally — swipe left/right to see all districts. Tap any "Click to expand" toggle for deep dives.</p>
+</div>
+
 <!-- ===================== DASHBOARD ===================== -->
 <section id="dashboard" style="margin-top: 0; margin-bottom: 48px;">
   <h2 class="section-title">Quick-Compare Dashboard
-    <span class="sub">All 6 NoVA districts · the seven numbers most people ask about · scroll horizontally on smaller screens</span>
+    <span class="sub">All 6 NoVA districts · the seven numbers most people ask about <span class="mobile-hint" style="color: var(--warn);">· swipe right to see more →</span></span>
   </h2>
 
   <div class="dashboard-wrap">
@@ -530,69 +705,75 @@
     <strong>How to read this dashboard:</strong> stars mark the leader for each metric. <strong>PWCS leads on entry-level pay</strong> (BA + MA Step 1). <strong>APS leads on early-career Master's pay</strong> (5 yrs). <strong>ACPS leads on mid-career Master's pay</strong> (10 yrs). <strong>LCPS leads on healthcare cost</strong> in every category — cheapest EE-only ($139), cheapest Family ($2,822), and cheapest Family PPO/POS ($5,193 OAP). The gap is enormous. <strong>FCPS leads on supplemental retirement</strong> with the ERFC 2001 DB pension (0.8% multiplier) — the most generous DB plan in the comparison. ACPS adds a smaller supplemental DB; APS, FCCPS, LCPS, and PWCS rely on VRS alone with varying levels of voluntary 403(b)/457 match. The "District extras" row captures everything else that differentiates each district.
   </div>
 
-  <h3 style="margin-top: 36px; padding-bottom: 8px; border-bottom: 2px solid var(--line);">All POS-style health plans across NoVA districts
-    <span style="font-weight: 400; font-size: 0.82rem; color: var(--muted); float: right; margin-top: 6px;">14 plans · sorted by family annual cost · pure HMOs (Kaiser, etc.) not shown</span>
+  <h3 style="margin-top: 36px; padding-bottom: 8px; border-bottom: 2px solid var(--line);">PPO &amp; POS Plans — the standard choice for most families
+    <span class="toc-meta" style="font-weight: 400; font-size: 0.82rem; color: var(--muted); float: right; margin-top: 6px;">Sorted by family annual cost · QHPs marked separately · pure HMOs not shown</span>
   </h3>
+
+  <div class="callout" style="border-left-color: var(--good);">
+    <strong>Why this is the most-relevant table for families:</strong> The vast majority of public-school employees with families enroll in a <strong>PPO or POS plan</strong> rather than a Qualified Health Plan (QHP/HDHP). PPO/POS plans have lower deductibles, predictable copays, and don't require you to fund medical care upfront from your own savings. QHPs (HSA-eligible high-deductible plans) make sense for healthy individuals or families that can fund the deductible from an HSA — but they're a niche choice. The table below sorts all 14 non-HMO plans by family annual cost and visually marks which are QHPs so you can spot the standard PPO/POS options at a glance.
+    <br><br>
+    <span style="font-size: 0.84rem; color: var(--muted);"><strong>Visual coding:</strong> Rows in <strong style="color: var(--good);">white</strong> are PPO or POS plans (the standard family choice). Rows with a <strong style="color: var(--muted);">muted gray background</strong> are QHPs/HDHPs (niche choice, see explainer below). The <span class="pop-badge" style="margin: 0;">FAMILY-FRIENDLY</span> badge marks plans that are particularly worth looking at for families on cost + deductible structure.</span>
+  </div>
 
   <div class="dashboard-wrap">
     <table class="dashboard" style="min-width: 1200px;">
       <thead>
         <tr>
-          <th style="width: 5%;">#</th>
-          <th style="width: 9%;">District</th>
-          <th style="width: 22%;">Plan</th>
-          <th style="width: 11%;">Family $/yr</th>
-          <th style="width: 11%;">Individual deductible (in-network)</th>
-          <th style="width: 42%;">Description</th>
+          <th style="width: 4%;">#</th>
+          <th style="width: 8%;">District</th>
+          <th style="width: 21%;">Plan</th>
+          <th style="width: 10%;">Family $/yr</th>
+          <th style="width: 14%;">Deductible (Ind / Family, in-network)</th>
+          <th style="width: 43%;">Description</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr class="qhp-row">
           <td>1</td>
           <td class="lcps-col">LCPS</td>
-          <td style="text-align: left;">Cigna QHP w/ HSA <span style="color: var(--muted); font-size: 0.85em;">(HDHP)</span></td>
+          <td style="text-align: left;">Cigna QHP w/ HSA <span class="qhp-tag">QHP</span></td>
           <td class="winner">$2,822</td>
-          <td>$1,800</td>
-          <td class="perk">Qualified Health Plan (HSA-eligible HDHP). 10% coinsurance after deductible in-network. <strong>LCPS contributes $2,200/yr to HSA</strong> (or $1,100 for EE-only). Includes free $5,000 LCPS-funded Critical Illness Policy. The cheapest family plan in NoVA. <a href="#qhp-explainer">QHP explainer ↓</a></td>
+          <td>$1,800 / $3,600</td>
+          <td class="perk">Qualified Health Plan (HSA-eligible HDHP). 10% coinsurance after deductible in-network. <strong>LCPS contributes $2,200/yr to HSA</strong> (or $1,100 for EE-only). Includes free $5,000 LCPS-funded Critical Illness Policy. Cheapest family premium but be ready to fund deductible from HSA. <a href="#qhp-explainer">QHP explainer ↓</a></td>
         </tr>
         <tr>
           <td>2</td>
           <td class="lcps-col">LCPS</td>
-          <td style="text-align: left;">Cigna Open Access Plus (OAP)</td>
+          <td style="text-align: left;">Cigna Open Access Plus (OAP) <span class="pop-badge">Family-friendly</span></td>
           <td>$5,193</td>
-          <td>$650</td>
-          <td class="perk">Mid-tier PPO. $20 PCP / $40 specialist copay. 10% coinsurance after deductible. ER $150 copay, urgent care $50 copay. No referrals required.</td>
+          <td>$650 / $1,300</td>
+          <td class="perk">Mid-tier PPO. $20 PCP / $40 specialist copay. 10% coinsurance after deductible. ER $150 copay, urgent care $50 copay. No referrals required. <strong>Cheapest family PPO/POS in NoVA — most LCPS families pick this.</strong></td>
         </tr>
-        <tr>
+        <tr class="qhp-row">
           <td>3</td>
           <td class="fccps-col">FCCPS</td>
-          <td style="text-align: left;">TLC QHP <span style="color: var(--muted); font-size: 0.85em;">(Anthem HDHP)</span></td>
+          <td style="text-align: left;">TLC QHP <span class="qhp-tag">QHP</span></td>
           <td>$6,273</td>
-          <td>$3,400</td>
+          <td>$3,400 / $6,800</td>
           <td class="perk">Qualified Health Plan (HSA-eligible HDHP). 20% coinsurance after deductible in-network. <strong>Comprehensive Delta Dental bundled into premium.</strong> Free routine eye exam included. 100% preventive care, no deductible. <a href="#qhp-explainer">QHP explainer ↓</a></td>
         </tr>
-        <tr>
+        <tr class="qhp-row">
           <td>4</td>
           <td class="acps-col">ACPS</td>
-          <td style="text-align: left;">UHC QHP w/ HSA <span style="color: var(--muted); font-size: 0.85em;">(POS HDHP)</span></td>
+          <td style="text-align: left;">UHC QHP w/ HSA <span class="qhp-tag">QHP</span></td>
           <td>$6,632</td>
-          <td>$1,700</td>
+          <td>$1,700 / $3,400</td>
           <td class="perk">Qualified Health Plan on UHC Choice Plus POS network. <strong>ACPS contributes $1,200/yr to HSA</strong> (or $600 for EE-only). 10% coinsurance after deductible in-network. PCP/specialist 10% after deductible. <a href="#qhp-explainer">QHP explainer ↓</a></td>
         </tr>
         <tr>
           <td>5</td>
           <td class="fcps-col">FCPS</td>
-          <td style="text-align: left;">CareFirst BlueChoice Advantage</td>
+          <td style="text-align: left;">CareFirst BlueChoice Advantage <span class="pop-badge">Family-friendly</span></td>
           <td>$7,306</td>
-          <td>$300</td>
-          <td class="perk">POS plan. $10 PCP / $20 specialist copay (after deductible). 10% coinsurance in-network. ER $250 copay + 10%, waived if admitted. Lowest deductible PPO/POS plan among non-HDHP options.</td>
+          <td>$300 / $600</td>
+          <td class="perk">POS plan. $10 PCP / $20 specialist copay (after deductible). 10% coinsurance in-network. ER $250 copay + 10%, waived if admitted. Lowest family deductible of any PPO/POS plan in this list. <strong>FCPS's standard family medical plan.</strong></td>
         </tr>
         <tr>
           <td>6</td>
           <td class="fccps-col">FCCPS</td>
           <td style="text-align: left;">Key Advantage 500 (Anthem PPO)</td>
           <td>$7,716</td>
-          <td>$500</td>
+          <td>$500 / $1,000</td>
           <td class="perk">PPO. $25 PCP / $40 specialist copay. 20% in-network coinsurance after deductible. <strong>Comprehensive Delta Dental bundled.</strong> Anthem state plan ("The Local Choice").</td>
         </tr>
         <tr>
@@ -600,7 +781,7 @@
           <td class="pwcs-col">PWCS</td>
           <td style="text-align: left;">Anthem HMO/POS</td>
           <td>$8,185</td>
-          <td>$0</td>
+          <td>$0 / $0</td>
           <td class="perk">POS plan. <strong>$0 in-network deductible.</strong> $20 PCP / $40 specialist (PCP referral required). $200 ER. Vision bundled. Two-Employee couple drops Family rate to $905/yr.</td>
         </tr>
         <tr>
@@ -608,7 +789,7 @@
           <td class="fccps-col">FCCPS</td>
           <td style="text-align: left;">Key Advantage 250 (Anthem PPO)</td>
           <td>$8,598</td>
-          <td>$250</td>
+          <td>$250 / $500</td>
           <td class="perk">PPO with the lowest deductible of the FCCPS options. $20 PCP / $35 specialist copay. In-network is copay-based (no coinsurance). <strong>Comprehensive Delta Dental bundled.</strong></td>
         </tr>
         <tr>
@@ -616,7 +797,7 @@
           <td class="acps-col">ACPS</td>
           <td style="text-align: left;">UnitedHealthcare POS</td>
           <td>$9,211</td>
-          <td>$300</td>
+          <td>$300 / $600</td>
           <td class="perk">POS plan. $20 PCP / $35 specialist copay. 10% in-network coinsurance. ER 10% after deductible. Highest OOP max in the comparison ($4,000 ind / $8,000 family).</td>
         </tr>
         <tr>
@@ -624,7 +805,7 @@
           <td class="pwcs-col">PWCS</td>
           <td style="text-align: left;">Anthem Core PPO</td>
           <td>$9,580</td>
-          <td>$0</td>
+          <td>$0 / $0</td>
           <td class="perk">PPO. <strong>$0 in-network deductible.</strong> $25 PCP / $50 specialist. Inpatient $400 + 20%. Vision bundled. Two-Employee couple drops Family rate to $1,907/yr.</td>
         </tr>
         <tr>
@@ -632,7 +813,7 @@
           <td class="lcps-col">LCPS</td>
           <td style="text-align: left;">Cigna OAP HIGH</td>
           <td>$9,870</td>
-          <td>$450</td>
+          <td>$450 / $900</td>
           <td class="perk">Top-tier Cigna PPO. $20 PCP / $40 specialist copay. <strong>0% in-network coinsurance after deductible</strong> (covered in full). $150 ER. Most generous in-network coverage of any plan in this list.</td>
         </tr>
         <tr>
@@ -640,7 +821,7 @@
           <td class="aps-col">APS</td>
           <td style="text-align: left;">CareFirst BluePreferred Low PPO 80/60</td>
           <td>$11,667*</td>
-          <td>$400</td>
+          <td>$400 / $800</td>
           <td class="perk">PPO. $30 PCP / $60 specialist copay. 20% in-network coinsurance after deductible. $250 ER (waived if admitted). *Premium pending verification.</td>
         </tr>
         <tr>
@@ -648,7 +829,7 @@
           <td class="pwcs-col">PWCS</td>
           <td style="text-align: left;">Anthem Enhanced PPO</td>
           <td>$12,405</td>
-          <td>$0</td>
+          <td>$0 / $0</td>
           <td class="perk">Richest PWCS PPO. <strong>$0 in-network deductible.</strong> $20 PCP / $35 specialist. $2,500/$5,000 OOP max. Vision bundled. Two-Employee couple drops Family rate to $3,838/yr.</td>
         </tr>
         <tr>
@@ -656,7 +837,7 @@
           <td class="aps-col">APS</td>
           <td style="text-align: left;">CareFirst BluePreferred High PPO 90/70</td>
           <td>$13,950*</td>
-          <td>$300</td>
+          <td>$300 / $600</td>
           <td class="perk">Richest APS PPO. $30 PCP / $60 specialist. <strong>10% in-network coinsurance.</strong> $200 ER (lowest of any plan, waived if admitted). *Premium pending verification.</td>
         </tr>
       </tbody>
@@ -685,7 +866,10 @@
     HDHP totals subtract the employer-funded HSA contribution where applicable (since that money offsets your real out-of-pocket spend).
   </div>
 
-  <h4 style="margin-top: 24px; font-size: 1rem;">Main PPO / POS plans — sorted by Average-year total cost</h4>
+  <h4 style="margin-top: 24px; font-size: 1rem;">★ Main PPO / POS plans — what most families with kids choose</h4>
+  <p style="font-size: 0.88rem; color: var(--muted); margin-top: 4px; margin-bottom: 10px;">
+    Sorted by Average-year total cost (premium + family deductible). These are the standard non-HMO, non-HDHP plans at each district — the go-to choice for families who want predictable copays and lower deductibles.
+  </p>
   <div class="dashboard-wrap">
     <table class="dashboard" style="min-width: 1200px;">
       <thead>
@@ -803,60 +987,63 @@
     </table>
   </div>
 
-  <h4 style="margin-top: 28px; font-size: 1rem;">Qualified Health Plans (QHPs) — HSA-eligible HDHPs · totals net of employer HSA contribution</h4>
+  <details style="margin: 24px 0 8px 0; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--muted); border-radius: 6px; padding: 4px 18px;">
+    <summary style="font-size: 1rem; padding: 12px 0; color: var(--muted);">Qualified Health Plans (QHPs / HDHPs) — niche choice for healthy families · click to expand →</summary>
+    <div style="padding: 6px 0 18px 0;">
+      <p style="font-size: 0.9rem; color: var(--muted); margin: 0 0 12px 0;">
+        A <strong>Qualified Health Plan (QHP)</strong> is a high-deductible health plan that meets IRS Section 223 requirements for HSA pairing. Most families with kids choose a PPO/POS plan (above) instead because the deductibles are much lower. QHPs are typically the right choice only when (1) you're healthy and don't expect significant medical use, OR (2) the employer's HSA contribution is large enough to offset the higher deductible. See the <a href="#qhp-explainer">QHP explainer below</a> for full mechanics.
+      </p>
 
-  <p style="font-size: 0.9rem; color: var(--muted); margin-top: 4px; margin-bottom: 8px;">
-    A <strong>Qualified Health Plan (QHP)</strong> is a high-deductible health plan that meets IRS Section 223 requirements for pairing with a Health Savings Account. Sometimes labeled "QHP," "HDHP w/ HSA," or "Qualified High-Deductible Plan." All three plans below are POS-style plans (in-network and out-of-network coverage, no PCP gatekeeper) with HDHP cost-sharing rules layered on top so they qualify for HSA pairing. See the toggle below for a full deep-dive on how QHPs work.
-  </p>
-
-  <div class="dashboard-wrap">
-    <table class="dashboard" style="min-width: 1200px;">
-      <thead>
-        <tr>
-          <th style="width: 9%;">District</th>
-          <th style="width: 20%;">Plan</th>
-          <th style="width: 11%;">Premium</th>
-          <th style="width: 11%;">Employer HSA contribution</th>
-          <th style="width: 11%;">Family deductible</th>
-          <th style="width: 14%;">Average year (net)</th>
-          <th style="width: 11%;">OOP max</th>
-          <th style="width: 13%;">Catastrophic year (net)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="lcps-col">LCPS</td>
-          <td style="text-align: left;">Cigna QHP w/ HSA</td>
-          <td>$2,822</td>
-          <td>+$2,200</td>
-          <td>$3,600</td>
-          <td class="winner">$4,222</td>
-          <td>$13,000</td>
-          <td class="winner">$13,622</td>
-        </tr>
-        <tr>
-          <td class="acps-col">ACPS</td>
-          <td style="text-align: left;">UHC QHP w/ HSA</td>
-          <td>$6,632</td>
-          <td>+$1,200</td>
-          <td>$3,400</td>
-          <td>$8,832</td>
-          <td>$13,000</td>
-          <td>$18,432</td>
-        </tr>
-        <tr>
-          <td class="fccps-col">FCCPS</td>
-          <td style="text-align: left;">TLC QHP (dental bundled)</td>
-          <td>$6,273</td>
-          <td>not specified</td>
-          <td>$6,800</td>
-          <td>$13,073</td>
-          <td>$10,000</td>
-          <td>$16,273</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+      <div class="dashboard-wrap">
+        <table class="dashboard" style="min-width: 1200px;">
+          <thead>
+            <tr>
+              <th style="width: 9%;">District</th>
+              <th style="width: 20%;">Plan</th>
+              <th style="width: 11%;">Premium</th>
+              <th style="width: 11%;">Employer HSA contribution</th>
+              <th style="width: 11%;">Family deductible</th>
+              <th style="width: 14%;">Average year (net)</th>
+              <th style="width: 11%;">OOP max</th>
+              <th style="width: 13%;">Catastrophic year (net)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="lcps-col">LCPS</td>
+              <td style="text-align: left;">Cigna QHP w/ HSA</td>
+              <td>$2,822</td>
+              <td>+$2,200</td>
+              <td>$3,600</td>
+              <td class="winner">$4,222</td>
+              <td>$13,000</td>
+              <td class="winner">$13,622</td>
+            </tr>
+            <tr>
+              <td class="acps-col">ACPS</td>
+              <td style="text-align: left;">UHC QHP w/ HSA</td>
+              <td>$6,632</td>
+              <td>+$1,200</td>
+              <td>$3,400</td>
+              <td>$8,832</td>
+              <td>$13,000</td>
+              <td>$18,432</td>
+            </tr>
+            <tr>
+              <td class="fccps-col">FCCPS</td>
+              <td style="text-align: left;">TLC QHP (dental bundled)</td>
+              <td>$6,273</td>
+              <td>not specified</td>
+              <td>$6,800</td>
+              <td>$13,073</td>
+              <td>$10,000</td>
+              <td>$16,273</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
 
   <div class="callout warn">
     <strong>What this analysis reveals:</strong>
@@ -1131,8 +1318,10 @@
       <div class="stat-row"><span class="label">Teacher MA Step 1</span><span class="val num">$68,562</span></div>
       <div class="stat-row"><span class="label">Teacher MA at ~5 yrs (Step 5)</span><span class="val num">$74,119</span></div>
       <div class="stat-row"><span class="label">Doctorate (EdD) Step 1</span><span class="val num">$72,062</span></div>
-      <div class="stat-row"><span class="label">Top of EdD (longevity)</span><span class="val num">$128,505+</span></div>
+      <div class="stat-row"><span class="label">Top of EdD (after longevity)</span><span class="val num">$128,505+</span></div>
       <div class="stat-row"><span class="label">Lanes</span><span class="val">5 lanes (BA, BA+15, MA, MA+30, EdD)</span></div>
+      <div class="stat-row"><span class="label">Step structure</span><span class="val"><strong>One unified Grade 12 scale</strong> · 30 standard steps + 7 longevity steps (LS1–LS7) for 30+ yrs of service</span></div>
+      <div class="stat-row"><span class="label">New-hire placement</span><span class="val">Subject to salary caps per PWEA CBA Section 8.1.B.1 (capped step placement may apply regardless of prior years)</span></div>
       <div class="stat-row"><span class="label">Coming July 2026 (FY27)</span><span class="val">New 2-yr PWEA agreement · 7% Yr1 + 6.4% Yr2 raises</span></div>
 
       <h4 class="card-subhead">Medical insurance — at a glance (FY 2026-27)</h4>
@@ -1328,9 +1517,18 @@
   </div>
 
   <details>
-    <summary>Why direct step-to-step comparison is tricky across all three</summary>
+    <summary>Why direct step-to-step comparison is tricky across all six districts</summary>
     <div style="padding: 8px 14px 0; color: var(--muted); font-size: 0.92rem;">
-      Each district defines "step" differently. <strong>ACPS</strong> Step <em>n</em> generally equals <em>n</em> years of experience (with a 16-year cap on initial placement). <strong>FCPS</strong> Step <em>n</em> is mapped from a years-of-experience table — Step 1 covers 0–2 years, Step 3 covers 4–6 years, Step 11 covers 14–15 years, etc. <strong>APS</strong> uses 31 alpha steps (A–AE) and explicitly disclaims that "step does not equate to years of experience" — placement is determined by HR. Plus APS uses a 200-day contract vs. 195 days for ACPS and FCPS. The "Step 10 / Step J" alignment in the table above is positional only (10th step from entry); it does <em>not</em> map identically to years of service across districts.
+      Each district defines "step" differently:
+      <ul style="margin: 6px 0 6px 14px;">
+        <li><strong>ACPS:</strong> Step <em>n</em> generally equals <em>n</em> years of experience (16-year cap on initial placement).</li>
+        <li><strong>FCPS:</strong> Step <em>n</em> mapped from a years-of-experience table. Step 1 covers 0–2 years, Step 3 covers 4–6 years, Step 11 covers 14–15 years, etc.</li>
+        <li><strong>APS:</strong> 31 alpha steps (A–AE). Pay plan explicitly disclaims that "step does not equate to years of experience" — placement is HR-discretion. 200-day contract.</li>
+        <li><strong>FCCPS:</strong> 5 lanes with up to ~30 numbered steps + 3 longevity tiers. BA caps at Step 15/L3 (~$87,699 on the 10-month/200-day scale); only MA/MA+30/Doctorate continue to longevity steps.</li>
+        <li><strong>LCPS:</strong> 30 numbered steps. Pay plan explicitly disclaims that "Steps do not equate to years of experience." 197-day contract.</li>
+        <li><strong>PWCS:</strong> 30 numbered steps + 7 longevity steps (LS1–LS7) for 30+ yrs of service. Per CBA, placement is by completed years of service, but new hires can be subject to PWCS-applied salary caps regardless of prior years.</li>
+      </ul>
+      The figures shown in the dashboard and detail tables use each district's published placement rule for "new hire with X years of prior experience." For existing employees who advanced one step per year of in-district service, actual placement may differ.
     </div>
   </details>
 </section>
@@ -1674,6 +1872,42 @@
 
       <h4 style="margin: 18px 0 6px 0; font-size: 0.95rem; color: var(--ink);">Bottom line</h4>
       <p>PWCS plans are designed for <strong>predictability, not for cheapness</strong>. They're priced as if every family will use the deductible-free feature. If you use a fair amount of care, the math works in your favor — you skip the deductible-accumulation period and pay only copays. If you're a low-utilizer (and you don't qualify for the 2-employee discount), you'd save money at FCPS or LCPS by accepting their deductible-then-cheaper-premiums structure.</p>
+    </div>
+  </details>
+
+  <details style="margin: 12px 0 8px 0; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--pwcs); border-radius: 6px; padding: 4px 18px;">
+    <summary style="font-size: 1rem; padding: 12px 0; color: var(--pwcs);">Does PWCS have separate scales for new hires vs. existing employees? Click to expand →</summary>
+    <div style="padding: 6px 0 18px 0; font-size: 0.92rem; line-height: 1.6;">
+      <p><strong>Short answer:</strong> No — there is <em>one</em> unified PWCS Grade 12 (teacher) salary scale. The "two scales" perception comes from how PWCS handles <em>placement</em> on that single scale: new hires can be subject to salary caps that limit their step placement, while existing employees advance per their actual years of service.</p>
+
+      <h4 style="margin: 18px 0 6px 0; font-size: 1rem; color: var(--ink);">What the published scale actually shows</h4>
+      <p>PWCS publishes one Exhibit A document covering FY 2026 and FY 2027 Grade 12 salaries. The scale has:</p>
+      <ul style="margin: 6px 0 6px 24px;">
+        <li><strong>30 standard steps</strong> for Bachelor's, Bachelor's +15, Master's, Master's +30, and EdD (Doctorate) lanes.</li>
+        <li><strong>7 longevity steps</strong> on top of Step 30, labeled LS1 through LS7. These apply to teachers with 30+ years of service.</li>
+        <li>A 26-year experience cap for new-hire placement (per PWCS recruitment policy referenced in agency materials).</li>
+      </ul>
+      <p>So the maximum a teacher can earn on the PWCS scale is at the top longevity step (LS7) of the highest lane — which is significantly higher than the headline "Step 30" number.</p>
+
+      <h4 style="margin: 18px 0 6px 0; font-size: 1rem; color: var(--ink);">How placement actually works (per PWEA CBA Section 8.1.B.1)</h4>
+      <p>From the Prince William Education Association collective bargaining agreement: <em>"Placement on the respective scales for Certified Employees shall be determined by the Employee's completed and credited years of service unless prior year or current year salary caps applied/apply to the Employee."</em></p>
+      <p>In practice, this means:</p>
+      <ul style="margin: 6px 0 6px 24px;">
+        <li><strong>For existing PWCS employees:</strong> step placement is by completed years of service. They advance one step per year of credited service until they reach Step 30, then move into longevity.</li>
+        <li><strong>For new hires:</strong> placement starts based on prior teaching experience, but is subject to PWCS-applied salary caps. A new hire with 12 years of prior experience will not necessarily be placed at Step 12; if a salary cap is in effect, they may be placed at a lower step regardless of prior years. The specific cap level is set by PWCS administration and may change year to year based on budget.</li>
+      </ul>
+      <p>This is similar to "step freezes" used at other Northern VA districts during budget-tight years — a way to manage payroll growth without changing the published scale itself.</p>
+
+      <h4 style="margin: 18px 0 6px 0; font-size: 1rem; color: var(--ink);">What the comparison page assumes</h4>
+      <p>The "BA at 5 yrs" and "MA at 5 yrs" figures shown for PWCS in the dashboard reflect the <em>full-credit positional placement</em> on the published scale (Step 5). Actual new-hire placement may be lower than this if a salary cap applies. For an existing PWCS employee at year 5 of service, the published Step 5 figure is the right one — they advanced one step per year from Step 1.</p>
+      <p>If you're considering a PWCS offer as a new hire with significant prior experience, ask the PWCS Compensation &amp; Classification Office (Talent Acquisition) for the specific step placement they're offering — don't assume it matches your years of experience 1:1.</p>
+
+      <h4 style="margin: 18px 0 6px 0; font-size: 1rem; color: var(--ink);">FY 2027 changes (effective July 1, 2026)</h4>
+      <p>The PWEA reached a 2-year collective bargaining agreement with PWCS in early 2025 that delivers <strong>~7% raises in FY 2027 and ~6.4% raises in FY 2028</strong>, totaling roughly $160 million in additional compensation over the two years. The Exhibit A document covers both fiscal years, so the FY 2027 column shows the post-raise figures. New PWCS hires arriving in summer/fall 2026 will be placed on the FY 2027 scale, not the FY 2026 scale shown above.</p>
+
+      <p style="margin-top: 18px; font-size: 0.86rem; color: var(--muted);">
+        Source: <a href="https://www.pwcs.edu/userfiles/servers/server_340140/file/school-board/exhibit-a-salary-scales-for-grade-12-for-fiscal-years-2026-and-2027.pdf" target="_blank">Exhibit A FY 2026-2027 Grade 12 Scale PDF</a> · <a href="https://www.pwcs.edu/userfiles/servers/server_340140/file/school-board/pwcs-pwea-collective-bargaining-agreement-article-viii-unratified.pdf" target="_blank">PWEA CBA Article VIII PDF</a> · <a href="https://www.pwcs.edu/about/departments/talent_acquisition/compensation/salary_scale_information" target="_blank">PWCS Salary Scale Information page</a>
+      </p>
     </div>
   </details>
 
