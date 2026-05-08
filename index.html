@@ -492,7 +492,7 @@
 
 <header class="hero">
   <div class="wrap">
-    <h1>Northern Virginia School Districts<br>Salary &amp; Benefits Comparison <span class="draft-badge">v1.5 — separate rankings</span></h1>
+    <h1>Northern Virginia School Districts<br>Salary &amp; Benefits Comparison <span class="draft-badge">v1.6 — leaner</span></h1>
     <p>A side-by-side comparison of teacher and school-based administrator compensation, health insurance, retirement, and leave benefits across Northern Virginia's largest public school districts. Designed for educators evaluating job offers and administrators benchmarking total compensation.</p>
     <p class="meta">Currently included: <strong>ACPS · FCPS · APS · FCCPS · LCPS · PWCS</strong> &nbsp;|&nbsp; Data year: FY 2026 (school year 2025–26) unless noted; FCCPS health insurance is FY 2027 forward-looking · PWCS health insurance is FY 2026-27 &nbsp;|&nbsp; Coming next: MCPS, PG County, DCPS</p>
   </div>
@@ -701,19 +701,45 @@
     Healthcare figures are the lowest-premium plan at each district (employee paycheck deduction × pays per year). FCCPS premiums include comprehensive dental bundled in. APS, ACPS, FCPS, LCPS, and PWCS charge dental separately.
   </p>
 
-  <div class="callout">
-    <strong>How to read this dashboard:</strong> stars mark the leader for each metric. <strong>PWCS leads on entry-level pay</strong> (BA + MA Step 1). <strong>APS leads on early-career Master's pay</strong> (5 yrs). <strong>ACPS leads on mid-career Master's pay</strong> (10 yrs). <strong>LCPS leads on healthcare cost</strong> in every category — cheapest EE-only ($139), cheapest Family ($2,822), and cheapest Family PPO/POS ($5,193 OAP). The gap is enormous. <strong>FCPS leads on supplemental retirement</strong> with the ERFC 2001 DB pension (0.8% multiplier) — the most generous DB plan in the comparison. ACPS adds a smaller supplemental DB; APS, FCCPS, LCPS, and PWCS rely on VRS alone with varying levels of voluntary 403(b)/457 match. The "District extras" row captures everything else that differentiates each district.
+  <p style="font-size: 0.92rem; color: var(--muted); margin: 10px 0 4px;">
+    ★ marks the leader on each row. <strong>PWCS</strong> leads entry pay · <strong>APS</strong> leads early-career MA · <strong>ACPS</strong> leads mid-career MA · <strong>LCPS</strong> leads healthcare cost · <strong>FCPS</strong> leads supplemental retirement. <a href="#dashboard-detail" onclick="document.getElementById('dashboard-detail').open=true;return true;">Full reading guide ▸</a>
+  </p>
+
+  <details id="dashboard-detail" style="margin: 6px 0 14px; border: 1px solid var(--line); border-radius: 6px; padding: 0 14px;">
+    <summary style="font-size: 0.9rem; padding: 10px 0; color: var(--muted); cursor: pointer;">Detailed dashboard reading guide</summary>
+    <div style="padding: 0 0 12px 0; font-size: 0.88rem;">
+      <p>LCPS healthcare costs lead in every category — cheapest EE-only ($139), cheapest Family ($2,822), cheapest Family PPO/POS ($5,193 OAP). FCPS uniquely offers the ERFC 2001 supplemental DB pension (0.8% multiplier) on top of VRS. ACPS adds a smaller Principal-managed DB plan. APS, FCCPS, LCPS, and PWCS rely on VRS alone, with varying voluntary 403(b)/457 match richness.</p>
+      <p>The "District extras" row in the dashboard captures the structural features that don't fit neatly into the salary or premium columns — couple discounts, advanced-degree stipends, contract-day differences, employer cost-share, etc.</p>
+    </div>
+  </details>
+
+  <div style="margin-top: 36px; padding: 14px 18px; background: linear-gradient(135deg, var(--lcps-soft) 0%, var(--pwcs-soft) 100%); border: 1px solid var(--line); border-radius: 8px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between;">
+    <div style="font-size: 0.95rem;">
+      <strong>Want a shareable image?</strong> Download the rankings as PNG or SVG — embed in email, share on social, print on letter paper.
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.86rem;">
+      <a href="health-plan-rankings.png" download style="background: #fff; padding: 7px 14px; border-radius: 5px; text-decoration: none; color: var(--ink); border: 1px solid var(--line); font-weight: 600;">⬇ Combined PNG</a>
+      <a href="health-plan-rankings.svg" download style="background: #fff; padding: 7px 14px; border-radius: 5px; text-decoration: none; color: var(--ink); border: 1px solid var(--line); font-weight: 600;">⬇ Combined SVG</a>
+      <a href="ranking-ppo-pos.svg" download style="background: #fff; padding: 7px 14px; border-radius: 5px; text-decoration: none; color: var(--ink); border: 1px solid var(--line); font-weight: 600;">⬇ PPO/POS only (SVG)</a>
+      <a href="ranking-qhp.svg" download style="background: #fff; padding: 7px 14px; border-radius: 5px; text-decoration: none; color: var(--ink); border: 1px solid var(--line); font-weight: 600;">⬇ QHPs only (SVG)</a>
+    </div>
   </div>
 
-  <h3 style="margin-top: 36px; padding-bottom: 8px; border-bottom: 2px solid var(--line);">Standard Family Plans: PPO/POS Options Ranked for Predictability
-    <span class="toc-meta" style="font-weight: 400; font-size: 0.82rem; color: var(--muted); float: right; margin-top: 6px;">11 plans · ranked by average-year total cost · pure HMOs and QHPs ranked separately</span>
+  <h3 style="margin-top: 28px; padding-bottom: 8px; border-bottom: 2px solid var(--line);">Standard Family Plans (PPO/POS) — ranked by predictability
+    <span class="toc-meta" style="font-weight: 400; font-size: 0.82rem; color: var(--muted); float: right; margin-top: 6px;">11 plans · sorted by avg-year total &nbsp;·&nbsp; <a href="ranking-ppo-pos.svg" download style="color: var(--good);">⬇ download as SVG</a></span>
   </h3>
 
-  <div class="callout" style="border-left-color: var(--good);">
-    <strong>How this ranking works:</strong> Plans are sorted by <strong>average-year total = premium + family deductible</strong>, with the family in-network OOP max as a tiebreaker. This approximates what a family pays in a moderate-use year (one where they hit the deductible through routine care but don't blow through the OOP max). Lower number = more predictable lower-cost choice for a household that uses healthcare regularly.
-    <br><br>
-    <span style="font-size: 0.84rem; color: var(--muted);"><strong>Why split this from QHPs?</strong> QHPs (HSA-eligible high-deductible plans) follow different math — premium savings offset against employer HSA contributions and deductible gap. Mixing the two in one ranking obscures both. QHPs are ranked in their own table below using their own formula. Neither is "better" in the abstract — they fit different households differently.</span>
-  </div>
+  <p style="font-size: 0.92rem; color: var(--muted); margin: 8px 0 14px;">
+    Sorted by <strong>avg-year total = premium + family deductible</strong>, OOP max as tiebreaker. <a href="#ranking-method-ppo" onclick="document.getElementById('ranking-method-ppo').open=true;return true;">Why this formula? ▸</a>
+  </p>
+
+  <details id="ranking-method-ppo" style="margin: 0 0 14px 0; border: 1px solid var(--line); border-radius: 6px; padding: 0 14px;">
+    <summary style="font-size: 0.9rem; padding: 10px 0; color: var(--muted); cursor: pointer;">Why this formula and why split from QHPs?</summary>
+    <div style="padding: 0 0 12px 0; font-size: 0.88rem; color: var(--ink);">
+      <p>Avg-year total approximates what a family pays in a moderate-use year — one where they hit the deductible through routine care but don't reach the OOP max. Lower number = more predictable, lower-cost choice for a household that uses healthcare regularly.</p>
+      <p>QHPs (HSA-eligible HDHPs) follow different math: premium savings offset against employer HSA contributions and a deductible gap. Mixing them with standard PPO/POS plans in one ranking obscures both. QHPs are ranked in their own table below.</p>
+    </div>
+  </details>
 
   <div class="dashboard-wrap">
     <table class="dashboard" style="min-width: 1200px;">
@@ -850,17 +876,21 @@
     * APS premium dollar amounts pending verification against APS Procurement RFP 30FY26 Appendix S.
   </p>
 
-  <h3 style="margin-top: 36px; padding-bottom: 8px; border-bottom: 2px solid var(--lcps-soft);">HSA-Eligible Plans (QHPs): Ranked Separately
-    <span class="toc-meta" style="font-weight: 400; font-size: 0.82rem; color: var(--muted); float: right; margin-top: 6px;">3 plans · ranked by avg-year net cost (premium + deductible − employer HSA)</span>
+  <h3 style="margin-top: 36px; padding-bottom: 8px; border-bottom: 2px solid var(--lcps-soft);">HSA-Eligible Plans (QHPs) — ranked separately
+    <span class="toc-meta" style="font-weight: 400; font-size: 0.82rem; color: var(--muted); float: right; margin-top: 6px;">3 plans · ranked by avg-year net &nbsp;·&nbsp; <a href="ranking-qhp.svg" download style="color: var(--good);">⬇ download as SVG</a></span>
   </h3>
 
-  <div class="callout">
-    <strong>Why QHPs need their own ranking:</strong> A QHP isn't simply a "cheaper plan with a higher deductible." The financial structure is different: low premium offset against an employer HSA contribution, with the family responsible for a deductible gap they may need to absorb from cash reserves before insurance shares costs. The right ranking metric is:
-    <br><br>
-    <strong>Avg-year net = premium + family deductible − employer HSA contribution</strong>
-    <br><br>
-    Plus a separate <strong>"deductible gap"</strong> column = family deductible − employer HSA contribution. That number is the upfront cash exposure your household needs to be able to absorb in a moderately heavy year. A small deductible gap means the QHP is well-funded. A large deductible gap means the QHP shifts financial volatility onto your household — workable for healthy families with savings, harder for families with chronic care needs or thin cash reserves.
-  </div>
+  <p style="font-size: 0.92rem; color: var(--muted); margin: 8px 0 14px;">
+    Sorted by <strong>avg-year net = premium + family deductible − employer HSA contribution</strong>. The "deductible gap" column shows upfront cash exposure. <a href="#ranking-method-qhp" onclick="document.getElementById('ranking-method-qhp').open=true;return true;">Why this formula? ▸</a>
+  </p>
+
+  <details id="ranking-method-qhp" style="margin: 0 0 14px 0; border: 1px solid var(--line); border-radius: 6px; padding: 0 14px;">
+    <summary style="font-size: 0.9rem; padding: 10px 0; color: var(--muted); cursor: pointer;">Why QHPs need their own ranking</summary>
+    <div style="padding: 0 0 12px 0; font-size: 0.88rem; color: var(--ink);">
+      <p>A QHP isn't just a "cheaper plan with a higher deductible." The financial structure is different: low premium offset against an employer HSA contribution, with the family responsible for a <strong>deductible gap</strong> = family deductible − employer HSA. That gap is the upfront cash exposure your household must absorb before insurance shares costs.</p>
+      <p>Small gap = the QHP is well-funded. Large gap = volatility shifts to the household. Neither outcome is "better" in the abstract — workable for healthy families with savings; harder for families with chronic care or thin cash reserves.</p>
+    </div>
+  </details>
 
   <div class="dashboard-wrap">
     <table class="dashboard" style="min-width: 1100px;">
@@ -920,25 +950,20 @@
     See the <a href="#qhp-explainer">QHP explainer toggle below</a> for the full mechanics, IRS rules, and HSA tax-advantage logic.
   </p>
 
-  <h4 style="margin-top: 28px; font-size: 1rem;">Quick reference — different rankings for different questions</h4>
-  <div class="callout" style="font-size: 0.92rem;">
-    <strong>If your question is "what's the lowest premium I can pay?"</strong> &nbsp;<span style="color: var(--muted); font-size: 0.88em;">(premium-only ranking, ignores deductible exposure)</span><br>
-    LCPS Cigna QHP at $2,822/yr is cheapest, followed by LCPS Cigna OAP at $5,193, FCCPS TLC QHP at $6,273, ACPS UHC QHP at $6,632, FCPS BlueChoice at $7,306. This is a useful directory but it's not the "best plan" ranking — premiums alone hide deductible exposure.
-    <br><br>
-    <strong>If your question is "what's the absolute most I could pay if disaster strikes?"</strong> &nbsp;<span style="color: var(--muted); font-size: 0.88em;">(catastrophic ceiling, premium + OOP max − HSA)</span><br>
-    LCPS OAP caps at $10,193 family · FCPS BlueChoice $12,306 · PWCS HMO/POS $13,185 · LCPS Cigna QHP $13,622 · FCCPS Key Advantage 250 $14,598 · FCCPS Key Advantage 500 $15,716 · FCCPS TLC QHP $16,273 · LCPS OAP HIGH $16,870 · ACPS UHC POS $17,211 · PWCS Enhanced $17,405 · PWCS Core $17,580 · APS Low PPO $17,667 · ACPS UHC QHP $18,432 · APS High PPO $19,950.
-    <br><br>
-    <strong>None of these is "the answer" by itself.</strong> The right plan depends on your household's expected utilization, cash reserves, and tolerance for upfront medical bills. The two ranked tables above (Predictable Family Plans + QHPs) sort by the metric that matters most for each plan type. Use this section as a cross-check, not as a tiebreaker.
-  </div>
+  <details style="margin: 24px 0 14px; border: 1px solid var(--line); border-radius: 6px; padding: 0 18px;">
+    <summary style="font-size: 0.95rem; padding: 12px 0; color: var(--ink); cursor: pointer; font-weight: 600;">Other ranking views — lowest premium, catastrophic ceiling, HMOs</summary>
+    <div style="padding: 4px 0 18px 0; font-size: 0.9rem;">
+      <p><strong>Lowest premium (ignores deductible):</strong> LCPS QHP $2,822 · LCPS OAP $5,193 · FCCPS TLC QHP $6,273 · ACPS UHC QHP $6,632 · FCPS BlueChoice $7,306. Useful directory, not a "best plan" ranking.</p>
+      <p><strong>Catastrophic ceiling (premium + OOP max − HSA), low to high:</strong> LCPS OAP $10,193 · FCPS BlueChoice $12,306 · PWCS HMO/POS $13,185 · LCPS QHP $13,622 · FCCPS KA 250 $14,598 · FCCPS KA 500 $15,716 · FCCPS QHP $16,273 · LCPS OAP HIGH $16,870 · ACPS POS $17,211 · PWCS Enhanced $17,405 · PWCS Core $17,580 · APS Low $17,667 · ACPS QHP $18,432 · APS High $19,950.</p>
+      <p style="margin: 0; color: var(--muted); font-size: 0.85rem;"><strong>HMOs not shown above</strong> — Kaiser plans at ACPS/FCPS/APS/FCCPS/PWCS and APS CareFirst HMO are typically the cheapest tier at each district. See the at-a-glance cards for HMO premiums.</p>
+    </div>
+  </details>
 
-  <p style="font-size: 0.84rem; color: var(--muted); margin-top: 10px;">
-    Pure HMO plans (Kaiser at ACPS/FCPS/APS/FCCPS/PWCS, APS CareFirst HMO) are not shown in these rankings — see the at-a-glance cards below for HMO premiums and the plan-design tables further down. HMOs are typically the cheapest tier per district and a reasonable choice if you're comfortable with a restricted network and no out-of-network coverage.
-  </p>
-
-  <h4 style="margin-top: 36px; font-size: 1rem;">Detailed three-scenario cost breakdown — for households who want the full picture</h4>
-  <p style="font-size: 0.88rem; color: var(--muted); margin-top: 4px; margin-bottom: 10px;">
-    The rankings above use the average-year total. The table below shows the same plans at three different utilization levels: <strong>Healthy year</strong> (preventive only — premium only), <strong>Average year</strong> (premium + family deductible), and <strong>Catastrophic year</strong> (premium + family in-network OOP max). Useful if you want to see the full range of possible annual spend before committing to a plan.
-  </p>
+  <details style="margin-top: 28px; border: 1px solid var(--line); border-radius: 6px; padding: 0 18px;">
+    <summary style="font-size: 1rem; padding: 14px 0; color: var(--ink); cursor: pointer; font-weight: 600;">Three-scenario cost breakdown for each plan — Healthy / Average / Catastrophic year</summary>
+    <p style="font-size: 0.88rem; color: var(--muted); margin: 0 0 10px;">
+      Same plans as above at three utilization levels: <strong>Healthy year</strong> (premium only), <strong>Average year</strong> (premium + family deductible), <strong>Catastrophic year</strong> (premium + OOP max). Useful for seeing the full range before committing.
+    </p>
   <div class="dashboard-wrap">
     <table class="dashboard" style="min-width: 1200px;">
       <thead>
@@ -1055,12 +1080,13 @@
       </tbody>
     </table>
   </div>
+  </details>
 
-  <details style="margin: 24px 0 8px 0; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--muted); border-radius: 6px; padding: 4px 18px;">
-    <summary style="font-size: 1rem; padding: 12px 0; color: var(--muted);">QHP three-scenario breakdown — click to expand the healthy/average/catastrophic view →</summary>
-    <div style="padding: 6px 0 18px 0;">
-      <p style="font-size: 0.9rem; color: var(--muted); margin: 0 0 12px 0;">
-        Same data as the QHP ranking above, just shown across three utilization scenarios for visibility. <strong>QHPs aren't worse than PPO/POS plans — they're a different financial profile.</strong> They reward households with cash reserves, HSA discipline, or low utilization. They penalize households without those features. The right comparison includes premium savings, employer HSA contribution, deductible gap, OOP max, expected utilization, and household tolerance for upfront medical costs. See the <a href="#qhp-explainer">QHP explainer below</a> for full mechanics.
+  <details style="margin: 14px 0 8px 0; border: 1px solid var(--line); border-left: 4px solid var(--muted); border-radius: 6px; padding: 0 18px;">
+    <summary style="font-size: 0.95rem; padding: 12px 0; color: var(--muted); cursor: pointer; font-weight: 600;">QHP three-scenario breakdown — Healthy / Average / Catastrophic</summary>
+    <div style="padding: 4px 0 18px 0;">
+      <p style="font-size: 0.88rem; color: var(--muted); margin: 0 0 10px 0;">
+        QHP ranking data shown across three utilization scenarios. See the <a href="#qhp-explainer">QHP explainer</a> for full mechanics.
       </p>
 
       <div class="dashboard-wrap">
@@ -1114,21 +1140,21 @@
     </div>
   </details>
 
-  <div class="callout warn">
-    <strong>Cross-cutting observations from this analysis:</strong>
-    <ul style="margin: 6px 0 6px 20px;">
-      <li><strong>LCPS Cigna OAP is exceptionally well-priced as a predictable family plan</strong> — $1,800 cheaper than the next standard PPO/POS in the average-year scenario, and $2,000 cheaper in the catastrophic scenario. The premium gap is so large that LCPS leads even after factoring in deductibles and OOP max.</li>
-      <li><strong>FCPS BlueChoice Advantage is the strongest non-LCPS standard PPO/POS</strong> — $7,306 premium with a low $600 family deductible and the lowest family OOP max ($5,000) outside LCPS OAP. Catastrophic year tops out at $12,306.</li>
-      <li><strong>PWCS plans benefit substantially from the $0 in-network deductible structure</strong> — Anthem HMO/POS at $8,185/yr means the average year cost stays at $8,185 even with moderate use, capped at $13,185 catastrophic. <strong>Two-employee couples drop the family premium to $905/yr</strong>, which would make every PWCS plan a leading choice.</li>
-      <li><strong>FCCPS premiums implicitly include comprehensive dental</strong> that other districts charge $137–$1,116/yr separately for. Adjust accordingly when comparing — the FCCPS Key Advantage 500 is roughly $300–$1,000/yr more competitive than the headline number suggests.</li>
-      <li><strong>LCPS Cigna QHP is the standout HSA-eligible plan in the region</strong> — premium $2,822 + employer HSA of $2,200 leaves only a $1,400 deductible gap to bridge. For families with cash reserves and HSA discipline, this is genuinely competitive with the cheapest standard PPOs.</li>
-      <li><strong>FCCPS TLC QHP requires careful evaluation</strong> — without a disclosed employer HSA contribution and with a $6,800 family deductible, the average-year cost ($13,073) actually exceeds FCCPS Key Advantage 500 ($8,716). Only attractive for low-utilization households or those who'll fund the HSA aggressively for the tax shelter.</li>
-      <li><strong>APS High PPO 90/70 has the highest catastrophic-year cost at $19,950</strong>, even though it has good in-network coinsurance (10%). The premium is the killer.</li>
-    </ul>
-    <strong>Caveats:</strong> "Average year" using premium + deductible is an approximation. Actual OOP varies by plan structure (some plans waive deductible for office visits and just charge copays; others require deductible-first). The "Catastrophic year" column is a real ceiling — the maximum a household can spend on the plan in a calendar year. For a precise personal calculation, layer in your expected Rx use, specialist visits, and chronic care needs.
-    <br><br>
-    * APS premium dollar amounts pending verification against APS Procurement RFP 30FY26 Appendix S.
-  </div>
+  <details style="margin: 18px 0 8px; border: 1px solid var(--line); border-left: 4px solid var(--warn); border-radius: 6px; padding: 0 18px; background: var(--warn-soft);">
+    <summary style="font-size: 0.95rem; padding: 12px 0; color: var(--warn); cursor: pointer; font-weight: 600;">Cross-cutting observations and caveats</summary>
+    <div style="padding: 4px 0 18px 0; font-size: 0.9rem;">
+      <ul style="margin: 0 0 12px 18px;">
+        <li><strong>LCPS Cigna OAP</strong> — exceptionally well-priced predictable family plan. ~$1,800 cheaper than the next standard PPO/POS in average-year cost.</li>
+        <li><strong>FCPS BlueChoice Advantage</strong> — strongest non-LCPS standard PPO/POS. Low $600 family deductible, $5,000 OOP max, $12,306 catastrophic ceiling.</li>
+        <li><strong>PWCS plans</strong> benefit from $0 in-network deductible. Two-employee couples drop the family premium to $905/yr — makes every PWCS plan competitive.</li>
+        <li><strong>FCCPS premiums</strong> include comprehensive dental that other districts charge $137–$1,116/yr separately for. Effectively $300–$1,000/yr more competitive than the headline.</li>
+        <li><strong>LCPS Cigna QHP</strong> — only $1,400 deductible gap after the $2,200 employer HSA. Genuinely competitive with the cheapest standard PPOs for HSA-disciplined families.</li>
+        <li><strong>FCCPS TLC QHP</strong> — no disclosed employer HSA + $6,800 deductible. Avg-year cost ($13,073) exceeds FCCPS KA 500 ($8,716). Only for low-utilization or HSA-aggressive households.</li>
+        <li><strong>APS High PPO 90/70</strong> — highest catastrophic-year cost ($19,950) despite good 10% coinsurance. The premium is the killer.</li>
+      </ul>
+      <p style="margin: 0; font-size: 0.84rem; color: var(--muted);"><strong>Caveats:</strong> Avg-year is an approximation — some plans waive deductible for office visits, others require deductible-first. Catastrophic year is a real ceiling. * APS premiums pending verification against RFP 30FY26 Appendix S.</p>
+    </div>
+  </details>
 
   <details id="qhp-explainer" style="margin: 24px 0 8px 0; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--good); border-radius: 6px; padding: 4px 18px;">
     <summary style="font-size: 1rem; padding: 12px 0; color: var(--good);">What's a Qualified Health Plan (QHP) and how does the HSA actually work? Click to expand →</summary>
